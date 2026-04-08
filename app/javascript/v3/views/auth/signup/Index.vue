@@ -40,6 +40,7 @@ const resizeContainers = () => {
         <div class="max-w-[420px] w-full">
           <div class="mb-6">
             <img
+              v-if="globalConfig.logo"
               :src="globalConfig.logo"
               :alt="globalConfig.installationName"
               class="block w-auto h-7 dark:hidden"

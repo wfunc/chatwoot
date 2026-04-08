@@ -73,6 +73,7 @@ onMounted(async () => {
   >
     <section class="max-w-5xl mx-auto">
       <img
+        v-if="globalConfig.logo"
         :src="globalConfig.logo"
         :alt="globalConfig.installationName"
         class="block w-auto h-8 mx-auto dark:hidden"
@@ -83,9 +84,6 @@ onMounted(async () => {
         :alt="globalConfig.installationName"
         class="hidden w-auto h-8 mx-auto dark:block"
       />
-      <h2 class="mt-6 text-3xl font-medium text-center text-n-slate-12">
-        {{ t('LOGIN.SAML.TITLE') }}
-      </h2>
     </section>
     <section
       class="bg-white shadow sm:mx-auto mt-11 sm:w-full sm:max-w-lg dark:bg-n-solid-2 p-11 sm:shadow-lg sm:rounded-lg"

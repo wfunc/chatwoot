@@ -18,9 +18,7 @@ By default, it renders:
   <meta charset="utf-8">
   <meta name="ROBOTS" content="NOODP">
   <meta name="viewport" content="initial-scale=1">
-  <title>
-    <%= content_for(:title) %> - <%= application_title %>
-  </title>
+  <title><%= content_for(:title) %></title>
   <%= render "stylesheet" %>
   <%= vite_client_tag %>
   <%= vite_javascript_tag 'superadmin' %>

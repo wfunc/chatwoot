@@ -9,6 +9,7 @@ class WidgetsController < ActionController::Base
   before_action :set_token
   before_action :set_contact
   before_action :build_contact
+  before_action :persist_conversation_token
   after_action :allow_iframe_requests
 
   private
@@ -32,12 +33,15 @@ class WidgetsController < ActionController::Base
   end
 
   def set_token
-    @token = permitted_params[:cw_conversation]
+    @token = permitted_params[:cw_conversation].presence || cookies[conversation_cookie_key]
     @auth_token_params = if @token.present?
                            ::Widget::TokenService.new(token: @token).decode_token
                          else
                            {}
                          end
+  rescue JWT::DecodeError
+    @token = nil
+    @auth_token_params = {}
   end
 
   def set_contact
@@ -58,6 +62,16 @@ class WidgetsController < ActionController::Base
     @contact = @contact_inbox.contact
   end
 
+  def persist_conversation_token
+    return if @token.blank?
+
+    cookies[conversation_cookie_key] = {
+      value: @token,
+      expires: 1.year.from_now,
+      same_site: :lax
+    }
+  end
+
   def ensure_account_is_active
     render json: { error: 'Account is suspended' }, status: :unauthorized unless @web_widget.inbox.account.active?
   end
@@ -74,6 +88,10 @@ class WidgetsController < ActionController::Base
 
   def permitted_params
     params.permit(:website_token, :cw_conversation)
+  end
+
+  def conversation_cookie_key
+    "cw_conversation_#{@web_widget.website_token}"
   end
 
   def allow_iframe_requests

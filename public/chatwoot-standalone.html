@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>在线咨询</title>
+    <title></title>
     <style>
       html,
       body {
@@ -73,7 +73,7 @@
     <div id="error"></div>
     <iframe
       id="chatwoot-frame"
-      title="Chatwoot Standalone"
+      title=""
       allow="camera;microphone;fullscreen;display-capture;picture-in-picture;clipboard-write;"
     ></iframe>
 
@@ -102,7 +102,7 @@
         var route = normalizeRoute(
           readParam(params, ['route']) || (autoStart ? 'messages' : 'home')
         );
-        var title = readParam(params, ['title']) || '在线咨询';
+        var title = readParam(params, ['title']) || '';
         var backgroundColor = normalizeColor(
           readParam(params, ['backgroundcolor', 'backgroundColor', 'bgcolor'])
         );

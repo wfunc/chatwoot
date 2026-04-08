@@ -11,6 +11,22 @@ export const getLocale = (search = '') => {
   return new URLSearchParams(search).get('locale');
 };
 
+export const getContactDetails = (search = '') => {
+  const params = new URLSearchParams(search);
+  const name = params.get('name') || params.get('fullName');
+  const email = params.get('email');
+  const phoneNumber =
+    params.get('phone_number') ||
+    params.get('phoneNumber') ||
+    params.get('phone');
+
+  return {
+    ...(name ? { name } : {}),
+    ...(email ? { email } : {}),
+    ...(phoneNumber ? { phone_number: phoneNumber } : {}),
+  };
+};
+
 export const buildPopoutURL = ({
   origin,
   conversationCookie,

@@ -4,7 +4,7 @@ import { setHeader } from 'widget/helpers/axios';
 import addHours from 'date-fns/addHours';
 import { IFrameHelper, RNHelper } from 'widget/helpers/utils';
 import configMixin from './mixins/configMixin';
-import { getLocale } from './helpers/urlParamsHelper';
+import { getContactDetails, getLocale } from './helpers/urlParamsHelper';
 import { getLanguageDirection } from 'dashboard/components/widgets/conversation/advancedFilterItems/languages';
 import { isEmptyObject } from 'widget/helpers/utils';
 import Spinner from 'shared/components/Spinner.vue';
@@ -84,6 +84,7 @@ export default {
     this.setWidgetColor(widgetColor);
     this.setWidgetColorVariable(widgetColor);
     setHeader(window.authToken);
+    this.setContactFromUrlParams();
     if (this.isIFrame) {
       this.registerListeners();
       this.sendLoadedEvent();
@@ -115,6 +116,16 @@ export default {
       'resetCampaign',
     ]),
     ...mapActions('agent', ['fetchAvailableAgents']),
+    setContactFromUrlParams() {
+      const contactDetails = getContactDetails(window.location.search);
+      if (isEmptyObject(contactDetails)) {
+        return;
+      }
+
+      this.$store.dispatch('contacts/update', {
+        user: contactDetails,
+      });
+    },
     setWidgetColorVariable(widgetColor) {
       if (widgetColor) {
         document.documentElement.style.setProperty(

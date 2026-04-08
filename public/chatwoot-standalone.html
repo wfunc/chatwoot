@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>在线咨询</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f4f4f5;
+      }
+
+      body[data-ready="true"] #loading,
+      body[data-error="true"] #loading {
+        display: none;
+      }
+
+      body[data-ready="true"] #chatwoot-frame {
+        display: block;
+      }
+
+      body[data-error="true"] #error {
+        display: flex;
+      }
+
+      #chatwoot-frame {
+        display: none;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: transparent;
+      }
+
+      #loading,
+      #error {
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 24px;
+      }
+
+      #loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #27272a;
+        font-size: 14px;
+      }
+
+      #error {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        color: #b91c1c;
+        font-size: 14px;
+        text-align: center;
+        white-space: pre-line;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loading">正在连接客服...</div>
+    <div id="error"></div>
+    <iframe
+      id="chatwoot-frame"
+      title="Chatwoot Standalone"
+      allow="camera;microphone;fullscreen;display-capture;picture-in-picture;clipboard-write;"
+    ></iframe>
+
+    <script>
+      (function init() {
+        var params = new URLSearchParams(window.location.search);
+        var baseUrl = readParam(params, ['baseurl', 'baseUrl']);
+        var websiteToken = readParam(params, [
+          'token',
+          'websiteToken',
+          'websitetoken',
+          'entid',
+          'eid',
+        ]);
+        var useBrowserLanguage =
+          readParam(params, ['languagelocal', 'languageLocal']) === 'true';
+        var locale = useBrowserLanguage
+          ? normalizeLocale(window.navigator.language)
+          : normalizeLocale(readParam(params, ['locale', 'language', 'lang']));
+        var conversationToken = readParam(params, [
+          'cw_conversation',
+          'conversation',
+          'conversationToken',
+        ]);
+        var autoStart = readParam(params, ['autostart', 'autoStart']) !== 'false';
+        var route = normalizeRoute(
+          readParam(params, ['route']) || (autoStart ? 'messages' : 'home')
+        );
+        var title = readParam(params, ['title']) || '在线咨询';
+        var backgroundColor = normalizeColor(
+          readParam(params, ['backgroundcolor', 'backgroundColor', 'bgcolor'])
+        );
+        var backgroundImage = readParam(params, [
+          'backgroundimage',
+          'backgroundImage',
+          'bgimage',
+        ]);
+        var labelParam = readParam(params, ['labels', 'label']);
+        var labels = parseList(labelParam);
+        var identifier =
+          readParam(params, ['clientid', 'clientId', 'identifier']) || '';
+        var metadata = parseJson(readParam(params, ['metadata']));
+        var encryptedMetadata = readParam(params, [
+          'encryptedmetadata',
+          'encryptedMetadata',
+        ]);
+        var customAttributes = parseJson(
+          readParam(params, [
+            'customattributes',
+            'customAttributes',
+            'contactcustomattributes',
+            'contactCustomAttributes',
+          ])
+        );
+        var conversationCustomAttributes = parseJson(
+          readParam(params, [
+            'conversationcustomattributes',
+            'conversationCustomAttributes',
+            'conversationmetadata',
+            'conversationMetadata',
+          ])
+        );
+        var frame = document.getElementById('chatwoot-frame');
+        var targetOrigin;
+
+        document.title = title;
+
+        if (backgroundColor) {
+          document.body.style.backgroundColor = backgroundColor;
+        }
+
+        if (backgroundImage) {
+          document.body.style.backgroundImage = 'url("' + backgroundImage + '")';
+          document.body.style.backgroundRepeat = 'no-repeat';
+          document.body.style.backgroundPosition = 'center';
+          document.body.style.backgroundSize = 'cover';
+        }
+
+        if (!baseUrl || !websiteToken) {
+          showError(
+            '缺少必要参数。\n请至少传入 baseUrl 和 websiteToken。\n\n示例：\nchatwoot-standalone.html?baseUrl=https://chat.example.com&websiteToken=YOUR_TOKEN'
+          );
+          return;
+        }
+
+        targetOrigin = new URL(baseUrl).origin;
+
+        var widgetUrl = new URL(baseUrl.replace(/\/+$/, '') + '/widget');
+        widgetUrl.searchParams.set('website_token', websiteToken);
+
+        if (locale) {
+          widgetUrl.searchParams.set('locale', locale);
+        }
+
+        if (conversationToken) {
+          widgetUrl.searchParams.set('cw_conversation', conversationToken);
+        }
+
+        widgetUrl.hash = '#/' + route;
+        frame.src = widgetUrl.toString();
+        frame.onload = function onLoad() {
+          document.body.dataset.ready = 'true';
+          hydrateWidget(frame, targetOrigin, {
+            params: params,
+            identifier: identifier,
+            metadata: metadata,
+            encryptedMetadata: encryptedMetadata,
+            labels: labels,
+            customAttributes: customAttributes,
+            conversationCustomAttributes: conversationCustomAttributes,
+            locale: locale,
+          });
+        };
+      })();
+
+      function readParam(params, keys) {
+        for (var index = 0; index < keys.length; index += 1) {
+          var value = params.get(keys[index]);
+          if (value) {
+            return value;
+          }
+        }
+        return '';
+      }
+
+      function normalizeRoute(route) {
+        var normalized = String(route || '')
+          .replace(/^#?\/?/, '')
+          .trim();
+
+        if (!normalized) {
+          return 'messages';
+        }
+
+        return normalized;
+      }
+
+      function normalizeLocale(locale) {
+        var normalized = String(locale || '').trim();
+        if (!normalized) {
+          return '';
+        }
+
+        var aliases = {
+          cn: 'zh_CN',
+          jp: 'ja',
+          tw: 'zh_TW',
+        };
+
+        var lowered = normalized.toLowerCase();
+        return aliases[lowered] || normalized.replace('-', '_');
+      }
+
+      function parseJson(value) {
+        if (!value) {
+          return {};
+        }
+
+        try {
+          var parsed = JSON.parse(value);
+          return parsed && typeof parsed === 'object' ? parsed : {};
+        } catch (error) {
+          return {};
+        }
+      }
+
+      function parseList(value) {
+        if (!value) {
+          return [];
+        }
+
+        if (value.trim().charAt(0) === '[') {
+          try {
+            var parsed = JSON.parse(value);
+            return Array.isArray(parsed) ? parsed.filter(Boolean) : [];
+          } catch (error) {
+            return [];
+          }
+        }
+
+        return value
+          .split(',')
+          .map(function mapLabel(item) {
+            return item.trim();
+          })
+          .filter(Boolean);
+      }
+
+      function sendWidgetMessage(frame, targetOrigin, event, payload) {
+        frame.contentWindow.postMessage(
+          'chatwoot-widget:' +
+            JSON.stringify(Object.assign({ event: event }, payload || {})),
+          targetOrigin || '*'
+        );
+      }
+
+      function hydrateWidget(frame, targetOrigin, context) {
+        var metadata = Object.assign({}, context.metadata);
+        var customAttributes = Object.assign({}, context.customAttributes);
+        var conversationCustomAttributes = Object.assign(
+          {},
+          context.conversationCustomAttributes
+        );
+        var user = buildUserPayload(context.params, metadata);
+
+        if (context.params.get('subsource')) {
+          customAttributes.sub_source = context.params.get('subsource');
+          conversationCustomAttributes.sub_source =
+            context.params.get('subsource');
+        }
+
+        if (context.params.get('greeting')) {
+          conversationCustomAttributes.greeting = context.params.get('greeting');
+        }
+
+        if (context.params.get('agentid')) {
+          conversationCustomAttributes.preferred_agent_token =
+            context.params.get('agentid');
+        }
+
+        if (context.params.get('groupid')) {
+          conversationCustomAttributes.preferred_group_token =
+            context.params.get('groupid');
+        }
+
+        if (context.params.get('fallback')) {
+          conversationCustomAttributes.fallback = context.params.get('fallback');
+        }
+
+        if (context.params.get('socketprotocol')) {
+          conversationCustomAttributes.socket_protocol =
+            context.params.get('socketprotocol');
+        }
+
+        if (context.encryptedMetadata) {
+          customAttributes.encrypted_metadata = context.encryptedMetadata;
+        }
+
+        Object.assign(customAttributes, metadata.custom_attributes || {});
+        Object.assign(
+          conversationCustomAttributes,
+          metadata.conversation_custom_attributes || {}
+        );
+
+        delete metadata.custom_attributes;
+        delete metadata.conversation_custom_attributes;
+
+        customAttributes = Object.assign(customAttributes, metadata);
+
+        window.setTimeout(function sendInitialMessages() {
+          if (context.locale) {
+            sendWidgetMessage(frame, targetOrigin, 'set-locale', {
+              locale: context.locale,
+            });
+          }
+
+          if (context.identifier) {
+            sendWidgetMessage(frame, targetOrigin, 'set-user', {
+              identifier: context.identifier,
+              user: user,
+            });
+          }
+
+          if (Object.keys(customAttributes).length) {
+            sendWidgetMessage(frame, targetOrigin, 'set-custom-attributes', {
+              customAttributes: customAttributes,
+            });
+          }
+
+          if (Object.keys(conversationCustomAttributes).length) {
+            sendWidgetMessage(
+              frame,
+              targetOrigin,
+              'set-conversation-custom-attributes',
+              {
+                customAttributes: conversationCustomAttributes,
+              }
+            );
+          }
+
+          context.labels.forEach(function applyLabel(label) {
+            sendWidgetMessage(frame, targetOrigin, 'set-label', {
+              label: label,
+            });
+          });
+        }, 500);
+      }
+
+      function buildUserPayload(params, metadata) {
+        var payload = {};
+        var mappings = [
+          [['name'], 'name'],
+          [['email'], 'email'],
+          [['avatar', 'avatarurl', 'avatarUrl', 'avatar_url'], 'avatar_url'],
+          [['phone', 'phonenumber', 'phoneNumber', 'phone_number'], 'phone_number'],
+          [['company', 'companyname', 'companyName', 'company_name'], 'company_name'],
+          [['city'], 'city'],
+          [['country', 'countrycode', 'countryCode', 'country_code'], 'country_code'],
+          [['description'], 'description'],
+          [['identifierhash', 'identifierHash', 'identifier_hash'], 'identifier_hash'],
+        ];
+
+        mappings.forEach(function assignValue(entry) {
+          var sourceKeys = entry[0];
+          var targetKey = entry[1];
+          var directValue = readFromParams(params, sourceKeys);
+          var metadataValue = readFromObject(
+            metadata,
+            [targetKey].concat(sourceKeys)
+          );
+
+          if (directValue) {
+            payload[targetKey] = directValue;
+          } else if (metadataValue) {
+            payload[targetKey] = metadataValue;
+            delete metadata[targetKey];
+            sourceKeys.forEach(function cleanup(sourceKey) {
+              delete metadata[sourceKey];
+            });
+          }
+        });
+
+        return payload;
+      }
+
+      function readFromParams(params, keys) {
+        for (var i = 0; i < keys.length; i += 1) {
+          var value = params.get(keys[i]);
+          if (value) {
+            return value;
+          }
+        }
+        return '';
+      }
+
+      function readFromObject(object, keys) {
+        for (var i = 0; i < keys.length; i += 1) {
+          var key = keys[i];
+          if (object[key]) {
+            return object[key];
+          }
+        }
+        return '';
+      }
+
+      function normalizeColor(color) {
+        if (!color) {
+          return '';
+        }
+
+        var normalized = String(color).trim();
+        if (!normalized) {
+          return '';
+        }
+
+        if (normalized.charAt(0) === '#') {
+          return normalized;
+        }
+
+        if (/^[0-9a-fA-F]{3}$/.test(normalized) || /^[0-9a-fA-F]{6}$/.test(normalized)) {
+          return '#' + normalized;
+        }
+
+        return normalized;
+      }
+
+      function showError(message) {
+        var error = document.getElementById('error');
+        error.textContent = message;
+        document.body.dataset.error = 'true';
+      }
+    </script>
+  </body>
+</html>

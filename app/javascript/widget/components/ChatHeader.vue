@@ -5,6 +5,7 @@ import FluentIcon from 'shared/components/FluentIcon/Index.vue';
 import HeaderActions from './HeaderActions.vue';
 import AvailabilityContainer from 'widget/components/Availability/AvailabilityContainer.vue';
 import { useAvailability } from 'widget/composables/useAvailability';
+import { getReturnUrl } from 'widget/helpers/urlParamsHelper';
 
 const props = defineProps({
   avatarUrl: { type: String, default: '' },
@@ -20,6 +21,13 @@ const router = useRouter();
 const { isOnline } = useAvailability(availableAgents);
 
 const onBackButtonClick = () => {
+  const returnUrl = getReturnUrl(window.location.search);
+
+  if (returnUrl) {
+    window.location.assign(returnUrl);
+    return;
+  }
+
   router.replace({ name: 'home' });
 };
 </script>

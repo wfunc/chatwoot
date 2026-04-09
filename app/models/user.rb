@@ -171,6 +171,24 @@ class User < ApplicationRecord
     find_by(email: email&.downcase)
   end
 
+  def confirmation_required?
+    return false unless email_confirmation_enabled?
+
+    super
+  end
+
+  def send_confirmation_notification?
+    return false unless email_confirmation_enabled?
+
+    super
+  end
+
+  def postpone_email_change?
+    return false unless email_confirmation_enabled?
+
+    super
+  end
+
   # 2FA/MFA Methods
   # Delegated to Mfa::ManagementService for better separation of concerns
   def mfa_service
@@ -212,6 +230,10 @@ class User < ApplicationRecord
   end
 
   private
+
+  def email_confirmation_enabled?
+    ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_EMAIL_CONFIRMATION', true))
+  end
 
   def remove_macros
     macros.personal.destroy_all

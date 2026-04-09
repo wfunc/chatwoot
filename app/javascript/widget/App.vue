@@ -22,6 +22,7 @@ import { useRouter } from 'vue-router';
 import { useAvailability } from 'widget/composables/useAvailability';
 import { SDK_SET_BUBBLE_VISIBILITY } from '../shared/constants/sharedFrameEvents';
 import { emitter } from 'shared/helpers/mitt';
+import { getReturnUrl } from './helpers/urlParamsHelper';
 
 export default {
   name: 'App',
@@ -40,6 +41,7 @@ export default {
     return {
       isMobile: false,
       campaignsSnoozedTill: undefined,
+      popstateHandler: null,
     };
   },
   computed: {
@@ -97,9 +99,15 @@ export default {
       this.registerListeners();
       this.sendRNWebViewLoadedEvent();
     }
+    this.registerStandaloneBackRedirect();
     this.$store.dispatch('conversationAttributes/getAttributes');
     this.registerUnreadEvents();
     this.registerCampaignEvents();
+  },
+  unmounted() {
+    if (this.popstateHandler) {
+      window.removeEventListener('popstate', this.popstateHandler);
+    }
   },
   methods: {
     ...mapActions('appConfig', [
@@ -116,6 +124,28 @@ export default {
       'resetCampaign',
     ]),
     ...mapActions('agent', ['fetchAvailableAgents']),
+    registerStandaloneBackRedirect() {
+      if (this.isIFrame || this.isRNWebView) {
+        return;
+      }
+
+      const returnUrl = getReturnUrl(window.location.search);
+      if (!returnUrl) {
+        return;
+      }
+
+      window.history.pushState(
+        { chatwootReturnIntercept: true },
+        '',
+        window.location.href
+      );
+
+      this.popstateHandler = () => {
+        window.location.replace(returnUrl);
+      };
+
+      window.addEventListener('popstate', this.popstateHandler);
+    },
     setContactFromUrlParams() {
       const contactDetails = getContactDetails(window.location.search);
       if (isEmptyObject(contactDetails)) {

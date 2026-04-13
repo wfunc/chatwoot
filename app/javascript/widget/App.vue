@@ -332,6 +332,10 @@ export default {
           this.$store.dispatch('conversationLabels/destroy', message.label);
         } else if (message.event === 'set-user') {
           this.$store.dispatch('contacts/setUser', message);
+        } else if (message.event === 'update-user') {
+          this.$store.dispatch('contacts/update', {
+            user: message.user,
+          });
         } else if (message.event === 'set-custom-attributes') {
           this.$store.dispatch(
             'contacts/setCustomAttributes',

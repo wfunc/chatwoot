@@ -8,6 +8,8 @@ import EmptyState from '../../../../components/widgets/EmptyState.vue';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import DuplicateInboxBanner from './channels/instagram/DuplicateInboxBanner.vue';
 import EmailInboxFinish from './channels/emailChannels/EmailInboxFinish.vue';
+import { useAlert } from 'dashboard/composables';
+import { downloadBlobResponse } from 'dashboard/helper/downloadHelper';
 import { useInbox } from 'dashboard/composables/useInbox';
 import { INBOX_TYPES } from 'dashboard/helper/inbox';
 
@@ -23,6 +25,10 @@ const qrCodes = reactive({
 
 const currentInbox = computed(() =>
   store.getters['inboxes/getInbox'](route.params.inbox_id)
+);
+
+const standaloneFileUrl = computed(
+  () => currentInbox.value?.standalone_file_url || ''
 );
 
 // Use useInbox composable with the inbox ID
@@ -163,6 +169,24 @@ watch(
 onMounted(() => {
   generateQRCodes();
 });
+
+async function downloadStandaloneFile() {
+  if (!standaloneFileUrl.value) {
+    return;
+  }
+
+  try {
+    const response = await window.axios.get(standaloneFileUrl.value, {
+      responseType: 'blob',
+    });
+    downloadBlobResponse(response, 'chatwoot-standalone.html');
+  } catch (error) {
+    useAlert(
+      error?.response?.data?.errors?.[0] ||
+        t('INBOX_MGMT.EDIT.API.ERROR_MESSAGE')
+    );
+  }
+}
 </script>
 
 <template>
@@ -182,6 +206,19 @@ onMounted(() => {
             v-if="currentInbox.web_widget_script"
             :script="currentInbox.web_widget_script"
           />
+          <div
+            v-if="currentInbox.web_widget_script && standaloneFileUrl"
+            class="mt-4 flex justify-center"
+          >
+            <NextButton
+              outline
+              slate
+              icon="i-lucide-download"
+              @click="downloadStandaloneFile"
+            >
+              {{ $t('INBOX_MGMT.FINISH.DOWNLOAD_STANDALONE') }}
+            </NextButton>
+          </div>
         </div>
         <div class="w-[50%] max-w-[50%] ml-[25%]">
           <woot-code

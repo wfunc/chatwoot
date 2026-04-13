@@ -41,6 +41,7 @@ json.welcome_title resource.channel.try(:welcome_title)
 json.welcome_tagline resource.channel.try(:welcome_tagline)
 json.web_widget_script resource.channel.try(:web_widget_script)
 json.website_token resource.channel.try(:website_token)
+json.standalone_file_url "/api/v1/accounts/#{resource.account_id}/inboxes/#{resource.id}/standalone_file" if resource.web_widget?
 json.selected_feature_flags resource.channel.try(:selected_feature_flags)
 json.reply_time resource.channel.try(:reply_time)
 if resource.web_widget?

@@ -80,14 +80,20 @@
     <script>
       (function init() {
         var params = new URLSearchParams(window.location.search);
-        var baseUrl = readParam(params, ['baseurl', 'baseUrl']);
+        var embeddedDefaults = window.__CHATWOOT_STANDALONE_DEFAULTS__ || {};
+        var baseUrl =
+          readParam(params, ['baseurl', 'baseUrl', 'base_url']) ||
+          embeddedDefaults.baseUrl ||
+          embeddedDefaults.base_url ||
+          '';
         var websiteToken = readParam(params, [
           'token',
           'websiteToken',
           'websitetoken',
+          'website_token',
           'entid',
           'eid',
-        ]);
+        ]) || embeddedDefaults.websiteToken || embeddedDefaults.website_token || '';
         var useBrowserLanguage =
           readParam(params, ['languagelocal', 'languageLocal']) === 'true';
         var locale = useBrowserLanguage
@@ -172,6 +178,14 @@
           widgetUrl.searchParams.set('cw_conversation', conversationToken);
         }
 
+        copyParam(params, widgetUrl, ['name', 'fullName']);
+        copyParam(params, widgetUrl, ['email']);
+        copyParam(params, widgetUrl, [
+          'phone',
+          'phoneNumber',
+          'phone_number',
+        ]);
+
         widgetUrl.hash = '#/' + route;
         frame.src = widgetUrl.toString();
         frame.onload = function onLoad() {
@@ -197,6 +211,17 @@
           }
         }
         return '';
+      }
+
+      function copyParam(params, targetUrl, keys) {
+        for (var index = 0; index < keys.length; index += 1) {
+          var key = keys[index];
+          var value = params.get(key);
+          if (value) {
+            targetUrl.searchParams.set(key, value);
+            return;
+          }
+        }
       }
 
       function normalizeRoute(route) {
@@ -333,6 +358,10 @@
           if (context.identifier) {
             sendWidgetMessage(frame, targetOrigin, 'set-user', {
               identifier: context.identifier,
+              user: user,
+            });
+          } else if (Object.keys(user).length) {
+            sendWidgetMessage(frame, targetOrigin, 'update-user', {
               user: user,
             });
           }

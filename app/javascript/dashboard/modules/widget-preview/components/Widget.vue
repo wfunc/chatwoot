@@ -8,6 +8,9 @@ import WidgetFooter from './WidgetFooter.vue';
 import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
 import Code from 'dashboard/components/Code.vue';
 import Switch from 'dashboard/components-next/switch/Switch.vue';
+import Button from 'dashboard/components-next/button/Button.vue';
+import { useAlert } from 'dashboard/composables';
+import { downloadBlobResponse } from 'dashboard/helper/downloadHelper';
 import { useBranding } from 'shared/composables/useBranding';
 import { useMapGetter } from 'dashboard/composables/store';
 
@@ -56,6 +59,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  standaloneFileUrl: {
+    type: String,
+    default: '',
+  },
 });
 
 const { t } = useI18n();
@@ -81,6 +88,7 @@ const tabs = computed(() => [
 ]);
 
 const isPreviewTab = computed(() => activeTabIndex.value === 0);
+const hasStandaloneFile = computed(() => !!props.standaloneFileUrl);
 
 const widgetScript = computed(() => {
   if (!props.webWidgetScript) return '';
@@ -147,6 +155,24 @@ const handleToggleWidget = () => {
     isChatMode.value = false;
   }
 };
+
+const downloadStandaloneFile = async () => {
+  if (!props.standaloneFileUrl) {
+    return;
+  }
+
+  try {
+    const response = await window.axios.get(props.standaloneFileUrl, {
+      responseType: 'blob',
+    });
+    downloadBlobResponse(response, 'chatwoot-standalone.html');
+  } catch (error) {
+    useAlert(
+      error?.response?.data?.errors?.[0] ||
+        t('INBOX_MGMT.EDIT.API.ERROR_MESSAGE')
+    );
+  }
+};
 </script>
 
 <template>
@@ -164,6 +190,16 @@ const handleToggleWidget = () => {
         </span>
         <Switch v-model="isChatMode" />
       </div>
+      <Button
+        v-else-if="hasStandaloneFile"
+        icon="i-lucide-download"
+        size="sm"
+        variant="outline"
+        color="slate"
+        @click="downloadStandaloneFile"
+      >
+        {{ $t('INBOX_MGMT.WIDGET_BUILDER.DOWNLOAD_STANDALONE') }}
+      </Button>
     </div>
 
     <div class="flex-1 min-h-0 flex flex-col">

@@ -1200,6 +1200,7 @@ export default {
                 :widget-bubble-launcher-title="widgetBubbleLauncherTitle"
                 :widget-bubble-type="widgetBubbleType"
                 :web-widget-script="inbox.web_widget_script"
+                :standalone-file-url="inbox.standalone_file_url"
               />
             </div>
           </div>

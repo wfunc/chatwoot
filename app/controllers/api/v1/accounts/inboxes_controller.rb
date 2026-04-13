@@ -4,7 +4,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   before_action :fetch_agent_bot, only: [:set_agent_bot]
   before_action :validate_limit, only: [:create]
   # we are already handling the authorization in fetch inbox
-  before_action :check_authorization, except: [:show]
+  before_action :check_authorization, except: [:show, :standalone_file]
 
   include Api::V1::Accounts::Concerns::WhatsappHealthManagement
 
@@ -53,6 +53,15 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   def agent_bot
     @agent_bot = @inbox.agent_bot
+  end
+
+  def standalone_file
+    return head :not_found unless @inbox.web_widget?
+
+    send_data standalone_file_content,
+              filename: standalone_file_name,
+              type: 'text/html; charset=utf-8',
+              disposition: 'attachment'
   end
 
   def set_agent_bot
@@ -183,6 +192,25 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   def get_channel_attributes(channel_type)
     channel_type.constantize.const_defined?(:EDITABLE_ATTRS) ? channel_type.constantize::EDITABLE_ATTRS.presence : []
+  end
+
+  def standalone_file_content
+    file_content = File.read(Rails.root.join('public', 'chatwoot-standalone.html'))
+    defaults = {
+      baseUrl: request.base_url,
+      websiteToken: @inbox.channel.website_token
+    }
+    defaults_script = <<~SCRIPT.squish
+      <script>
+        window.__CHATWOOT_STANDALONE_DEFAULTS__ = #{defaults.to_json};
+      </script>
+    SCRIPT
+
+    file_content.sub('</head>', "#{defaults_script}\n</head>")
+  end
+
+  def standalone_file_name
+    "chatwoot-standalone-inbox-#{@inbox.id}.html"
   end
 end
 

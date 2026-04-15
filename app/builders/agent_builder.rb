@@ -9,7 +9,21 @@ class AgentBuilder
   # @param inviter [User] the user who is inviting the agent (Current.user in most cases).
   # @param availability [String] the availability status of the user, defaults to 'offline' if not provided.
   # @param auto_offline [Boolean] the auto offline status of the user.
-  pattr_initialize [:email, { name: '' }, :inviter, :account, { role: :agent }, { availability: :offline }, { auto_offline: false }]
+  pattr_initialize [
+    :email,
+    { name: '' },
+    :inviter,
+    :account,
+    { role: :agent },
+    { availability: :online },
+    { auto_offline: false },
+    { merchant_status: :active },
+    { merchant_expires_at: nil },
+    { agent_limit: nil },
+    { parent_merchant_id: nil },
+    { password: nil },
+    { password_confirmation: nil }
+  ]
 
   # Creates a user and account user in a transaction.
   # @return [User] the created user.
@@ -29,8 +43,15 @@ class AgentBuilder
     user = User.from_email(email)
     return user if user
 
-    temp_password = "1!aA#{SecureRandom.alphanumeric(12)}"
-    User.create!(email: email, name: name, password: temp_password, password_confirmation: temp_password)
+    resolved_password = password.presence || "1!aA#{SecureRandom.alphanumeric(12)}"
+    resolved_password_confirmation = password_confirmation.presence || resolved_password
+
+    User.create!(
+      email: email,
+      name: name,
+      password: resolved_password,
+      password_confirmation: resolved_password_confirmation
+    )
   end
 
   # Checks if the user needs confirmation.
@@ -48,7 +69,11 @@ class AgentBuilder
     }.merge({
       role: role,
       availability: availability,
-      auto_offline: auto_offline
+      auto_offline: auto_offline,
+      merchant_status: merchant_status,
+      merchant_expires_at: merchant_expires_at,
+      agent_limit: agent_limit,
+      parent_merchant_id: parent_merchant_id
     }.compact))
   end
 end

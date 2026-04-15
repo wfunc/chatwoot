@@ -29,7 +29,11 @@ class Api::V1::ProfilesController < Api::BaseController
   end
 
   def set_active_account
-    @user.account_users.find_by(account_id: profile_params[:account_id]).update(active_at: Time.now.utc)
+    account_user = @user.account_users.find_by!(account_id: profile_params[:account_id])
+    update_params = { active_at: Time.now.utc }
+    update_params[:availability] = :online if account_user.offline?
+
+    account_user.update!(update_params)
     head :ok
   end
 

@@ -7,7 +7,13 @@
     "LEARN_MORE": "角色说明",
     "AGENT_TYPES": {
       "ADMINISTRATOR": "管理员",
-      "AGENT": "客服"
+      "AGENT": "客服",
+      "MERCHANT": "商户"
+    },
+    "MERCHANT_STATUS": {
+      "ACTIVE": "正常",
+      "SUSPENDED": "已停用",
+      "EXPIRED": "已到期"
     },
     "COUNT": "{n} agent | {n} agents",
     "LIST": {
@@ -20,7 +26,8 @@
       "ACTIONS": "操作",
       "VERIFIED": "已认证",
       "VERIFICATION_PENDING": "待验证",
-      "AVAILABLE_CUSTOM_ROLE": "可自定义角色权限"
+      "AVAILABLE_CUSTOM_ROLE": "可自定义角色权限",
+      "EXPIRES_IN": "还有 {count} 天到期"
     },
     "ADD": {
       "TITLE": "添加客服至您的团队",
@@ -36,9 +43,28 @@
           "PLACEHOLDER": "请选择一个角色",
           "ERROR": "角色类型必填"
         },
+        "AGENT_LIMIT": {
+          "LABEL": "客服数量上限",
+          "PLACEHOLDER": "设置该商户可创建的客服数量",
+          "ERROR": "请填写客服数量上限"
+        },
+        "EXPIRES_AT": {
+          "LABEL": "到期时间",
+          "PLACEHOLDER": "请选择商户到期时间"
+        },
         "EMAIL": {
           "LABEL": "电子邮件地址",
           "PLACEHOLDER": "请输入客服的邮箱地址"
+        },
+        "PASSWORD": {
+          "LABEL": "登录密码",
+          "PLACEHOLDER": "为该客服设置登录密码",
+          "ERROR": "密码至少需要 6 位"
+        },
+        "PASSWORD_CONFIRMATION": {
+          "LABEL": "确认密码",
+          "PLACEHOLDER": "请再次输入密码",
+          "ERROR": "两次输入的密码不一致"
         },
         "SUBMIT": "添加客服"
       },
@@ -73,9 +99,31 @@
           "PLACEHOLDER": "请选择一个角色",
           "ERROR": "角色必填"
         },
+        "AGENT_LIMIT": {
+          "LABEL": "客服数量上限",
+          "PLACEHOLDER": "设置该商户可创建的客服数量",
+          "ERROR": "请填写客服数量上限"
+        },
+        "EXPIRES_AT": {
+          "LABEL": "到期时间",
+          "PLACEHOLDER": "请选择商户到期时间"
+        },
+        "MERCHANT_STATUS": {
+          "LABEL": "商户状态"
+        },
         "EMAIL": {
           "LABEL": "电子邮件地址",
           "PLACEHOLDER": "请输入客服的邮箱地址"
+        },
+        "PASSWORD": {
+          "LABEL": "新密码",
+          "PLACEHOLDER": "留空则保持当前密码不变",
+          "ERROR": "密码至少需要 6 位"
+        },
+        "PASSWORD_CONFIRMATION": {
+          "LABEL": "确认新密码",
+          "PLACEHOLDER": "请再次输入新密码",
+          "ERROR": "两次输入的密码不一致"
         },
         "AGENT_AVAILABILITY": {
           "LABEL": "有效的",
@@ -98,7 +146,7 @@
       }
     },
     "SEARCH_PLACEHOLDER": "搜索客服代表...",
-    "NO_RESULTS": "No agents found matching your search",
+    "NO_RESULTS": "没有找到匹配的客服",
     "SEARCH": {
       "NO_RESULTS": "未找到任何结果。"
     },

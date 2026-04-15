@@ -1,13 +1,15 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
-import { required, minLength } from '@vuelidate/validators';
+import { required, minLength, requiredIf } from '@vuelidate/validators';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Auth from '../../../../api/auth';
 import wootConstants from 'dashboard/constants/globals';
+import { useAdmin } from 'dashboard/composables/useAdmin';
+import { parseAPIErrorResponse } from 'dashboard/store/utils/api';
 
 const props = defineProps({
   id: {
@@ -38,6 +40,18 @@ const props = defineProps({
     type: Number,
     default: null,
   },
+  merchantStatus: {
+    type: String,
+    default: 'active',
+  },
+  merchantExpiresAt: {
+    type: String,
+    default: '',
+  },
+  agentLimit: {
+    type: Number,
+    default: null,
+  },
 });
 
 const emit = defineEmits(['close']);
@@ -46,22 +60,63 @@ const { AVAILABILITY_STATUS_KEYS } = wootConstants;
 
 const store = useStore();
 const { t } = useI18n();
+const { isAdmin, isMerchant } = useAdmin();
+
+const formatDateTimeLocal = value => {
+  if (!value) return '';
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
 
 const agentName = ref(props.name);
 const agentAvailability = ref(props.availability);
 const selectedRoleId = ref(props.customRoleId || props.type);
 const agentCredentials = ref({ email: props.email });
+const merchantStatus = ref(props.merchantStatus || 'active');
+const merchantExpiresAt = ref(formatDateTimeLocal(props.merchantExpiresAt));
+const agentLimit = ref(props.agentLimit);
+const agentPassword = ref('');
+const agentPasswordConfirmation = ref('');
 
 const rules = {
   agentName: { required, minLength: minLength(1) },
   selectedRoleId: { required },
   agentAvailability: { required },
+  agentPassword: {
+    required: requiredIf(() => !!agentPasswordConfirmation.value),
+    minLength: minLength(6),
+  },
+  agentPasswordConfirmation: {
+    required: requiredIf(() => !!agentPassword.value),
+    minLength: minLength(6),
+    isEqPassword: value => !value || value === agentPassword.value,
+  },
+  agentLimit: {
+    required: requiredIf(
+      () => isAdmin.value && selectedRoleId.value === 'merchant'
+    ),
+    isValid: value =>
+      !isAdmin.value ||
+      selectedRoleId.value !== 'merchant' ||
+      Number(value) >= 0,
+  },
 };
 
 const v$ = useVuelidate(rules, {
   agentName,
   selectedRoleId,
   agentAvailability,
+  agentPassword,
+  agentPasswordConfirmation,
+  agentLimit,
 });
 
 const pageTitle = computed(
@@ -72,6 +127,16 @@ const uiFlags = useMapGetter('agents/getUIFlags');
 const getCustomRoles = useMapGetter('customRole/getCustomRoles');
 
 const roles = computed(() => {
+  if (isMerchant.value) {
+    return [
+      {
+        id: 'agent',
+        name: 'agent',
+        label: t('AGENT_MGMT.AGENT_TYPES.AGENT'),
+      },
+    ];
+  }
+
   const defaultRoles = [
     {
       id: 'administrator',
@@ -82,6 +147,11 @@ const roles = computed(() => {
       id: 'agent',
       name: 'agent',
       label: t('AGENT_MGMT.AGENT_TYPES.AGENT'),
+    },
+    {
+      id: 'merchant',
+      name: 'merchant',
+      label: t('AGENT_MGMT.AGENT_TYPES.MERCHANT'),
     },
   ];
 
@@ -117,6 +187,23 @@ const availabilityStatuses = computed(() =>
   }))
 );
 
+const merchantStatuses = computed(() => {
+  return [
+    {
+      label: t('AGENT_MGMT.MERCHANT_STATUS.ACTIVE'),
+      value: 'active',
+    },
+    {
+      label: t('AGENT_MGMT.MERCHANT_STATUS.SUSPENDED'),
+      value: 'suspended',
+    },
+    {
+      label: t('AGENT_MGMT.MERCHANT_STATUS.EXPIRED'),
+      value: 'expired',
+    },
+  ];
+});
+
 const editAgent = async () => {
   v$.value.$touch();
   if (v$.value.$invalid) return;
@@ -128,7 +215,18 @@ const editAgent = async () => {
       availability: agentAvailability.value,
     };
 
-    if (selectedRole.value.name.startsWith('custom_')) {
+    if (agentPassword.value) {
+      payload.password = agentPassword.value;
+      payload.password_confirmation = agentPasswordConfirmation.value;
+    }
+
+    if (selectedRole.value.name === 'merchant') {
+      payload.role = 'merchant';
+      payload.custom_role_id = null;
+      payload.agent_limit = Number(agentLimit.value);
+      payload.merchant_status = merchantStatus.value;
+      payload.merchant_expires_at = merchantExpiresAt.value || null;
+    } else if (selectedRole.value.name.startsWith('custom_')) {
       payload.custom_role_id = selectedRole.value.id;
     } else {
       payload.role = selectedRole.value.name;
@@ -139,7 +237,9 @@ const editAgent = async () => {
     useAlert(t('AGENT_MGMT.EDIT.API.SUCCESS_MESSAGE'));
     emit('close');
   } catch (error) {
-    useAlert(t('AGENT_MGMT.EDIT.API.ERROR_MESSAGE'));
+    useAlert(
+      parseAPIErrorResponse(error) || t('AGENT_MGMT.EDIT.API.ERROR_MESSAGE')
+    );
   }
 };
 
@@ -183,6 +283,48 @@ const resetPassword = async () => {
         </label>
       </div>
 
+      <div v-if="isAdmin && selectedRole?.name === 'merchant'" class="w-full">
+        <label :class="{ error: v$.agentLimit.$error }">
+          {{ $t('AGENT_MGMT.EDIT.FORM.AGENT_LIMIT.LABEL') }}
+          <input
+            v-model.number="agentLimit"
+            type="number"
+            min="0"
+            :placeholder="$t('AGENT_MGMT.EDIT.FORM.AGENT_LIMIT.PLACEHOLDER')"
+            @input="v$.agentLimit.$touch"
+          />
+          <span v-if="v$.agentLimit.$error" class="message">
+            {{ $t('AGENT_MGMT.EDIT.FORM.AGENT_LIMIT.ERROR') }}
+          </span>
+        </label>
+      </div>
+
+      <div v-if="isAdmin && selectedRole?.name === 'merchant'" class="w-full">
+        <label>
+          {{ $t('AGENT_MGMT.EDIT.FORM.EXPIRES_AT.LABEL') }}
+          <input
+            v-model="merchantExpiresAt"
+            type="datetime-local"
+            :placeholder="$t('AGENT_MGMT.EDIT.FORM.EXPIRES_AT.PLACEHOLDER')"
+          />
+        </label>
+      </div>
+
+      <div v-if="isAdmin && selectedRole?.name === 'merchant'" class="w-full">
+        <label>
+          {{ $t('AGENT_MGMT.EDIT.FORM.MERCHANT_STATUS.LABEL') }}
+          <select v-model="merchantStatus">
+            <option
+              v-for="status in merchantStatuses"
+              :key="status.value"
+              :value="status.value"
+            >
+              {{ status.label }}
+            </option>
+          </select>
+        </label>
+      </div>
+
       <div class="w-full">
         <label :class="{ error: v$.agentAvailability.$error }">
           {{ $t('PROFILE_SETTINGS.FORM.AVAILABILITY.LABEL') }}
@@ -204,10 +346,42 @@ const resetPassword = async () => {
         </label>
       </div>
 
+      <div v-if="provider !== 'saml'" class="w-full">
+        <label :class="{ error: v$.agentPassword.$error }">
+          {{ $t('AGENT_MGMT.EDIT.FORM.PASSWORD.LABEL') }}
+          <input
+            v-model="agentPassword"
+            type="password"
+            :placeholder="$t('AGENT_MGMT.EDIT.FORM.PASSWORD.PLACEHOLDER')"
+            @input="v$.agentPassword.$touch"
+          />
+          <span v-if="v$.agentPassword.$error" class="message">
+            {{ $t('AGENT_MGMT.EDIT.FORM.PASSWORD.ERROR') }}
+          </span>
+        </label>
+      </div>
+
+      <div v-if="provider !== 'saml'" class="w-full">
+        <label :class="{ error: v$.agentPasswordConfirmation.$error }">
+          {{ $t('AGENT_MGMT.EDIT.FORM.PASSWORD_CONFIRMATION.LABEL') }}
+          <input
+            v-model="agentPasswordConfirmation"
+            type="password"
+            :placeholder="
+              $t('AGENT_MGMT.EDIT.FORM.PASSWORD_CONFIRMATION.PLACEHOLDER')
+            "
+            @input="v$.agentPasswordConfirmation.$touch"
+          />
+          <span v-if="v$.agentPasswordConfirmation.$error" class="message">
+            {{ $t('AGENT_MGMT.EDIT.FORM.PASSWORD_CONFIRMATION.ERROR') }}
+          </span>
+        </label>
+      </div>
+
       <div class="flex flex-row justify-start w-full gap-2 px-0 py-2">
         <div class="w-[50%] ltr:text-left rtl:text-right">
           <Button
-            v-if="provider !== 'saml'"
+            v-if="provider !== 'saml' && isAdmin"
             ghost
             type="button"
             icon="i-lucide-lock-keyhole"

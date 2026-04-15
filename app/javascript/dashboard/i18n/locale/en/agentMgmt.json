@@ -7,7 +7,13 @@
     "LEARN_MORE": "Learn about user roles",
     "AGENT_TYPES": {
       "ADMINISTRATOR": "Administrator",
-      "AGENT": "Agent"
+      "AGENT": "Agent",
+      "MERCHANT": "Merchant"
+    },
+    "MERCHANT_STATUS": {
+      "ACTIVE": "Active",
+      "SUSPENDED": "Suspended",
+      "EXPIRED": "Expired"
     },
     "COUNT": "{n} agent | {n} agents",
     "LIST": {
@@ -20,7 +26,8 @@
       "ACTIONS": "Actions",
       "VERIFIED": "Verified",
       "VERIFICATION_PENDING": "Verification Pending",
-      "AVAILABLE_CUSTOM_ROLE": "Available custom role permissions"
+      "AVAILABLE_CUSTOM_ROLE": "Available custom role permissions",
+      "EXPIRES_IN": "Expires in {count} day | Expires in {count} days"
     },
     "ADD": {
       "TITLE": "Add agent to your team",
@@ -36,9 +43,28 @@
           "PLACEHOLDER": "Please select a role",
           "ERROR": "Role is required"
         },
+        "AGENT_LIMIT": {
+          "LABEL": "Agent limit",
+          "PLACEHOLDER": "Set the number of agents this merchant can create",
+          "ERROR": "Agent limit is required"
+        },
+        "EXPIRES_AT": {
+          "LABEL": "Expires at",
+          "PLACEHOLDER": "Select when this merchant should expire"
+        },
         "EMAIL": {
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
+        },
+        "PASSWORD": {
+          "LABEL": "Login password",
+          "PLACEHOLDER": "Set a password for this agent",
+          "ERROR": "Password must be at least 6 characters"
+        },
+        "PASSWORD_CONFIRMATION": {
+          "LABEL": "Confirm password",
+          "PLACEHOLDER": "Re-enter the password",
+          "ERROR": "Password confirmation must match"
         },
         "SUBMIT": "Add Agent"
       },
@@ -73,9 +99,31 @@
           "PLACEHOLDER": "Please select a role",
           "ERROR": "Role is required"
         },
+        "AGENT_LIMIT": {
+          "LABEL": "Agent limit",
+          "PLACEHOLDER": "Set the number of agents this merchant can create",
+          "ERROR": "Agent limit is required"
+        },
+        "EXPIRES_AT": {
+          "LABEL": "Expires at",
+          "PLACEHOLDER": "Select when this merchant should expire"
+        },
+        "MERCHANT_STATUS": {
+          "LABEL": "Merchant status"
+        },
         "EMAIL": {
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
+        },
+        "PASSWORD": {
+          "LABEL": "New password",
+          "PLACEHOLDER": "Leave blank to keep the current password",
+          "ERROR": "Password must be at least 6 characters"
+        },
+        "PASSWORD_CONFIRMATION": {
+          "LABEL": "Confirm new password",
+          "PLACEHOLDER": "Re-enter the new password",
+          "ERROR": "Password confirmation must match"
         },
         "AGENT_AVAILABILITY": {
           "LABEL": "Availability",

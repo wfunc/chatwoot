@@ -25,6 +25,12 @@ json.accounts do
     json.active_at account_user.active_at
     json.role account_user.role
     json.permissions account_user.permissions
+    json.merchant_status account_user.merchant_status
+    json.merchant_expires_at account_user.merchant_expires_at
+    json.agent_limit account_user.agent_limit
+    json.parent_merchant_id account_user.parent_merchant_id
+    json.expiring_soon account_user.expiring_soon?
+    json.days_until_expiry account_user.days_until_merchant_expiry
     # the actual availability user has configured
     json.availability account_user.availability
     # availability derived from presence

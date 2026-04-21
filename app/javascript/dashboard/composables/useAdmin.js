@@ -10,8 +10,10 @@ export function useAdmin() {
 
   const currentUserRole = computed(() => getters.getCurrentRole.value);
   const isAdmin = computed(() => currentUserRole.value === 'administrator');
+  const isMerchant = computed(() => currentUserRole.value === 'merchant');
 
   return {
     isAdmin,
+    isMerchant,
   };
 }

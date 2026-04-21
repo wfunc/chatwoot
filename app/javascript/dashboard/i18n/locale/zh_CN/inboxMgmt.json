@@ -4,8 +4,14 @@
     "DESCRIPTION": "频道是客户选择与您互动的方式。收件箱则是您用来管理特定频道互动的地方，它可以整合来自不同来源的通信，比如电子邮件、即时聊天和社交媒体等。",
     "LEARN_MORE": "了解更多关于收件箱的信息",
     "COUNT": "{n} inbox | {n} inboxes",
-    "SEARCH_PLACEHOLDER": "Search inboxes...",
-    "NO_RESULTS": "No inboxes found matching your search",
+    "SEARCH_PLACEHOLDER": "搜索收件箱...",
+    "NO_RESULTS": "没有找到匹配的收件箱",
+    "MERCHANT_OWNER": {
+      "LABEL": "所属商户",
+      "HELP_TEXT": "将当前收件箱分配给商户，商户即可管理该收件箱的设置和客服。",
+      "PLACEHOLDER": "请选择商户",
+      "NONE": "未分配商户"
+    },
     "RECONNECTION_REQUIRED": "您的收件箱已断开连接。在您重新授权之前，您不会收到新消息。",
     "CLICK_TO_RECONNECT": "点击此处重新连接。",
     "WHATSAPP_REGISTRATION_INCOMPLETE": "Your WhatsApp Business registration isn’t complete. Please check your display name status in Meta Business Manager before reconnecting.",

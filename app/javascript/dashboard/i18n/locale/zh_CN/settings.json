@@ -249,6 +249,7 @@
     "EMAIL_VERIFICATION_PENDING": "您似乎尚未验证您的电子邮件地址。请检查您的收件箱以获取验证邮件。",
     "RESEND_VERIFICATION_MAIL": "重新发送验证邮件",
     "EMAIL_VERIFICATION_SENT": "验证邮件已发送。请检查您的收件箱。",
+    "MERCHANT_EXPIRY_PENDING": "当前系统使用还有 {count} 天到期，请及时续费！",
     "ACCOUNT_SUSPENDED": {
       "TITLE": "账户已暂停",
       "MESSAGE": "您的账户已被暂停。请联系支持团队以获取更多信息。"

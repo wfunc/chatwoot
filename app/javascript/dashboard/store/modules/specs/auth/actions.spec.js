@@ -202,7 +202,7 @@ describe('#actions', () => {
         { 1: 'online' }
       );
       expect(commit.mock.calls).toEqual([
-        [types.SET_CURRENT_USER_AVAILABILITY, 'online'],
+        [types.SET_CURRENT_USER_AVAILABILITY_STATUS, 'online'],
       ]);
     });
 

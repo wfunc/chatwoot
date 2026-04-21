@@ -4,7 +4,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   before_action :fetch_agent_bot, only: [:set_agent_bot]
   before_action :validate_limit, only: [:create]
   # we are already handling the authorization in fetch inbox
-  before_action :check_authorization, except: [:show, :standalone_file]
+  before_action :check_authorization, except: [:show, :standalone_file, :assignable_agents, :campaigns, :avatar, :update, :agent_bot, :set_agent_bot, :reset_secret]
 
   include Api::V1::Accounts::Concerns::WhatsappHealthManagement
 
@@ -16,14 +16,17 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   # Deprecated: This API will be removed in 2.7.0
   def assignable_agents
+    authorize @inbox, :manage_members?
     @assignable_agents = @inbox.assignable_agents
   end
 
   def campaigns
+    authorize @inbox, :campaigns?
     @campaigns = @inbox.campaigns
   end
 
   def avatar
+    authorize @inbox, :avatar?
     @inbox.avatar.attachment.destroy! if @inbox.avatar.attached?
     head :ok
   end
@@ -44,14 +47,16 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def update
-    inbox_params = permitted_params.except(:channel, :csat_config)
-    inbox_params[:csat_config] = format_csat_config(permitted_params[:csat_config]) if permitted_params[:csat_config].present?
+    authorize @inbox, :update?
+    inbox_params = sanitized_inbox_params.except(:channel, :csat_config)
+    inbox_params[:csat_config] = format_csat_config(sanitized_inbox_params[:csat_config]) if sanitized_inbox_params[:csat_config].present?
     @inbox.update!(inbox_params)
     update_inbox_working_hours
     update_channel if channel_update_required?
   end
 
   def agent_bot
+    authorize @inbox, :set_agent_bot?
     @agent_bot = @inbox.agent_bot
   end
 
@@ -65,6 +70,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def set_agent_bot
+    authorize @inbox, :set_agent_bot?
     if @agent_bot
       agent_bot_inbox = @inbox.agent_bot_inbox || AgentBotInbox.new(inbox: @inbox)
       agent_bot_inbox.agent_bot = @agent_bot
@@ -76,6 +82,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def reset_secret
+    authorize @inbox, :reset_secret?
     return head :not_found unless @inbox.api?
 
     @inbox.channel.reset_secret!
@@ -166,7 +173,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   def inbox_attributes
     [:name, :avatar, :greeting_enabled, :greeting_message, :enable_email_collect, :csat_survey_enabled,
      :enable_auto_assignment, :working_hours_enabled, :out_of_office_message, :timezone, :allow_messages_after_resolved,
-     :lock_to_single_conversation, :portal_id, :sender_name_type, :business_name,
+     :lock_to_single_conversation, :portal_id, :sender_name_type, :business_name, :merchant_owner_id,
      { csat_config: [:display_type, :message, :button_text, :language,
                      { survey_rules: [:operator, { values: [] }],
                        template: [:name, :template_id, :friendly_name, :content_sid, :approval_sid, :created_at, :language, :status] }] }]
@@ -211,6 +218,14 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   def standalone_file_name
     "chatwoot-standalone-inbox-#{@inbox.id}.html"
+  end
+
+  def sanitized_inbox_params
+    @sanitized_inbox_params ||= begin
+      attrs = permitted_params.deep_dup
+      attrs.delete(:merchant_owner_id) if Current.account_user.merchant?
+      attrs
+    end
   end
 end
 

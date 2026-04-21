@@ -15,10 +15,12 @@ import EditAgent from './EditAgent.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import SettingsLayout from '../SettingsLayout.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
+import { useAdmin } from 'dashboard/composables/useAdmin';
 
 const getters = useStoreGetters();
 const store = useStore();
 const { t } = useI18n();
+const { isAdmin } = useAdmin();
 
 const loading = ref({});
 const showAddPopup = ref(false);
@@ -52,7 +54,9 @@ const customRoles = useMapGetter('customRole/getCustomRoles');
 
 onMounted(() => {
   store.dispatch('agents/get');
-  store.dispatch('customRole/getCustomRole');
+  if (isAdmin.value) {
+    store.dispatch('customRole/getCustomRole');
+  }
 });
 
 const findCustomRole = agent =>
@@ -64,6 +68,26 @@ const getAgentRoleName = agent => {
   }
   const customRole = findCustomRole(agent);
   return customRole ? customRole.name : '';
+};
+
+const getMerchantStateLabel = agent => {
+  if (agent.role === 'merchant') {
+    if (agent.merchant_status === 'suspended') {
+      return t('AGENT_MGMT.MERCHANT_STATUS.SUSPENDED');
+    }
+
+    if (agent.merchant_status === 'expired') {
+      return t('AGENT_MGMT.MERCHANT_STATUS.EXPIRED');
+    }
+
+    if (agent.days_until_expiry >= 0 && agent.days_until_expiry !== null) {
+      return t('AGENT_MGMT.LIST.EXPIRES_IN', {
+        count: agent.days_until_expiry,
+      });
+    }
+  }
+
+  return '';
 };
 
 const getAgentRolePermissions = agent => {
@@ -250,6 +274,12 @@ const confirmDeletion = () => {
                 >
                   {{ $t('AGENT_MGMT.LIST.VERIFICATION_PENDING') }}
                 </span>
+                <template v-if="getMerchantStateLabel(agent)">
+                  <div class="w-px h-3 bg-n-strong rounded-lg" />
+                  <span class="text-body-main text-n-slate-11">
+                    {{ getMerchantStateLabel(agent) }}
+                  </span>
+                </template>
               </div>
             </div>
           </div>
@@ -291,6 +321,9 @@ const confirmDeletion = () => {
         :email="currentAgent.email"
         :availability="currentAgent.availability_status"
         :custom-role-id="currentAgent.custom_role_id"
+        :merchant-status="currentAgent.merchant_status"
+        :merchant-expires-at="currentAgent.merchant_expires_at"
+        :agent-limit="currentAgent.agent_limit"
         @close="hideEditPopup"
       />
     </woot-modal>

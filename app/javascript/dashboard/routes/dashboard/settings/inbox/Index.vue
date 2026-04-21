@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import { picoSearch } from '@scmmishra/pico-search';
@@ -19,7 +19,7 @@ import Button from 'dashboard/components-next/button/Button.vue';
 const getters = useStoreGetters();
 const store = useStore();
 const { t } = useI18n();
-const { isAdmin } = useAdmin();
+const { isAdmin, isMerchant } = useAdmin();
 
 const showDeletePopup = ref(false);
 const selectedInbox = ref({});
@@ -78,6 +78,10 @@ const openDelete = inbox => {
   showDeletePopup.value = true;
   selectedInbox.value = inbox;
 };
+
+onMounted(() => {
+  store.dispatch('inboxes/get');
+});
 </script>
 
 <template>
@@ -157,7 +161,7 @@ const openDelete = inbox => {
               }"
             >
               <Button
-                v-if="isAdmin"
+                v-if="isAdmin || isMerchant"
                 v-tooltip.top="$t('INBOX_MGMT.SETTINGS')"
                 icon="i-woot-settings"
                 slate

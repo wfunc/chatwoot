@@ -211,7 +211,10 @@ export const actions = {
 
   setCurrentUserAvailability({ commit, state: $state }, data) {
     if (data[$state.currentUser.id]) {
-      commit(types.SET_CURRENT_USER_AVAILABILITY, data[$state.currentUser.id]);
+      commit(
+        types.SET_CURRENT_USER_AVAILABILITY_STATUS,
+        data[$state.currentUser.id]
+      );
     }
   },
 
@@ -248,6 +251,18 @@ export const mutations = {
     const accounts = _state.currentUser.accounts.map(account => {
       if (account.id === _state.currentUser.account_id) {
         return { ...account, availability, availability_status: availability };
+      }
+      return account;
+    });
+    _state.currentUser = {
+      ..._state.currentUser,
+      accounts,
+    };
+  },
+  [types.SET_CURRENT_USER_AVAILABILITY_STATUS](_state, availabilityStatus) {
+    const accounts = _state.currentUser.accounts.map(account => {
+      if (account.id === _state.currentUser.account_id) {
+        return { ...account, availability_status: availabilityStatus };
       }
       return account;
     });

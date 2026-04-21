@@ -21,37 +21,65 @@ describe('#defaultRedirectPage', () => {
     fullPath: '/app/accounts/2/dashboard',
     name: 'home',
   };
+  const buildUser = permissions => ({
+    accounts: [
+      {
+        id: 2,
+        role: permissions.includes('merchant') ? 'merchant' : 'agent',
+        permissions,
+        status: 'active',
+        custom_role_id: permissions.includes('custom_role') ? 1 : null,
+      },
+    ],
+  });
 
   it('should return dashboard route for users with conversation permissions', () => {
     const permissions = ['conversation_manage', 'agent'];
-    expect(defaultRedirectPage(to, permissions)).toBe('accounts/2/dashboard');
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
+      'accounts/2/dashboard'
+    );
   });
 
   it('should return contacts route for users with contact permissions', () => {
     const permissions = ['contact_manage'];
-    expect(defaultRedirectPage(to, permissions)).toBe('accounts/2/contacts');
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
+      'accounts/2/contacts'
+    );
   });
 
   it('should return reports route for users with report permissions', () => {
     const permissions = ['report_manage'];
-    expect(defaultRedirectPage(to, permissions)).toBe(
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
       'accounts/2/reports/overview'
     );
   });
 
   it('should return portals route for users with portal permissions', () => {
     const permissions = ['knowledge_base_manage'];
-    expect(defaultRedirectPage(to, permissions)).toBe('accounts/2/portals');
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
+      'accounts/2/portals'
+    );
   });
 
   it('should return dashboard route as default for users with custom roles', () => {
     const permissions = ['custom_role'];
-    expect(defaultRedirectPage(to, permissions)).toBe('accounts/2/dashboard');
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
+      'accounts/2/dashboard'
+    );
   });
 
   it('should return dashboard route for users with administrator role', () => {
     const permissions = ['administrator'];
-    expect(defaultRedirectPage(to, permissions)).toBe('accounts/2/dashboard');
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
+      'accounts/2/dashboard'
+    );
+  });
+
+  it('should return dashboard route for merchants', () => {
+    const permissions = ['merchant'];
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
+      'accounts/2/dashboard'
+    );
   });
 
   it('should return dashboard route for users with multiple permissions', () => {
@@ -62,7 +90,9 @@ describe('#defaultRedirectPage', () => {
       'agent',
       'administrator',
     ];
-    expect(defaultRedirectPage(to, permissions)).toBe('accounts/2/dashboard');
+    expect(defaultRedirectPage(to, buildUser(permissions))).toBe(
+      'accounts/2/dashboard'
+    );
   });
 });
 

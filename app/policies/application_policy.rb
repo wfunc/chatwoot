@@ -41,6 +41,16 @@ class ApplicationPolicy
     Pundit.policy_scope!(user_context, record.class)
   end
 
+  private
+
+  def administrator?
+    account_user&.administrator?
+  end
+
+  def merchant?
+    account_user&.merchant?
+  end
+
   class Scope
     attr_reader :user_context, :user, :scope, :account, :account_user
 

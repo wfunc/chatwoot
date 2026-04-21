@@ -98,6 +98,7 @@ export default {
       replyTime: '',
       selectedTabIndex: 0,
       selectedPortalSlug: '',
+      selectedMerchantId: '',
       showBusinessNameInput: false,
       healthData: null,
       isLoadingHealth: false,
@@ -114,7 +115,21 @@ export default {
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
       uiFlags: 'inboxes/getUIFlags',
       portals: 'portals/allPortals',
+      agents: 'agents/getAgents',
+      currentUserRole: 'getCurrentRole',
     }),
+    isAdmin() {
+      return this.currentUserRole === 'administrator';
+    },
+    merchantOptions() {
+      return this.agents
+        .filter(agent => agent.role === 'merchant' && agent.account_user_id)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(agent => ({
+          value: agent.account_user_id,
+          label: agent.name,
+        }));
+    },
     selectedTabKey() {
       return this.tabs[this.selectedTabIndex]?.key;
     },
@@ -421,6 +436,7 @@ export default {
       this.selectedPortalSlug = this.inbox.help_center
         ? this.inbox.help_center.slug
         : '';
+      this.selectedMerchantId = this.inbox.merchant_owner_id || '';
 
       const savedBubbleSettings = LocalStorage.get(
         this.widgetBuilderStorageKey
@@ -545,6 +561,9 @@ export default {
             continuity_via_email: this.continuityViaEmail,
           },
         };
+        if (this.isAdmin) {
+          payload.merchant_owner_id = this.selectedMerchantId || null;
+        }
         if (this.avatarFile) {
           payload.avatar = this.avatarFile;
         }
@@ -716,6 +735,20 @@ export default {
                     : ''
                 "
                 @blur="v$.selectedInboxName.$touch"
+              />
+            </SettingsFieldSection>
+            <SettingsFieldSection
+              v-if="isAdmin"
+              :label="$t('INBOX_MGMT.MERCHANT_OWNER.LABEL')"
+              :help-text="$t('INBOX_MGMT.MERCHANT_OWNER.HELP_TEXT')"
+            >
+              <SelectInput
+                v-model="selectedMerchantId"
+                :options="[
+                  { value: '', label: $t('INBOX_MGMT.MERCHANT_OWNER.NONE') },
+                  ...merchantOptions,
+                ]"
+                :placeholder="$t('INBOX_MGMT.MERCHANT_OWNER.PLACEHOLDER')"
               />
             </SettingsFieldSection>
             <SettingsFieldSection

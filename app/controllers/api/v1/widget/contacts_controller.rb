@@ -22,6 +22,7 @@ class Api::V1::Widget::ContactsController < Api::V1::Widget::BaseController
     @contact_inbox.update(hmac_verified: true) if should_verify_hmac?
 
     identify_contact(contact)
+    ensure_stable_contact_session if permitted_params[:identifier].present?
   end
 
   # TODO : clean up this with proper routes delete contacts/custom_attributes
@@ -40,6 +41,19 @@ class Api::V1::Widget::ContactsController < Api::V1::Widget::BaseController
       discard_invalid_attrs: true
     )
     @contact = contact_identify_action.perform
+  end
+
+  def ensure_stable_contact_session
+    stable_contact_inbox, stable_widget_auth_token =
+      build_contact_inbox_token_for_source(
+        @web_widget,
+        @contact,
+        permitted_params[:identifier],
+        hmac_verified: should_verify_hmac?
+      )
+
+    @contact_inbox = stable_contact_inbox
+    @widget_auth_token = stable_widget_auth_token
   end
 
   def a_different_contact?

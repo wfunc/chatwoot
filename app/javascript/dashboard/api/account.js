@@ -16,6 +16,10 @@ class AccountAPI extends ApiClient {
     );
     return response.data.cache_keys;
   }
+
+  updateCurrent(data) {
+    return axios.patch(this.url, data);
+  }
 }
 
 export default new AccountAPI();

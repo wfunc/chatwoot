@@ -118,7 +118,7 @@ class User < ApplicationRecord
   before_validation :set_password_and_uid, on: :create
   after_destroy :remove_macros
 
-  scope :order_by_full_name, -> { order('lower(name) ASC') }
+  scope :order_by_full_name, -> { order('lower(users.name) ASC') }
 
   before_validation do
     self.email = email.try(:downcase)
@@ -133,7 +133,14 @@ class User < ApplicationRecord
   end
 
   def assigned_inboxes
-    administrator? ? Current.account.inboxes : inboxes.where(account_id: Current.account.id)
+    current_account_user = account_users.find { |account_user| account_user.account_id == Current.account.id } if Current.account
+    return Current.account.inboxes if current_account_user&.administrator?
+    return Current.account.inboxes.where(merchant_owner_id: current_account_user.id) if current_account_user&.merchant?
+
+    scoped_inboxes = inboxes.where(account_id: Current.account.id)
+    return scoped_inboxes if current_account_user&.parent_merchant_id.blank?
+
+    scoped_inboxes.where(merchant_owner_id: current_account_user.parent_merchant_id)
   end
 
   def serializable_hash(options = nil)

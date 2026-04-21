@@ -8,7 +8,7 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
   end
 
   def create
-    authorize @inbox, :create?
+    authorize @inbox, :manage_members?
     ActiveRecord::Base.transaction do
       @inbox.add_members(agents_to_be_added_ids)
     end
@@ -16,13 +16,13 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
   end
 
   def update
-    authorize @inbox, :update?
+    authorize @inbox, :manage_members?
     update_agents_list
     fetch_updated_agents
   end
 
   def destroy
-    authorize @inbox, :destroy?
+    authorize @inbox, :manage_members?
     ActiveRecord::Base.transaction do
       @inbox.remove_members(params[:user_ids])
     end
@@ -32,7 +32,7 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
   private
 
   def fetch_updated_agents
-    @agents = Current.account.users.where(id: @inbox.members.select(:user_id))
+    @agents = manageable_users.where(id: @inbox.members.select(:user_id))
   end
 
   def update_agents_list
@@ -60,5 +60,11 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
 
   def fetch_inbox
     @inbox = Current.account.inboxes.find(params[:inbox_id])
+  end
+
+  def manageable_users
+    return Current.account.users if Current.account_user.administrator?
+
+    Current.account.users.joins(:account_users).where(account_users: { parent_merchant_id: Current.account_user.id, role: :agent })
   end
 end

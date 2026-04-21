@@ -26,16 +26,19 @@
 #  updated_at                    :datetime         not null
 #  account_id                    :integer          not null
 #  channel_id                    :integer          not null
+#  merchant_owner_id             :bigint
 #  portal_id                     :bigint
 #
 # Indexes
 #
 #  index_inboxes_on_account_id                   (account_id)
 #  index_inboxes_on_channel_id_and_channel_type  (channel_id,channel_type)
+#  index_inboxes_on_merchant_owner_id            (merchant_owner_id)
 #  index_inboxes_on_portal_id                    (portal_id)
 #
 # Foreign Keys
 #
+#  fk_rails_...  (merchant_owner_id => account_users.id)
 #  fk_rails_...  (portal_id => portals.id)
 #
 
@@ -53,9 +56,11 @@ class Inbox < ApplicationRecord
   validates :out_of_office_message, length: { maximum: Limits::OUT_OF_OFFICE_MESSAGE_MAX_LENGTH }
   validates :greeting_message, length: { maximum: Limits::GREETING_MESSAGE_MAX_LENGTH }
   validate :ensure_valid_max_assignment_limit
+  validate :validate_merchant_owner
 
   belongs_to :account
   belongs_to :portal, optional: true
+  belongs_to :merchant_owner, class_name: 'AccountUser', optional: true, inverse_of: :merchant_owned_inboxes
 
   belongs_to :channel, polymorphic: true, dependent: :destroy
 
@@ -163,7 +168,18 @@ class Inbox < ApplicationRecord
   end
 
   def assignable_agents
-    (account.users.where(id: members.select(:user_id)) + account.administrators).uniq
+    merchant_account_users = if merchant_owner_id.present?
+                               account.account_users.where(parent_merchant_id: merchant_owner_id, role: :agent)
+                             else
+                               account.account_users.where(role: :agent)
+                             end
+
+    assignable_users = account.users.where(id: members.select(:user_id))
+    scoped_assignable_users = assignable_users.where(id: merchant_account_users.select(:user_id))
+
+    return scoped_assignable_users.uniq if merchant_owner_id.present?
+
+    (scoped_assignable_users + account.administrators).uniq
   end
 
   def active_bot?
@@ -243,6 +259,13 @@ class Inbox < ApplicationRecord
 
   def check_channel_type?
     ['Channel::Email', 'Channel::Api', 'Channel::WebWidget'].include?(channel_type)
+  end
+
+  def validate_merchant_owner
+    return if merchant_owner_id.blank?
+    return errors.add(:merchant_owner, 'must belong to the same account') if merchant_owner&.account_id != account_id
+
+    errors.add(:merchant_owner, 'must be a merchant') unless merchant_owner&.merchant?
   end
 end
 

@@ -35,6 +35,10 @@ module UserAttributeHelpers
     current_account_user&.administrator?
   end
 
+  def merchant?
+    current_account_user&.merchant?
+  end
+
   def agent?
     current_account_user&.agent?
   end

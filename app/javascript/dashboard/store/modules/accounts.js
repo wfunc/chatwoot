@@ -74,7 +74,7 @@ export const actions = {
     }
 
     try {
-      const response = await AccountAPI.update('', updateObj);
+      const response = await AccountAPI.updateCurrent(updateObj);
       commit(types.default.EDIT_ACCOUNT, response.data);
       commit(types.default.SET_ACCOUNT_UI_FLAG, { isUpdating: false });
     } catch (error) {

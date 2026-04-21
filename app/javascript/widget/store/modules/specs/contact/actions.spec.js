@@ -1,5 +1,6 @@
 import { API } from 'widget/helpers/axios';
 import { sendMessage } from 'widget/helpers/utils';
+import ActionCableConnector from 'widget/helpers/actionCable';
 import { actions } from '../../contacts';
 
 const commit = vi.fn();
@@ -9,6 +10,15 @@ vi.mock('widget/helpers/axios');
 vi.mock('widget/helpers/utils', () => ({
   sendMessage: vi.fn(),
 }));
+vi.mock('widget/helpers/actionCable', () => ({
+  default: {
+    refreshConnector: vi.fn(),
+  },
+}));
+
+beforeEach(() => {
+  vi.clearAllMocks();
+});
 
 describe('#actions', () => {
   describe('#setUser', () => {
@@ -19,12 +29,15 @@ describe('#actions', () => {
         avatar_url: '',
       };
       vi.spyOn(API, 'patch').mockResolvedValue({
-        data: { widget_auth_token: 'token' },
+        data: { widget_auth_token: 'token', pubsub_token: 'pubsub-token' },
       });
       await actions.setUser({ commit, dispatch }, { identifier: 1, user });
       expect(sendMessage.mock.calls).toEqual([
         [{ data: { widgetAuthToken: 'token' }, event: 'setAuthCookie' }],
       ]);
+      expect(ActionCableConnector.refreshConnector).toHaveBeenCalledWith(
+        'pubsub-token'
+      );
       expect(commit.mock.calls).toEqual([]);
       expect(dispatch.mock.calls).toEqual([
         ['get'],
@@ -44,6 +57,7 @@ describe('#actions', () => {
       vi.spyOn(API, 'patch').mockResolvedValue({ data: { id: 1 } });
       await actions.setUser({ commit, dispatch }, { identifier: 1, user });
       expect(sendMessage.mock.calls).toEqual([]);
+      expect(ActionCableConnector.refreshConnector).not.toHaveBeenCalled();
       expect(commit.mock.calls).toEqual([]);
       expect(dispatch.mock.calls).toEqual([
         ['get'],
@@ -62,6 +76,7 @@ describe('#actions', () => {
       API.patch.mockResolvedValue({ data: { id: 1 } });
       await actions.setUser({ commit, dispatch }, { identifier: 1, user });
       expect(sendMessage.mock.calls).toEqual([]);
+      expect(ActionCableConnector.refreshConnector).not.toHaveBeenCalled();
       expect(commit.mock.calls).toEqual([]);
       expect(dispatch.mock.calls).toEqual([['get']]);
     });

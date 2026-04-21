@@ -158,6 +158,10 @@ class Account < ApplicationRecord
     users.where(account_users: { role: :administrator })
   end
 
+  def merchants
+    users.where(account_users: { role: :merchant })
+  end
+
   def all_conversation_tags
     # returns array of tags
     conversation_ids = conversations.pluck(:id)

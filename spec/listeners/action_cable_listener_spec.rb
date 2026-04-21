@@ -3,11 +3,14 @@ describe ActionCableListener do
   let(:listener) { described_class.instance }
   let!(:account) { create(:account) }
   let!(:admin) { create(:user, account: account, role: :administrator) }
+  let!(:merchant) { create(:user) }
   let!(:inbox) { create(:inbox, account: account) }
   let!(:agent) { create(:user, account: account, role: :agent) }
   let!(:conversation) { create(:conversation, account: account, inbox: inbox, assignee: agent) }
+  let!(:merchant_account_user) { create(:account_user, user: merchant, account: account, role: :merchant, agent_limit: 10) }
 
   before do
+    inbox.update!(merchant_owner: merchant_account_user)
     create(:inbox_member, inbox: inbox, user: agent)
     Current.user = nil
     Current.account = nil
@@ -27,7 +30,7 @@ describe ActionCableListener do
 
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
         a_collection_containing_exactly(
-          agent.pubsub_token, admin.pubsub_token, conversation.contact_inbox.pubsub_token
+          agent.pubsub_token, admin.pubsub_token, merchant.pubsub_token, conversation.contact_inbox.pubsub_token
         ),
         'message.created',
         message.push_event_data.merge(account_id: account.id)
@@ -45,7 +48,7 @@ describe ActionCableListener do
 
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
         a_collection_containing_exactly(
-          agent.pubsub_token, admin.pubsub_token, conversation.contact_inbox.pubsub_token, verified_contact_inbox.pubsub_token
+          agent.pubsub_token, admin.pubsub_token, merchant.pubsub_token, conversation.contact_inbox.pubsub_token, verified_contact_inbox.pubsub_token
         ),
         'message.created',
         message.push_event_data.merge(account_id: account.id)
@@ -63,7 +66,7 @@ describe ActionCableListener do
       expect(conversation.inbox.reload.inbox_members.count).to eq(1)
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
         a_collection_containing_exactly(
-          admin.pubsub_token, conversation.contact_inbox.pubsub_token
+          admin.pubsub_token, merchant.pubsub_token, conversation.contact_inbox.pubsub_token
         ),
         'conversation.typing_on', { conversation: conversation.push_event_data,
                                     user: agent.push_event_data,
@@ -83,7 +86,7 @@ describe ActionCableListener do
       expect(conversation.inbox.reload.inbox_members.count).to eq(1)
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
         a_collection_containing_exactly(
-          admin.pubsub_token, agent.pubsub_token
+          admin.pubsub_token, agent.pubsub_token, merchant.pubsub_token
         ),
         'conversation.typing_on', { conversation: conversation.push_event_data,
                                     user: conversation.contact.push_event_data,
@@ -103,7 +106,7 @@ describe ActionCableListener do
       expect(conversation.inbox.reload.inbox_members.count).to eq(1)
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
         a_collection_containing_exactly(
-          admin.pubsub_token, agent.pubsub_token, conversation.contact_inbox.pubsub_token
+          admin.pubsub_token, agent.pubsub_token, merchant.pubsub_token, conversation.contact_inbox.pubsub_token
         ),
         'conversation.typing_on', { conversation: conversation.push_event_data,
                                     user: agent_bot.push_event_data,
@@ -123,7 +126,7 @@ describe ActionCableListener do
       expect(conversation.inbox.reload.inbox_members.count).to eq(1)
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
         a_collection_containing_exactly(
-          admin.pubsub_token, conversation.contact_inbox.pubsub_token
+          admin.pubsub_token, merchant.pubsub_token, conversation.contact_inbox.pubsub_token
         ),
         'conversation.typing_off', { conversation: conversation.push_event_data,
                                      user: agent.push_event_data,
@@ -213,7 +216,7 @@ describe ActionCableListener do
       expect(conversation.inbox.reload.inbox_members.count).to eq(1)
 
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
-        [agent.pubsub_token, admin.pubsub_token, conversation.contact_inbox.pubsub_token],
+        [agent.pubsub_token, admin.pubsub_token, merchant.pubsub_token, conversation.contact_inbox.pubsub_token],
         'conversation.updated',
         conversation.push_event_data.merge(account_id: account.id)
       )
@@ -224,7 +227,7 @@ describe ActionCableListener do
       expect(conversation.reload.push_event_data[:labels]).to eq(conversation.labels.pluck(:name))
 
       expect(ActionCableBroadcastJob).to receive(:perform_later).with(
-        [agent.pubsub_token, admin.pubsub_token, conversation.contact_inbox.pubsub_token],
+        [agent.pubsub_token, admin.pubsub_token, merchant.pubsub_token, conversation.contact_inbox.pubsub_token],
         'conversation.updated',
         conversation.push_event_data.merge(account_id: account.id)
       )

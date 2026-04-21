@@ -24,6 +24,7 @@ const {
   WIDGET_BRAND_URL: widgetBrandURL,
   DISABLE_USER_PROFILE_UPDATE: disableUserProfileUpdate,
   DEPLOYMENT_ENV: deploymentEnv,
+  ENABLE_EMAIL_CONFIRMATION: enableEmailConfirmation,
 } = window.globalConfig || {};
 
 const state = {
@@ -37,6 +38,7 @@ const state = {
   createNewAccountFromDashboard,
   directUploadsEnabled: parseBoolean(directUploadsEnabled),
   disableUserProfileUpdate: parseBoolean(disableUserProfileUpdate),
+  enableEmailConfirmation: parseBoolean(enableEmailConfirmation),
   displayManifest,
   gitSha,
   maximumFileUploadSize: resolveMaximumFileUploadSize(maximumFileUploadSize),

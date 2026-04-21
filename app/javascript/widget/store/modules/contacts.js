@@ -2,6 +2,7 @@ import { sendMessage } from 'widget/helpers/utils';
 import ContactsAPI from '../../api/contacts';
 import { SET_USER_ERROR } from '../../constants/errorTypes';
 import { setHeader } from '../../helpers/axios';
+import ActionCableConnector from '../../helpers/actionCable';
 const state = {
   currentUser: {},
 };
@@ -9,13 +10,17 @@ const state = {
 const SET_CURRENT_USER = 'SET_CURRENT_USER';
 const parseErrorData = error =>
   error && error.response && error.response.data ? error.response.data : error;
-export const updateWidgetAuthToken = widgetAuthToken => {
+export const updateWidgetAuthToken = (widgetAuthToken, pubsubToken) => {
   if (widgetAuthToken) {
     setHeader(widgetAuthToken);
     sendMessage({
       event: 'setAuthCookie',
       data: { widgetAuthToken },
     });
+  }
+
+  if (pubsubToken) {
+    ActionCableConnector.refreshConnector(pubsubToken);
   }
 };
 
@@ -73,9 +78,9 @@ export const actions = {
         custom_attributes,
       };
       const {
-        data: { widget_auth_token: widgetAuthToken },
+        data: { widget_auth_token: widgetAuthToken, pubsub_token: pubsubToken },
       } = await ContactsAPI.setUser(identifier, user);
-      updateWidgetAuthToken(widgetAuthToken);
+      updateWidgetAuthToken(widgetAuthToken, pubsubToken);
       dispatch('get');
       if (identifierHash || widgetAuthToken) {
         dispatch('conversation/clearConversations', {}, { root: true });

@@ -22,7 +22,7 @@ import { useRouter } from 'vue-router';
 import { useAvailability } from 'widget/composables/useAvailability';
 import { SDK_SET_BUBBLE_VISIBILITY } from '../shared/constants/sharedFrameEvents';
 import { emitter } from 'shared/helpers/mitt';
-import { getReturnUrl } from './helpers/urlParamsHelper';
+import { getReturnUrl, isStandaloneMode } from './helpers/urlParamsHelper';
 
 export default {
   name: 'App',
@@ -67,6 +67,9 @@ export default {
       return this.$root.$i18n.locale
         ? getLanguageDirection(this.$root.$i18n.locale)
         : false;
+    },
+    isStandaloneWidget() {
+      return this.isIFrame && isStandaloneMode(window.location.search);
     },
   },
   watch: {
@@ -204,7 +207,10 @@ export default {
     registerUnreadEvents() {
       emitter.on(ON_AGENT_MESSAGE_RECEIVED, () => {
         const { name: routeName } = this.$route;
-        if ((this.isWidgetOpen || !this.isIFrame) && routeName === 'messages') {
+        if (
+          (this.isWidgetOpen || !this.isIFrame || this.isStandaloneWidget) &&
+          routeName === 'messages'
+        ) {
           this.$store.dispatch('conversation/setUserLastSeen');
         }
         this.setUnreadView();
@@ -255,6 +261,13 @@ export default {
     },
     setUnreadView() {
       const { unreadMessageCount } = this;
+      if (this.isStandaloneWidget && unreadMessageCount > 0) {
+        this.router.replace({ name: 'messages' }).then(() => {
+          this.$store.dispatch('conversation/setUserLastSeen');
+        });
+        return;
+      }
+
       if (!this.showUnreadMessagesDialog) {
         this.handleUnreadNotificationDot();
       } else if (
@@ -270,7 +283,7 @@ export default {
       }
     },
     unsetUnreadView() {
-      if (this.isIFrame) {
+      if (this.isIFrame && !this.isStandaloneWidget) {
         IFrameHelper.sendMessage({ event: 'resetUnreadMode' });
         this.setIframeHeight(false);
         this.handleUnreadNotificationDot();
@@ -278,7 +291,7 @@ export default {
     },
     handleUnreadNotificationDot() {
       const { unreadMessageCount } = this;
-      if (this.isIFrame) {
+      if (this.isIFrame && !this.isStandaloneWidget) {
         IFrameHelper.sendMessage({
           event: 'handleNotificationDot',
           unreadMessageCount,

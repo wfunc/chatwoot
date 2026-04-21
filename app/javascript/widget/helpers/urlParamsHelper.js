@@ -46,6 +46,18 @@ export const getReturnUrl = (search = '') => {
   }
 };
 
+export const isStandaloneMode = (search = '') => {
+  const params = new URLSearchParams(search);
+  const standaloneValue =
+    params.get('standalone') || params.get('standaloneMode');
+
+  if (!standaloneValue) {
+    return false;
+  }
+
+  return !['false', '0'].includes(standaloneValue.toLowerCase());
+};
+
 export const getContactDetails = (search = '') => {
   const params = new URLSearchParams(search);
   const name = params.get('name') || params.get('fullName');

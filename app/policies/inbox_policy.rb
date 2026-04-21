@@ -35,38 +35,48 @@ class InboxPolicy < ApplicationPolicy
   end
 
   def campaigns?
-    @account_user.administrator?
+    administrator? || merchant_owner?
   end
 
   def create?
-    @account_user.administrator?
+    administrator?
   end
 
   def update?
-    @account_user.administrator?
+    administrator? || merchant_owner?
   end
 
   def destroy?
-    @account_user.administrator?
+    administrator?
   end
 
   def set_agent_bot?
-    @account_user.administrator?
+    administrator? || merchant_owner?
   end
 
   def avatar?
-    @account_user.administrator?
+    administrator? || merchant_owner?
   end
 
   def sync_templates?
-    @account_user.administrator?
+    administrator? || merchant_owner?
   end
 
   def health?
-    @account_user.administrator?
+    administrator? || merchant_owner?
   end
 
   def reset_secret?
-    @account_user.administrator?
+    administrator? || merchant_owner?
+  end
+
+  def manage_members?
+    administrator? || merchant_owner?
+  end
+
+  private
+
+  def merchant_owner?
+    merchant? && record.merchant_owner_id == account_user.id
   end
 end

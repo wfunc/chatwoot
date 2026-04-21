@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_04_09_091202) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_13_101000) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -52,10 +52,15 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_09_091202) do
     t.boolean "auto_offline", default: true, null: false
     t.bigint "custom_role_id"
     t.bigint "agent_capacity_policy_id"
+    t.integer "merchant_status", default: 0, null: false
+    t.datetime "merchant_expires_at"
+    t.integer "agent_limit"
+    t.bigint "parent_merchant_id"
     t.index ["account_id", "user_id"], name: "uniq_user_id_per_account_id", unique: true
     t.index ["account_id"], name: "index_account_users_on_account_id"
     t.index ["agent_capacity_policy_id"], name: "index_account_users_on_agent_capacity_policy_id"
     t.index ["custom_role_id"], name: "index_account_users_on_custom_role_id"
+    t.index ["parent_merchant_id"], name: "index_account_users_on_parent_merchant_id"
     t.index ["user_id"], name: "index_account_users_on_user_id"
   end
 
@@ -879,8 +884,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_09_091202) do
     t.integer "sender_name_type", default: 0, null: false
     t.string "business_name"
     t.jsonb "csat_config", default: {}, null: false
+    t.bigint "merchant_owner_id"
     t.index ["account_id"], name: "index_inboxes_on_account_id"
     t.index ["channel_id", "channel_type"], name: "index_inboxes_on_channel_id_and_channel_type"
+    t.index ["merchant_owner_id"], name: "index_inboxes_on_merchant_owner_id"
     t.index ["portal_id"], name: "index_inboxes_on_portal_id"
   end
 
@@ -1288,8 +1295,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_04_09_091202) do
     t.index ["inbox_id"], name: "index_working_hours_on_inbox_id"
   end
 
+  add_foreign_key "account_users", "account_users", column: "parent_merchant_id"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "inboxes", "account_users", column: "merchant_owner_id"
   add_foreign_key "inboxes", "portals"
   create_trigger("accounts_after_insert_row_tr", :generated => true, :compatibility => 1).
       on("accounts").

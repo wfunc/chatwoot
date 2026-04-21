@@ -24,7 +24,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   def search
     render json: { error: 'Specify search string with parameter q' }, status: :unprocessable_entity if params[:q].blank? && return
 
-    contacts = Current.account.contacts.where(
+    contacts = contacts_scope.where(
       'name ILIKE :search OR email ILIKE :search OR phone_number ILIKE :search OR contacts.identifier LIKE :search',
       search: "%#{params[:q].strip}%"
     )
@@ -51,7 +51,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   # returns online contacts
   def active
-    contacts = Current.account.contacts.where(id: ::OnlineStatusTracker
+    contacts = contacts_scope.where(id: ::OnlineStatusTracker
                   .get_available_contact_ids(Current.account.id))
     @contacts = fetch_contacts(contacts)
     @contacts_count = @contacts.total_count
@@ -83,7 +83,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def create
-    ActiveRecord::Base.transaction do
+      ActiveRecord::Base.transaction do
       @contact = Current.account.contacts.new(permitted_params.except(:avatar_url))
       @contact.save!
       @contact_inbox = build_contact_inbox
@@ -121,6 +121,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     return @resolved_contacts if @resolved_contacts
 
     @resolved_contacts = Current.account.contacts.resolved_contacts(use_crm_v2: Current.account.feature_enabled?('crm_v2'))
+    @resolved_contacts = @resolved_contacts.merge(contacts_scope)
 
     @resolved_contacts = @resolved_contacts.tagged_with(params[:labels], any: true) if params[:labels].present?
     @resolved_contacts
@@ -163,6 +164,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     return if params[:inbox_id].blank?
 
     inbox = Current.account.inboxes.find(params[:inbox_id])
+    authorize inbox, :show?
     ContactInboxBuilder.new(
       contact: @contact,
       inbox: inbox,
@@ -201,9 +203,18 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def fetch_contact
-    contact_scope = Current.account.contacts
+    contact_scope = contacts_scope
     contact_scope = contact_scope.includes(contact_inboxes: [:inbox]) if @include_contact_inboxes
     @contact = contact_scope.find(params[:id])
+  end
+
+  def contacts_scope
+    return Current.account.contacts if Current.account_user.administrator?
+
+    Current.account.contacts
+           .joins(:contact_inboxes)
+           .where(contact_inboxes: { inbox_id: Current.user.assigned_inboxes.select(:id) })
+           .distinct
   end
 
   def process_avatar_from_url

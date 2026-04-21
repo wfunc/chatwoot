@@ -17,8 +17,9 @@ export const routeIsAccessibleFor = (route, userPermissions = []) => {
   return hasPermissions(routePermissions, userPermissions);
 };
 
-export const defaultRedirectPage = (to, permissions) => {
+export const defaultRedirectPage = (to, user) => {
   const { accountId } = to.params;
+  const permissions = getUserPermissions(user, accountId);
 
   const permissionRoutes = [
     {
@@ -50,7 +51,7 @@ const validateActiveAccountRoutes = (to, user) => {
 
   const isAccessible = routeIsAccessibleFor(to, userPermissions);
   // If the route is not accessible for the user, return to dashboard screen
-  return isAccessible ? null : defaultRedirectPage(to, userPermissions);
+  return isAccessible ? null : defaultRedirectPage(to, user);
 };
 
 export const validateLoggedInRoutes = (to, user) => {

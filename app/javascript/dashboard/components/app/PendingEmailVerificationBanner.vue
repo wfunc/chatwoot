@@ -8,6 +8,7 @@ export default {
   computed: {
     ...mapGetters({
       currentUser: 'getCurrentUser',
+      globalConfig: 'globalConfig/get',
     }),
     bannerMessage() {
       return this.$t('APP_GLOBAL.EMAIL_VERIFICATION_PENDING');
@@ -16,7 +17,9 @@ export default {
       return this.$t('APP_GLOBAL.RESEND_VERIFICATION_MAIL');
     },
     shouldShowBanner() {
-      return !this.currentUser.confirmed;
+      return (
+        this.globalConfig.enableEmailConfirmation && !this.currentUser.confirmed
+      );
     },
   },
   methods: {

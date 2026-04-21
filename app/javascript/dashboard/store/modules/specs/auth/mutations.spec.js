@@ -46,15 +46,34 @@ describe('#mutations', () => {
     const state = {
       currentUser: {
         id: 1,
-        accounts: [{ id: 1, availability_status: 'offline' }],
+        accounts: [
+          { id: 1, availability: 'offline', availability_status: 'offline' },
+        ],
         account_id: 1,
       },
     };
     it('set availability status for current user', () => {
       mutations[types.SET_CURRENT_USER_AVAILABILITY](state, 'online');
+      expect(state.currentUser.accounts[0].availability).toEqual('online');
       expect(state.currentUser.accounts[0].availability_status).toEqual(
         'online'
       );
+    });
+  });
+  describe('#SET_CURRENT_USER_AVAILABILITY_STATUS', () => {
+    it('updates only derived presence status for current user', () => {
+      const state = {
+        currentUser: {
+          id: 1,
+          accounts: [
+            { id: 1, availability: 'online', availability_status: 'offline' },
+          ],
+          account_id: 1,
+        },
+      };
+      mutations[types.SET_CURRENT_USER_AVAILABILITY_STATUS](state, 'busy');
+      expect(state.currentUser.accounts[0].availability).toEqual('online');
+      expect(state.currentUser.accounts[0].availability_status).toEqual('busy');
     });
   });
 });

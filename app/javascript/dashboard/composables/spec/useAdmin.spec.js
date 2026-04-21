@@ -49,4 +49,13 @@ describe('useAdmin', () => {
     const { isAdmin } = useAdmin();
     expect(isAdmin.value).toBe(false);
   });
+
+  it('returns true if the current user is a merchant', () => {
+    useStoreGetters.mockReturnValue({
+      getCurrentRole: ref('merchant'),
+    });
+
+    const { isMerchant } = useAdmin();
+    expect(isMerchant.value).toBe(true);
+  });
 });

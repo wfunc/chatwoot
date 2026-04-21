@@ -139,6 +139,22 @@ class ActionCableConnector extends BaseActionCableConnector {
       this.onTypingOff();
     }, 30000);
   };
+
+  static refreshConnector(pubsubToken) {
+    if (!window.WOOT_WIDGET || !pubsubToken) {
+      return;
+    }
+
+    if (window.actionCable) {
+      window.actionCable.disconnect();
+    }
+
+    window.chatwootPubsubToken = pubsubToken;
+    window.actionCable = new ActionCableConnector(
+      window.WOOT_WIDGET,
+      pubsubToken
+    );
+  }
 }
 
 export default ActionCableConnector;

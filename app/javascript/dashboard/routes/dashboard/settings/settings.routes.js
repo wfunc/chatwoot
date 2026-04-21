@@ -35,11 +35,21 @@ export default {
       meta: {
         permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
       },
-      redirect: to => {
-        if (
-          store.getters.getCurrentRole === 'administrator' &&
-          store.getters.getCurrentCustomRoleId === null
-        ) {
+      beforeEnter: async to => {
+        await store.dispatch('validityCheck');
+        const currentAccount =
+          store.getters.getCurrentUser.accounts.find(
+            accountItem =>
+              Number(accountItem.id) === Number(to.params.accountId)
+          ) || {};
+        const currentRole = currentAccount.role;
+        const currentCustomRoleId = currentAccount.custom_role_id;
+
+        if (currentRole === 'administrator' && currentCustomRoleId === null) {
+          return { name: 'general_settings_index', params: to.params };
+        }
+
+        if (currentRole === 'merchant') {
           return { name: 'general_settings_index', params: to.params };
         }
 

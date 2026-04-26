@@ -5,6 +5,8 @@ import { popoutChatWindow } from '../helpers/popoutHelper';
 import FluentIcon from 'shared/components/FluentIcon/Index.vue';
 import configMixin from 'widget/mixins/configMixin';
 import { CONVERSATION_STATUS } from 'shared/constants/messages';
+import { isStandaloneMode } from 'widget/helpers/urlParamsHelper';
+import { CHATWOOT_ON_START_CONVERSATION } from '../constants/sdkEvents';
 
 export default {
   name: 'HeaderActions',
@@ -38,14 +40,40 @@ export default {
     isRNWebView() {
       return RNHelper.isRNWebView();
     },
+    isStandaloneWidget() {
+      return isStandaloneMode(window.location.search);
+    },
     showHeaderActions() {
-      return this.isIframe || this.isRNWebView || this.hasWidgetOptions;
+      return (
+        this.isIframe ||
+        this.isRNWebView ||
+        this.isStandaloneWidget ||
+        this.hasWidgetOptions
+      );
     },
     conversationStatus() {
       return this.conversationAttributes.status;
     },
     hasWidgetOptions() {
       return this.showPopoutButton || this.conversationStatus === 'open';
+    },
+    allowMessagesAfterResolved() {
+      return window.chatwootWebChannel.allowMessagesAfterResolved;
+    },
+    shouldShowEndConversationButton() {
+      return (
+        this.canLeaveConversation &&
+        this.canUserEndConversation &&
+        this.hasEndConversationEnabled &&
+        (this.showEndConversationButton || this.isStandaloneWidget)
+      );
+    },
+    shouldShowStandaloneStartConversationButton() {
+      return (
+        this.isStandaloneWidget &&
+        this.conversationStatus === CONVERSATION_STATUS.RESOLVED &&
+        !this.allowMessagesAfterResolved
+      );
     },
   },
   methods: {
@@ -73,6 +101,14 @@ export default {
     resolveConversation() {
       this.$store.dispatch('conversation/resolveConversation');
     },
+    startNewConversation() {
+      this.$router.replace({ name: 'prechat-form' });
+      IFrameHelper.sendMessage({
+        event: 'onEvent',
+        eventIdentifier: CHATWOOT_ON_START_CONVERSATION,
+        data: { hasConversation: true },
+      });
+    },
   },
 };
 </script>
@@ -81,17 +117,27 @@ export default {
 <template>
   <div v-if="showHeaderActions" class="actions flex items-center gap-3">
     <button
-      v-if="
-        canLeaveConversation &&
-        canUserEndConversation &&
-        hasEndConversationEnabled &&
-        showEndConversationButton
-      "
+      v-if="shouldShowEndConversationButton"
       class="button transparent compact"
+      :class="{
+        'rounded-md px-3 py-1 text-sm font-medium leading-5':
+          isStandaloneWidget,
+      }"
       :title="$t('END_CONVERSATION')"
       @click="resolveConversation"
     >
-      <FluentIcon icon="sign-out" size="22" class="text-n-slate-12" />
+      <template v-if="isStandaloneWidget">
+        <span class="text-n-slate-12">{{ $t('END_CONVERSATION') }}</span>
+      </template>
+      <FluentIcon v-else icon="sign-out" size="22" class="text-n-slate-12" />
+    </button>
+    <button
+      v-else-if="shouldShowStandaloneStartConversationButton"
+      class="button transparent compact rounded-md px-3 py-1 text-sm font-medium leading-5"
+      :title="$t('START_NEW_CONVERSATION')"
+      @click="startNewConversation"
+    >
+      <span class="text-n-slate-12">{{ $t('START_NEW_CONVERSATION') }}</span>
     </button>
     <button
       v-if="showPopoutButton"

@@ -11,6 +11,10 @@ class OnlineStatusTracker
     ::Redis::Alfred.zadd(presence_key(account_id, obj_type), Time.now.to_i, obj_id)
   end
 
+  def self.remove_presence(account_id, obj_type, obj_id)
+    ::Redis::Alfred.zrem(presence_key(account_id, obj_type), obj_id)
+  end
+
   def self.get_presence(account_id, obj_type, obj_id)
     connected_time = ::Redis::Alfred.zscore(presence_key(account_id, obj_type), obj_id)
     duration = obj_type == 'Contact' ? CONTACT_PRESENCE_DURATION : PRESENCE_DURATION

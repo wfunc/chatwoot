@@ -96,6 +96,7 @@ export default {
   },
   mounted() {
     const { websiteToken, locale, widgetColor } = window.chatwootWebChannel;
+    const initialLocale = getLocale(window.location.search) || locale;
     const persistedSession = getPersistedWidgetSession(
       getWebsiteToken(window.location.search) || websiteToken
     );
@@ -104,7 +105,7 @@ export default {
     const pubsubToken =
       window.chatwootPubsubToken || persistedSession.pubsubToken;
 
-    this.setLocale(locale);
+    this.setLocale(initialLocale);
     this.setWidgetColor(widgetColor);
     this.setWidgetColorVariable(widgetColor);
     if (widgetAuthToken) {
@@ -131,7 +132,7 @@ export default {
         this.fetchOldConversations();
       }
       this.fetchAvailableAgents(websiteToken);
-      this.setLocale(getLocale(window.location.search));
+      this.setLocale(initialLocale);
     }
     if (this.isRNWebView) {
       this.registerListeners();

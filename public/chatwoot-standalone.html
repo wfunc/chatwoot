@@ -269,13 +269,20 @@
     }
 
     function readStoredConversationToken(storageKey) {
-      return readFromStorage(window.localStorage, storageKey) ||
-        readFromStorage(window.sessionStorage, storageKey);
+      return (
+        readValidStoredConversationToken(window.localStorage, storageKey) ||
+        readValidStoredConversationToken(window.sessionStorage, storageKey)
+      );
     }
 
     function storeConversationToken(storageKey, token) {
-      writeToStorage(window.localStorage, storageKey, token);
-      writeToStorage(window.sessionStorage, storageKey, token);
+      var normalizedToken = normalizeConversationToken(token);
+      if (!normalizedToken) {
+        return;
+      }
+
+      writeToStorage(window.localStorage, storageKey, normalizedToken);
+      writeToStorage(window.sessionStorage, storageKey, normalizedToken);
     }
 
     function readFromStorage(storage, key) {
@@ -296,6 +303,44 @@
       }
     }
 
+    function removeFromStorage(storage, key) {
+      try {
+        if (storage) {
+          storage.removeItem(key);
+        }
+      } catch (error) {
+        // Ignore storage errors for private browsing and restrictive environments.
+      }
+    }
+
+    function readValidStoredConversationToken(storage, key) {
+      var token = normalizeConversationToken(readFromStorage(storage, key));
+
+      if (!token) {
+        removeFromStorage(storage, key);
+      }
+
+      return token;
+    }
+
+    function normalizeConversationToken(token) {
+      if (typeof token !== 'string') {
+        return '';
+      }
+
+      var normalized = token.trim();
+
+      if (!normalized || normalized === '[object Object]') {
+        return '';
+      }
+
+      if (!/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(normalized)) {
+        return '';
+      }
+
+      return normalized;
+    }
+
     function registerConversationPersistence(frame, targetOrigin, storageKey) {
       window.addEventListener('message', function onMessage(event) {
         if (event.origin !== targetOrigin) {
@@ -313,8 +358,8 @@
           event.data.replace('chatwoot-widget:', '')
         );
         var conversationToken =
-          readFromObject(message, ['config', 'authToken']) ||
-          readFromObject(message, ['data', 'widgetAuthToken']);
+          readNestedValue(message, ['config', 'authToken']) ||
+          readNestedValue(message, ['data', 'widgetAuthToken']);
 
         if (conversationToken) {
           storeConversationToken(storageKey, conversationToken);
@@ -536,11 +581,25 @@
       return '';
     }
 
+    function readNestedValue(object, keys) {
+      var current = object;
+
+      for (var i = 0; i < keys.length; i += 1) {
+        if (!current || typeof current !== 'object') {
+          return '';
+        }
+
+        current = current[keys[i]];
+      }
+
+      return current || '';
+    }
+
     function readFromObject(object, keys) {
       for (var i = 0; i < keys.length; i += 1) {
-        var key = keys[i];
-        if (object[key]) {
-          return object[key];
+        var value = readNestedValue(object, [keys[i]]);
+        if (value) {
+          return value;
         }
       }
       return '';

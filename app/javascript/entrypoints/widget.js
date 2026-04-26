@@ -52,3 +52,7 @@ window.onload = () => {
     window.chatwootPubsubToken
   );
 };
+
+window.addEventListener('pagehide', () => {
+  window.actionCable?.disconnect();
+});

@@ -14,14 +14,23 @@ class RoomChannel < ApplicationCable::Channel
     broadcast_presence
   end
 
+  def unsubscribed
+    return if @current_account.blank? || @current_user.blank?
+
+    remove_subscription
+    broadcast_account_presence
+  end
+
   private
 
   def broadcast_presence
     return if @current_account.blank?
 
-    data = { account_id: @current_account.id, users: ::OnlineStatusTracker.get_available_users(@current_account.id) }
-    data[:contacts] = ::OnlineStatusTracker.get_available_contacts(@current_account.id) if @current_user.is_a? User
-    ActionCable.server.broadcast(pubsub_token, { event: 'presence.update', data: data })
+    ActionCable.server.broadcast(pubsub_token, { event: 'presence.update', data: presence_payload })
+  end
+
+  def broadcast_account_presence
+    ActionCable.server.broadcast("account_#{@current_account.id}", { event: 'presence.update', data: presence_payload })
   end
 
   def ensure_stream
@@ -33,6 +42,16 @@ class RoomChannel < ApplicationCable::Channel
     return if @current_account.blank?
 
     ::OnlineStatusTracker.update_presence(@current_account.id, @current_user.class.name, @current_user.id)
+  end
+
+  def remove_subscription
+    ::OnlineStatusTracker.remove_presence(@current_account.id, @current_user.class.name, @current_user.id)
+  end
+
+  def presence_payload
+    data = { account_id: @current_account.id, users: ::OnlineStatusTracker.get_available_users(@current_account.id) }
+    data[:contacts] = ::OnlineStatusTracker.get_available_contacts(@current_account.id)
+    data
   end
 
   def pubsub_token

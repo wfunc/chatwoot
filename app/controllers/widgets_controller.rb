@@ -64,6 +64,7 @@ class WidgetsController < ActionController::Base
   end
 
   def ensure_greeting_conversation
+    return if params[:standalone] == 'true'
     return unless @web_widget.inbox.greeting_enabled?
     return if @web_widget.inbox.greeting_message.blank?
     return if @contact_inbox.conversations.where(inbox_id: @web_widget.inbox.id).exists?

@@ -22,7 +22,15 @@ import { useRouter } from 'vue-router';
 import { useAvailability } from 'widget/composables/useAvailability';
 import { SDK_SET_BUBBLE_VISIBILITY } from '../shared/constants/sharedFrameEvents';
 import { emitter } from 'shared/helpers/mitt';
-import { getReturnUrl, isStandaloneMode } from './helpers/urlParamsHelper';
+import ActionCableConnector from './helpers/actionCable';
+import {
+  getPersistedWidgetSession,
+  getReturnUrl,
+  getWebsiteToken,
+  isStandaloneMode,
+  persistWidgetSession,
+  syncConversationTokenToUrl,
+} from './helpers/urlParamsHelper';
 
 export default {
   name: 'App',
@@ -71,6 +79,9 @@ export default {
     isStandaloneWidget() {
       return this.isIFrame && isStandaloneMode(window.location.search);
     },
+    shouldHideConversationHistory() {
+      return isStandaloneMode(window.location.search);
+    },
   },
   watch: {
     activeCampaign() {
@@ -85,16 +96,40 @@ export default {
   },
   mounted() {
     const { websiteToken, locale, widgetColor } = window.chatwootWebChannel;
+    const persistedSession = getPersistedWidgetSession(
+      getWebsiteToken(window.location.search) || websiteToken
+    );
+    const widgetAuthToken =
+      window.authToken || persistedSession.widgetAuthToken;
+    const pubsubToken =
+      window.chatwootPubsubToken || persistedSession.pubsubToken;
+
     this.setLocale(locale);
     this.setWidgetColor(widgetColor);
     this.setWidgetColorVariable(widgetColor);
-    setHeader(window.authToken);
+    if (widgetAuthToken) {
+      window.authToken = widgetAuthToken;
+      setHeader(widgetAuthToken);
+      syncConversationTokenToUrl(widgetAuthToken);
+      persistWidgetSession({
+        websiteToken,
+        widgetAuthToken,
+        pubsubToken,
+      });
+    }
+
+    if (pubsubToken && pubsubToken !== window.chatwootPubsubToken) {
+      ActionCableConnector.refreshConnector(pubsubToken);
+    }
+
     this.setContactFromUrlParams();
     if (this.isIFrame) {
       this.registerListeners();
       this.sendLoadedEvent();
     } else {
-      this.fetchOldConversations();
+      if (!this.shouldHideConversationHistory) {
+        this.fetchOldConversations();
+      }
       this.fetchAvailableAgents(websiteToken);
       this.setLocale(getLocale(window.location.search));
     }
@@ -319,7 +354,9 @@ export default {
         if (message.event === 'config-set') {
           this.setLocale(message.locale);
           this.setBubbleLabel();
-          this.fetchOldConversations().then(() => this.setUnreadView());
+          if (!this.shouldHideConversationHistory) {
+            this.fetchOldConversations().then(() => this.setUnreadView());
+          }
           this.fetchAvailableAgents(websiteToken);
           this.setAppConfig(message);
           this.$store.dispatch('contacts/get');

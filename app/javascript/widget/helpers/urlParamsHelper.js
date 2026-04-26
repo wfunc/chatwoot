@@ -11,6 +11,79 @@ export const getLocale = (search = '') => {
   return new URLSearchParams(search).get('locale');
 };
 
+const buildSessionStorageKey = websiteToken =>
+  `chatwoot:widget:session:${websiteToken}`;
+
+const safeReadStorage = key => {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return '';
+  }
+};
+
+const safeWriteStorage = (key, value) => {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Ignore storage errors in restrictive environments.
+  }
+};
+
+export const getWebsiteToken = (search = '') => {
+  return new URLSearchParams(search).get('website_token');
+};
+
+export const getConversationToken = (search = '') => {
+  return new URLSearchParams(search).get('cw_conversation');
+};
+
+export const persistWidgetSession = ({
+  websiteToken,
+  widgetAuthToken,
+  pubsubToken,
+}) => {
+  if (!websiteToken || !widgetAuthToken) {
+    return;
+  }
+
+  safeWriteStorage(
+    buildSessionStorageKey(websiteToken),
+    JSON.stringify({
+      widgetAuthToken,
+      pubsubToken,
+    })
+  );
+};
+
+export const getPersistedWidgetSession = websiteToken => {
+  if (!websiteToken) {
+    return {};
+  }
+
+  try {
+    return (
+      JSON.parse(safeReadStorage(buildSessionStorageKey(websiteToken))) || {}
+    );
+  } catch {
+    return {};
+  }
+};
+
+export const syncConversationTokenToUrl = token => {
+  if (!token) {
+    return;
+  }
+
+  const currentUrl = new URL(window.location.href);
+  if (currentUrl.searchParams.get('cw_conversation') === token) {
+    return;
+  }
+
+  currentUrl.searchParams.set('cw_conversation', token);
+  window.history.replaceState(window.history.state, '', currentUrl.toString());
+};
+
 export const getReturnUrl = (search = '') => {
   const params = new URLSearchParams(search);
   const configuredReturnUrl =

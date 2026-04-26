@@ -6,6 +6,7 @@ import Spinner from 'shared/components/Spinner.vue';
 import { useDarkMode } from 'widget/composables/useDarkMode';
 import { MESSAGE_TYPE } from 'shared/constants/messages';
 import { mapActions, mapGetters } from 'vuex';
+import { isStandaloneMode } from 'widget/helpers/urlParamsHelper';
 
 export default {
   name: 'ConversationWrap',
@@ -53,6 +54,22 @@ export default {
         this.isAgentTyping ||
         (isConversationInPendingStatus && isLastMessageIncoming)
       );
+    },
+    showStandaloneGreeting() {
+      return (
+        isStandaloneMode(window.location.search) &&
+        !!window.chatwootWebChannel?.greetingEnabled &&
+        !!window.chatwootWebChannel?.greetingMessage
+      );
+    },
+    standaloneGreetingMessage() {
+      return {
+        id: 'standalone-greeting',
+        content: window.chatwootWebChannel?.greetingMessage || '',
+        created_at: Math.floor(Date.now() / 1000),
+        message_type: MESSAGE_TYPE.TEMPLATE,
+        showAvatar: true,
+      };
     },
   },
   watch: {
@@ -103,6 +120,9 @@ export default {
     <div class="conversation-wrap" :class="{ 'is-typing': isAgentTyping }">
       <div v-if="isFetchingList" class="message--loader">
         <Spinner />
+      </div>
+      <div v-if="showStandaloneGreeting" class="messages-wrap">
+        <ChatMessage :message="standaloneGreetingMessage" />
       </div>
       <div
         v-for="groupedMessage in groupedMessages"

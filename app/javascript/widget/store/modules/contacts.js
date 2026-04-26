@@ -3,6 +3,12 @@ import ContactsAPI from '../../api/contacts';
 import { SET_USER_ERROR } from '../../constants/errorTypes';
 import { setHeader } from '../../helpers/axios';
 import ActionCableConnector from '../../helpers/actionCable';
+import {
+  getWebsiteToken,
+  isStandaloneMode,
+  persistWidgetSession,
+  syncConversationTokenToUrl,
+} from '../../helpers/urlParamsHelper';
 const state = {
   currentUser: {},
 };
@@ -12,7 +18,14 @@ const parseErrorData = error =>
   error && error.response && error.response.data ? error.response.data : error;
 export const updateWidgetAuthToken = (widgetAuthToken, pubsubToken) => {
   if (widgetAuthToken) {
+    window.authToken = widgetAuthToken;
     setHeader(widgetAuthToken);
+    persistWidgetSession({
+      websiteToken: getWebsiteToken(window.location.search),
+      widgetAuthToken,
+      pubsubToken: pubsubToken || window.chatwootPubsubToken,
+    });
+    syncConversationTokenToUrl(widgetAuthToken);
     sendMessage({
       event: 'setAuthCookie',
       data: { widgetAuthToken },
@@ -20,6 +33,7 @@ export const updateWidgetAuthToken = (widgetAuthToken, pubsubToken) => {
   }
 
   if (pubsubToken) {
+    window.chatwootPubsubToken = pubsubToken;
     ActionCableConnector.refreshConnector(pubsubToken);
   }
 };
@@ -84,7 +98,9 @@ export const actions = {
       dispatch('get');
       if (identifierHash || widgetAuthToken) {
         dispatch('conversation/clearConversations', {}, { root: true });
-        dispatch('conversation/fetchOldConversations', {}, { root: true });
+        if (!isStandaloneMode(window.location.search)) {
+          dispatch('conversation/fetchOldConversations', {}, { root: true });
+        }
         dispatch('conversationAttributes/getAttributes', {}, { root: true });
       }
     } catch (error) {

@@ -89,6 +89,68 @@ Publish help articles, FAQs, and guides through the built-in Help Center Portal.
 
 Detailed documentation is available at [chatwoot.com/help-center](https://www.chatwoot.com/help-center).
 
+## Local Docker Compose Debugging
+
+For local debugging with Docker Compose, start the development stack with the base compose file, the repository override, and a local override such as `.codex/docker-compose.local.yml`.
+
+If your network requires a proxy, export it before running Docker commands:
+
+```bash
+export https_proxy=http://127.0.0.1:7890
+export http_proxy=http://127.0.0.1:7890
+export all_proxy=socks5://127.0.0.1:7890
+```
+
+Start the stack:
+
+```bash
+docker compose \
+  -f docker-compose.yaml \
+  -f docker-compose.override.yml \
+  -f .codex/docker-compose.local.yml \
+  up -d --no-build --force-recreate
+```
+
+Prepare the database after the containers are up:
+
+```bash
+docker compose \
+  -f docker-compose.yaml \
+  -f docker-compose.override.yml \
+  -f .codex/docker-compose.local.yml \
+  exec -T rails bundle exec rails db:prepare
+```
+
+Check service status:
+
+```bash
+docker compose \
+  -f docker-compose.yaml \
+  -f docker-compose.override.yml \
+  -f .codex/docker-compose.local.yml \
+  ps
+```
+
+Tail Rails logs while debugging:
+
+```bash
+docker compose \
+  -f docker-compose.yaml \
+  -f docker-compose.override.yml \
+  -f .codex/docker-compose.local.yml \
+  logs -f rails
+```
+
+Stop the stack:
+
+```bash
+docker compose \
+  -f docker-compose.yaml \
+  -f docker-compose.override.yml \
+  -f .codex/docker-compose.local.yml \
+  down
+```
+
 ## Translation process
 
 The translation process for Chatwoot web and mobile app is managed at [https://translate.chatwoot.com](https://translate.chatwoot.com) using Crowdin. Please read the [translation guide](https://www.chatwoot.com/docs/contributing/translating-chatwoot-to-your-language) for contributing to Chatwoot.

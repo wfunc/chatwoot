@@ -88,7 +88,7 @@ export class DashboardAudioNotificationHelper {
       tone: audioAlertTone,
     };
 
-    if (previousAudioTone !== audioAlertTone) {
+    if (previousAudioTone !== audioAlertTone || !this.audioConfig.audio) {
       this.intializeAudio();
     }
 
@@ -197,13 +197,15 @@ export class DashboardAudioNotificationHelper {
     }
 
     if (WindowVisibilityHelper.isWindowVisible()) {
-      // If the user looking at the conversation, then dismiss the alert
-      if (this.store.isMessageFromCurrentConversation(message)) {
-        return;
-      }
+      const isMessageFromCurrentConversation =
+        this.store.isMessageFromCurrentConversation(message);
 
-      // If the user has disabled alerts when active on the dashboard, the dismiss the alert
-      if (this.notificationConfig.playAlertOnlyWhenHidden) {
+      // Keep audio for the active conversation even when the dashboard is focused.
+      // Other conversations still respect the "only when inactive" preference.
+      if (
+        this.notificationConfig.playAlertOnlyWhenHidden &&
+        !isMessageFromCurrentConversation
+      ) {
         return;
       }
     }

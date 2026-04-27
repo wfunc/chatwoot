@@ -25,6 +25,8 @@ import vue from '@vitejs/plugin-vue';
 
 const isLibraryMode = process.env.BUILD_MODE === 'library';
 const isTestMode = process.env.TEST === 'true';
+const devServerHost = process.env.VITE_DEV_SERVER_HOST || '127.0.0.1';
+const devServerHmrHost = process.env.VITE_HMR_HOST || '127.0.0.1';
 
 const vueOptions = {
   template: {
@@ -45,9 +47,9 @@ if (isLibraryMode) {
 export default defineConfig({
   plugins: plugins,
   server: {
-    host: '127.0.0.1',
+    host: devServerHost,
     hmr: {
-      host: '127.0.0.1',
+      host: devServerHmrHost,
     },
   },
   build: {

@@ -89,6 +89,34 @@ Publish help articles, FAQs, and guides through the built-in Help Center Portal.
 
 Detailed documentation is available at [chatwoot.com/help-center](https://www.chatwoot.com/help-center).
 
+## Production Docker Compose First Run
+
+On a new server, initialize the database before starting the full production stack. The Rails container reads installation settings during boot, so a fresh database without migrations will fail with errors such as `relation "installation_configs" does not exist`.
+
+Start PostgreSQL and Redis first:
+
+```bash
+docker compose -f docker-compose.production.yaml up -d postgres redis
+```
+
+Prepare the database:
+
+```bash
+docker compose -f docker-compose.production.yaml run --rm rails bundle exec rails db:chatwoot_prepare
+```
+
+Start the full stack:
+
+```bash
+docker compose -f docker-compose.production.yaml up -d
+```
+
+Use the Compose service name when tailing logs:
+
+```bash
+docker compose -f docker-compose.production.yaml logs -f rails
+```
+
 ## Local Docker Compose Debugging
 
 For local debugging with Docker Compose, start the development stack with the base compose file, the repository override, and a local override such as `.codex/docker-compose.local.yml`.

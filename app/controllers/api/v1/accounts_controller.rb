@@ -55,7 +55,10 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def update
-    @account.assign_attributes(account_params.slice(:name, :locale, :domain, :support_email))
+    attributes = account_params.slice(:locale, :domain, :support_email)
+    attributes[:name] = account_params[:name] if @current_account_user.administrator?
+
+    @account.assign_attributes(attributes)
     @account.custom_attributes.merge!(custom_attributes_params)
     @account.settings.merge!(settings_params)
     @account.custom_attributes['onboarding_step'] = 'invite_team' if @account.custom_attributes['onboarding_step'] == 'account_update'

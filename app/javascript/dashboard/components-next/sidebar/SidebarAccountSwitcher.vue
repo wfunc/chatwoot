@@ -34,6 +34,14 @@ const showAccountSwitcher = computed(
   () => userAccounts.value.length > 1 && currentAccount.value.name
 );
 
+const currentUserDisplayName = computed(
+  () =>
+    currentUser.value.available_name ||
+    currentUser.value.display_name ||
+    currentUser.value.name ||
+    currentAccount.value.name
+);
+
 const sortedCurrentUserAccounts = computed(() => {
   return [...(currentUser.value.accounts || [])].sort((a, b) =>
     a.name.localeCompare(b.name)
@@ -58,7 +66,7 @@ const emitNewAccount = () => {
         v-if="isCollapsed"
         class="grid flex-shrink-0 place-content-center p-2 rounded-lg cursor-pointer hover:bg-n-alpha-1"
         :class="{ 'bg-n-alpha-1': isOpen }"
-        :title="currentAccount.name"
+        :title="currentUserDisplayName"
         @click="toggle"
       >
         <Logo class="size-7" />
@@ -83,7 +91,7 @@ const emitNewAccount = () => {
           class="text-sm font-medium leading-5 text-n-slate-12 truncate"
           aria-live="polite"
         >
-          {{ currentAccount.name }}
+          {{ currentUserDisplayName }}
         </span>
 
         <span

@@ -73,9 +73,9 @@
         "UPDATE_BUTTON": "保存修改"
       },
       "NAME": {
-        "LABEL": "帐户名称",
-        "PLACEHOLDER": "您的帐户名称",
-        "ERROR": "请输入有效的帐户名称"
+        "LABEL": "显示名称",
+        "PLACEHOLDER": "您的显示名称",
+        "ERROR": "请输入有效的显示名称"
       },
       "LANGUAGE": {
         "LABEL": "站点语言",

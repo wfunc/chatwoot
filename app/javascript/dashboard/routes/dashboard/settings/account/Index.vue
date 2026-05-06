@@ -58,6 +58,7 @@ export default {
   computed: {
     ...mapGetters({
       getAccount: 'accounts/getAccount',
+      currentUser: 'getCurrentUser',
       uiFlags: 'accounts/getUIFlags',
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
       isOnChatwootCloud: 'globalConfig/isOnChatwootCloud',
@@ -107,7 +108,11 @@ export default {
         if (effectiveLocale) {
           this.$root.$i18n.locale = effectiveLocale;
         }
-        this.name = name;
+        this.name =
+          this.currentUser.available_name ||
+          this.currentUser.display_name ||
+          this.currentUser.name ||
+          name;
         this.locale = locale;
         this.id = id;
         this.domain = domain;
@@ -125,9 +130,11 @@ export default {
         return;
       }
       try {
+        await this.$store.dispatch('updateProfile', {
+          displayName: this.name,
+        });
         await this.$store.dispatch('accounts/update', {
           locale: this.locale,
-          name: this.name,
           domain: this.domain,
           support_email: this.supportEmail,
         });

@@ -73,9 +73,9 @@
         "UPDATE_BUTTON": "Save Changes"
       },
       "NAME": {
-        "LABEL": "Account name",
-        "PLACEHOLDER": "Your account name",
-        "ERROR": "Please enter a valid account name"
+        "LABEL": "Display name",
+        "PLACEHOLDER": "Your display name",
+        "ERROR": "Please enter a valid display name"
       },
       "LANGUAGE": {
         "LABEL": "Site language",

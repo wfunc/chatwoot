@@ -24,6 +24,17 @@ const onBackButtonClick = () => {
   const returnUrl = getReturnUrl(window.location.search);
 
   if (returnUrl) {
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage(
+        `chatwoot-widget:${JSON.stringify({
+          event: 'returnToUrl',
+          returnUrl,
+        })}`,
+        '*'
+      );
+      return;
+    }
+
     window.location.assign(returnUrl);
     return;
   }

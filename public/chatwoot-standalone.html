@@ -144,6 +144,7 @@
       );
       var frame = document.getElementById('chatwoot-frame');
       var targetOrigin;
+      var returnUrl = getReturnUrl(params);
 
       document.title = title;
 
@@ -198,6 +199,10 @@
         widgetUrl.searchParams.set('standalone', 'true');
       }
 
+      if (returnUrl) {
+        widgetUrl.searchParams.set('return_url', returnUrl);
+      }
+
       copyParam(params, widgetUrl, ['name', 'fullName']);
       copyParam(params, widgetUrl, ['email']);
       copyParam(params, widgetUrl, [
@@ -212,6 +217,7 @@
         targetOrigin,
         conversationStorageKey
       );
+      registerReturnUrlRedirect(targetOrigin, returnUrl);
       frame.src = widgetUrl.toString();
       frame.onload = function onLoad() {
         document.body.dataset.ready = 'true';
@@ -367,6 +373,52 @@
       });
     }
 
+    function registerReturnUrlRedirect(targetOrigin, returnUrl) {
+      if (!returnUrl) {
+        return;
+      }
+
+      window.history.pushState(
+        { chatwootStandaloneReturnIntercept: true },
+        '',
+        window.location.href
+      );
+
+      window.addEventListener('popstate', function onPopstate() {
+        window.location.replace(returnUrl);
+      });
+
+      window.addEventListener('message', function onMessage(event) {
+        if (event.origin !== targetOrigin) {
+          return;
+        }
+
+        if (
+          typeof event.data !== 'string' ||
+          event.data.indexOf('chatwoot-widget:') !== 0
+        ) {
+          return;
+        }
+
+        var message = parseWidgetMessage(event.data);
+        if (!message || message.event !== 'returnToUrl') {
+          return;
+        }
+
+        window.location.assign(
+          normalizeReturnUrl(message.returnUrl) || returnUrl
+        );
+      });
+    }
+
+    function parseWidgetMessage(data) {
+      try {
+        return JSON.parse(data.replace('chatwoot-widget:', ''));
+      } catch (error) {
+        return {};
+      }
+    }
+
     function normalizeRoute(route) {
       var normalized = String(route || '')
         .replace(/^#?\/?/, '')
@@ -377,6 +429,39 @@
       }
 
       return normalized;
+    }
+
+    function getReturnUrl(params) {
+      return normalizeReturnUrl(
+        readParam(params, ['return_url', 'returnUrl', 'back_url', 'backUrl']) ||
+          document.referrer
+      );
+    }
+
+    function normalizeReturnUrl(returnUrl) {
+      if (!returnUrl) {
+        return '';
+      }
+
+      try {
+        var parsedUrl = new URL(returnUrl, window.location.href);
+        var currentUrl = new URL(window.location.href);
+
+        if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+          return '';
+        }
+
+        if (
+          parsedUrl.origin === currentUrl.origin &&
+          parsedUrl.pathname === currentUrl.pathname
+        ) {
+          return '';
+        }
+
+        return parsedUrl.toString();
+      } catch (error) {
+        return '';
+      }
     }
 
     function normalizeLocale(locale) {

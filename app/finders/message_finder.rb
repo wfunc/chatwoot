@@ -1,6 +1,6 @@
 class MessageFinder
-  def initialize(conversation, params)
-    @conversation = conversation
+  def initialize(conversation_or_messages, params)
+    @conversation_or_messages = conversation_or_messages
     @params = params
   end
 
@@ -11,7 +11,13 @@ class MessageFinder
   private
 
   def conversation_messages
-    @conversation.messages.includes(:attachments, :sender, sender: { avatar_attachment: [:blob] })
+    messages_scope.includes(:attachments, :sender, sender: { avatar_attachment: [:blob] })
+  end
+
+  def messages_scope
+    return @conversation_or_messages.messages if @conversation_or_messages.respond_to?(:messages)
+
+    @conversation_or_messages
   end
 
   def messages

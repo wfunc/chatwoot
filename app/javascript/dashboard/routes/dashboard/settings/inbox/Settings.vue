@@ -89,6 +89,7 @@ export default {
       locktoSingleConversation: false,
       allowMessagesAfterResolved: true,
       continuityViaEmail: true,
+      enableWidgetConversationHistory: false,
       selectedInboxName: '',
       channelWebsiteUrl: '',
       webhookUrl: '',
@@ -427,6 +428,8 @@ export default {
       this.allowMessagesAfterResolved =
         this.inbox.allow_messages_after_resolved;
       this.continuityViaEmail = this.inbox.continuity_via_email;
+      this.enableWidgetConversationHistory =
+        this.inbox.enable_widget_conversation_history || false;
       this.channelWebsiteUrl = this.inbox.website_url;
       this.channelWelcomeTitle = this.inbox.welcome_title;
       this.channelWelcomeTagline = this.inbox.welcome_tagline || '';
@@ -559,6 +562,8 @@ export default {
             selectedFeatureFlags: this.selectedFeatureFlags,
             reply_time: this.replyTime || 'in_a_few_minutes',
             continuity_via_email: this.continuityViaEmail,
+            enable_widget_conversation_history:
+              this.enableWidgetConversationHistory,
           },
         };
         if (this.isAdmin) {
@@ -1176,6 +1181,19 @@ export default {
                 :description="
                   $t(
                     'INBOX_MGMT.SETTINGS_POPUP.ALLOW_MESSAGES_AFTER_RESOLVED_SUB_TEXT'
+                  )
+                "
+              />
+
+              <SettingsToggleSection
+                v-if="isAWebWidgetInbox"
+                v-model="enableWidgetConversationHistory"
+                :header="
+                  $t('INBOX_MGMT.SETTINGS_POPUP.ENABLE_WIDGET_CONVERSATION_HISTORY')
+                "
+                :description="
+                  $t(
+                    'INBOX_MGMT.SETTINGS_POPUP.ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT'
                   )
                 "
               />

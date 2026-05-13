@@ -38,6 +38,59 @@ RSpec.describe '/api/v1/widget/messages', type: :request do
         json_response = response.parsed_body
         expect(json_response['payload'].length).to eq(0)
       end
+
+      it 'returns only the latest conversation messages when widget conversation history is disabled' do
+        create(:message, account: account, inbox: web_widget.inbox, conversation: conversation, content: 'old message')
+        latest_conversation = create(:conversation, contact: contact, account: account, inbox: web_widget.inbox,
+                                                    contact_inbox: contact_inbox)
+        create(:message, account: account, inbox: web_widget.inbox, conversation: latest_conversation, content: 'latest message')
+
+        get api_v1_widget_messages_url,
+            params: { website_token: web_widget.website_token },
+            headers: { 'X-Auth-Token' => token },
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        contents = response.parsed_body['payload'].pluck('content')
+        expect(contents).to include('latest message')
+        expect(contents).not_to include('old message')
+      end
+
+      it 'returns messages from previous conversations when widget conversation history is enabled' do
+        web_widget.update!(enable_widget_conversation_history: true)
+        create(:message, account: account, inbox: web_widget.inbox, conversation: conversation, content: 'old message')
+        latest_conversation = create(:conversation, contact: contact, account: account, inbox: web_widget.inbox,
+                                                    contact_inbox: contact_inbox)
+        create(:message, account: account, inbox: web_widget.inbox, conversation: latest_conversation, content: 'latest message')
+
+        get api_v1_widget_messages_url,
+            params: { website_token: web_widget.website_token },
+            headers: { 'X-Auth-Token' => token },
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        contents = response.parsed_body['payload'].pluck('content')
+        expect(contents).to include('old message')
+        expect(contents).to include('latest message')
+      end
+
+      it 'does not return messages from another contact inbox when widget conversation history is enabled' do
+        web_widget.update!(enable_widget_conversation_history: true)
+        other_contact = create(:contact, account: account, email: nil)
+        other_contact_inbox = create(:contact_inbox, contact: other_contact, inbox: web_widget.inbox)
+        other_conversation = create(:conversation, contact: other_contact, account: account, inbox: web_widget.inbox,
+                                                   contact_inbox: other_contact_inbox)
+        create(:message, account: account, inbox: web_widget.inbox, conversation: other_conversation, content: 'other message')
+
+        get api_v1_widget_messages_url,
+            params: { website_token: web_widget.website_token },
+            headers: { 'X-Auth-Token' => token },
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        contents = response.parsed_body['payload'].pluck('content')
+        expect(contents).not_to include('other message')
+      end
     end
   end
 

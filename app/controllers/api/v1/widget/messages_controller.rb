@@ -3,7 +3,8 @@ class Api::V1::Widget::MessagesController < Api::V1::Widget::BaseController
   before_action :set_message, only: [:update]
 
   def index
-    @messages = conversation.nil? ? [] : message_finder.perform
+    @conversation = conversation
+    @messages = @conversation.nil? ? [] : message_finder.perform
   end
 
   def create
@@ -67,7 +68,13 @@ class Api::V1::Widget::MessagesController < Api::V1::Widget::BaseController
   end
 
   def message_finder
-    @message_finder ||= MessageFinder.new(conversation, message_finder_params)
+    @message_finder ||= MessageFinder.new(message_finder_scope, message_finder_params)
+  end
+
+  def message_finder_scope
+    return conversation unless @web_widget.enable_widget_conversation_history?
+
+    Message.where(conversation_id: conversations.select(:id))
   end
 
   def message_update_params

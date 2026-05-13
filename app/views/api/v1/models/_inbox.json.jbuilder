@@ -50,6 +50,7 @@ if resource.web_widget?
   json.pre_chat_form_enabled resource.channel.try(:pre_chat_form_enabled)
   json.pre_chat_form_options resource.channel.try(:pre_chat_form_options)
   json.continuity_via_email resource.channel.try(:continuity_via_email)
+  json.enable_widget_conversation_history resource.channel.try(:enable_widget_conversation_history)
 end
 
 ## Facebook Attributes

@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Enable/Disable showing Agent's name in email, if disabled it will show business name",
       "ENABLE_CONTINUITY_VIA_EMAIL": "אפשר המשך שיחה באמצעות הדוא\"ל",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "שיחות ימשיכו באמצעות הדוא\"ל אם לאיש הקשר קיימת כתובת דוא\"ל תקנית.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "הצג היסטוריית שיחות של הווידג׳ט",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "אפשר למבקרים חוזרים לראות שיחות קודמות של הווידג׳ט בתיבת דואר נכנס זו.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "הגדרות תיבת דואר נכנס",

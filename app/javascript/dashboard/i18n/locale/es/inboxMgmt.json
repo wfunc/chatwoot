@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Habilitar/Deshabilitar mostrando el nombre del agente en el correo electrónico, si está deshabilitado, mostrará el nombre del negocio",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Habilitar continuidad de conversación por correo electrónico",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Las conversaciones continuarán por correo electrónico si la dirección de correo electrónico de contacto está disponible.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Mostrar historial de conversaciones del widget",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Permite que los visitantes recurrentes vean conversaciones anteriores del widget en esta bandeja de entrada.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Ajustes de la Bandeja de Entrada",

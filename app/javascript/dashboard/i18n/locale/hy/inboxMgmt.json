@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Միացնել/անջատել գործակալի անունի ցուցադրումը էլփոստում, եթե անջատված է, կցուցադրվի բիզնեսի անունը",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Միացնել զրույցի շարունակականությունը էլ. փոստով",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Զրույցները կշարունակվեն էլ. փոստով, եթե կոնտակտի էլ. փոստի հասցեն հասանելի է։",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Ցույց տալ widget-ի զրույցների պատմությունը",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Թույլ տվեք վերադարձող այցելուներին այս մուտքի արկղում տեսնել widget-ի նախորդ զրույցները։",
       "LOCK_TO_SINGLE_CONVERSATION": "Զրույցների ուղղորդում",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Կարգավորեք զրույցների ստեղծումը գոյություն ունեցող կոնտակտների համար",
       "INBOX_UPDATE_TITLE": "Զամբյուղի կարգավորումներ",

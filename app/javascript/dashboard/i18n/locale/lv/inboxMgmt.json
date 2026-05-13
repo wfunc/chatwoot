@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Iespējot/Atspējot aģenta vārda rādīšanu e-pastā. Ja tas ir atspējots, tiks rādīts uzņēmuma nosaukums",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Iespējot sarunas nepārtrauktību, izmantojot e-pastu",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Sarunas turpināsies pa e-pastu, ja saziņas e-pasta adrese ir pieejama.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Rādīt logrīka sarunu vēsturi",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Atļaujiet atkārtotiem apmeklētājiem šajā iesūtnē skatīt iepriekšējās logrīka sarunas.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Iesūtnes Iestatījumi",

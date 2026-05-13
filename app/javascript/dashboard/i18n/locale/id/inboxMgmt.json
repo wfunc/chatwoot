@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Enable/Disable showing Agent's name in email, if disabled it will show business name",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Aktifkan kontinuitas percakapan melalui email",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Percakapan akan berlanjut melalui email jika alamat email kontak tersedia.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Tampilkan riwayat percakapan widget",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Izinkan pengunjung yang kembali melihat percakapan widget sebelumnya di inbox ini.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Pengaturan Kotak Masuk",

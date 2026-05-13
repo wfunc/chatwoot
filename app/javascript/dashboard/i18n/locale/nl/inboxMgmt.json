@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Enable/Disable showing Agent's name in email, if disabled it will show business name",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Enable conversation continuity via email",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Conversations will continue over email if the contact email address is available.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Widget-gespreksgeschiedenis tonen",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Sta terugkerende bezoekers toe eerdere widgetgesprekken in deze inbox te bekijken.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Instellingen Postvak In",

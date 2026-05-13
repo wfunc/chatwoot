@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Enable/Disable showing Agent's name in email, if disabled it will show business name",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Bật tiếp tục cuộc trò chuyện qua email",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Cuộc trò chuyện sẽ tiếp tục qua email nếu có địa chỉ email liên lạc.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Hiển thị lịch sử cuộc trò chuyện của widget",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Cho phép khách truy cập quay lại xem các cuộc trò chuyện widget trước đó trong hộp thư đến này.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Cài đặt Hộp thư đến",

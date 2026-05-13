@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Enable/Disable showing Agent's name in email, if disabled it will show business name",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Enable conversation continuity via email",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Conversations will continue over email if the contact email address is available.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Shfaq historikun e bisedave të widget-it",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Lejo vizitorët që rikthehen të shohin bisedat e mëparshme të widget-it në këtë inbox.",
       "LOCK_TO_SINGLE_CONVERSATION": "Rrjedhja e Bisedave",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Konfiguro krijimin e bisedave për kontaktet ekzistuese",
       "INBOX_UPDATE_TITLE": "Cilësimet e Postës",

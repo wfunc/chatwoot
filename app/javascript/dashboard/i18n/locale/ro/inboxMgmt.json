@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Enable/Disable showing Agent's name in email, if disabled it will show business name",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Activați continuitatea conversației prin e-mail",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Conversațiile vor continua prin e-mail dacă adresa de e-mail de contact este disponibilă.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Afișează istoricul conversațiilor widgetului",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Permiteți vizitatorilor care revin să vadă conversațiile anterioare ale widgetului în acest inbox.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Setări Inbox",

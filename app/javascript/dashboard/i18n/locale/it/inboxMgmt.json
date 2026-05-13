@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Abilita/Disabilita la visualizzazione del nome dell'Operatore nelle email. Se disabilitato, verrà mostrato il nome dell'azienda",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Abilita la continuità della conversazione via email",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Le conversazioni continueranno via email se l'indirizzo email del contatto è disponibile.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Mostra la cronologia delle conversazioni del widget",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Consenti ai visitatori di ritorno di vedere le conversazioni precedenti del widget in questa casella di posta.",
       "LOCK_TO_SINGLE_CONVERSATION": "Routing Conversazioni",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Gestisci come vengono create le conversazioni per i contatti esistenti",
       "INBOX_UPDATE_TITLE": "Impostazioni Inbox",

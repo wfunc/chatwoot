@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "Enable/Disable showing Agent's name in email, if disabled it will show business name",
       "ENABLE_CONTINUITY_VIA_EMAIL": "Enable conversation continuity via email",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Conversations will continue over email if the contact email address is available.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Vis widget-samtalehistorikk",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "La besøkende som kommer tilbake, se tidligere widget-samtaler i denne innboksen.",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Innboksinnstillinger",

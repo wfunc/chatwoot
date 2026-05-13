@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "ჩართეთ ან გამორთეთ აგენტის სახელის ჩვენება ელფოსტაში, გამორთვის შემთხვევაში გამოჩნდება ბიზნესის სახელი",
       "ENABLE_CONTINUITY_VIA_EMAIL": "შეტყობინებების გაგრძელების ჩართვა ელექტრონული ფოსტის საშუალებით",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "საუბრები გაგრძელდება ელფოსტით, თუ კონტაქტის ელფოსტის მისამართი ხელმისაწვდომია.",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "Widget-ის საუბრის ისტორიის ჩვენება",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "დაბრუნებულ ვიზიტორებს მიეცით საშუალება ამ inbox-ში ნახონ წინა widget-საუბრები.",
       "LOCK_TO_SINGLE_CONVERSATION": "საუბრის მარშრუტიზაცია",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "დააყენეთ საუბრის შექმნა არსებული კონტაქტებისთვის",
       "INBOX_UPDATE_TITLE": "ინბოქსის პარამეტრები",

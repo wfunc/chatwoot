@@ -737,6 +737,8 @@
       "SENDER_NAME_SECTION_TEXT": "担当者名をメールに表示するかどうかを設定します。無効にするとビジネス名が表示されます。",
       "ENABLE_CONTINUITY_VIA_EMAIL": "メールによる会話の継続を有効にする",
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "連絡先のメールアドレスが利用可能な場合、会話はメールで継続されます。",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY": "ウィジェットの会話履歴を表示",
+      "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "再訪問したユーザーがこの受信トレイで以前のウィジェット会話を確認できるようにします。",
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "受信トレイの設定",

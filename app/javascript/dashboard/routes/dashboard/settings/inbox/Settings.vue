@@ -1189,7 +1189,9 @@ export default {
                 v-if="isAWebWidgetInbox"
                 v-model="enableWidgetConversationHistory"
                 :header="
-                  $t('INBOX_MGMT.SETTINGS_POPUP.ENABLE_WIDGET_CONVERSATION_HISTORY')
+                  $t(
+                    'INBOX_MGMT.SETTINGS_POPUP.ENABLE_WIDGET_CONVERSATION_HISTORY'
+                  )
                 "
                 :description="
                   $t(

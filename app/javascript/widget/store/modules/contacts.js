@@ -9,6 +9,11 @@ import {
   persistWidgetSession,
   syncConversationTokenToUrl,
 } from '../../helpers/urlParamsHelper';
+
+const shouldFetchConversationHistory = () =>
+  !isStandaloneMode(window.location.search) ||
+  !!window.chatwootWebChannel?.enableWidgetConversationHistory;
+
 const state = {
   currentUser: {},
 };
@@ -98,7 +103,7 @@ export const actions = {
       dispatch('get');
       if (identifierHash || widgetAuthToken) {
         dispatch('conversation/clearConversations', {}, { root: true });
-        if (!isStandaloneMode(window.location.search)) {
+        if (shouldFetchConversationHistory()) {
           dispatch('conversation/fetchOldConversations', {}, { root: true });
         }
         dispatch('conversationAttributes/getAttributes', {}, { root: true });

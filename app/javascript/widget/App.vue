@@ -80,7 +80,10 @@ export default {
       return this.isIFrame && isStandaloneMode(window.location.search);
     },
     shouldHideConversationHistory() {
-      return isStandaloneMode(window.location.search);
+      return (
+        isStandaloneMode(window.location.search) &&
+        !this.hasWidgetConversationHistoryEnabled
+      );
     },
   },
   watch: {
@@ -127,6 +130,9 @@ export default {
     if (this.isIFrame) {
       this.registerListeners();
       this.sendLoadedEvent();
+      if (this.isStandaloneWidget && !this.shouldHideConversationHistory) {
+        this.fetchOldConversations();
+      }
     } else {
       if (!this.shouldHideConversationHistory) {
         this.fetchOldConversations();

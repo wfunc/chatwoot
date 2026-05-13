@@ -18,6 +18,7 @@ vi.mock('widget/helpers/actionCable', () => ({
 
 beforeEach(() => {
   vi.clearAllMocks();
+  global.chatwootWebChannel = {};
 });
 
 describe('#actions', () => {
@@ -79,6 +80,29 @@ describe('#actions', () => {
       expect(ActionCableConnector.refreshConnector).not.toHaveBeenCalled();
       expect(commit.mock.calls).toEqual([]);
       expect(dispatch.mock.calls).toEqual([['get']]);
+    });
+
+    it('fetches old conversations in standalone mode when widget conversation history is enabled', async () => {
+      const originalUrl = window.location.href;
+      window.history.pushState({}, '', '?standalone=true');
+      global.chatwootWebChannel = { enableWidgetConversationHistory: true };
+      const user = {
+        email: 'thoma@sphadikam.com',
+        name: 'Adu Thoma',
+        avatar_url: '',
+      };
+      vi.spyOn(API, 'patch').mockResolvedValue({
+        data: { widget_auth_token: 'token', pubsub_token: 'pubsub-token' },
+      });
+
+      await actions.setUser({ commit, dispatch }, { identifier: 1, user });
+
+      expect(dispatch.mock.calls).toContainEqual([
+        'conversation/fetchOldConversations',
+        {},
+        { root: true },
+      ]);
+      window.history.pushState({}, '', originalUrl);
     });
   });
 

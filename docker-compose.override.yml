@@ -1,0 +1,23 @@
+services:
+  rails:
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DATABASE: chatwoot
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: ""
+      REDIS_URL: redis://redis:6379
+      SMTP_ADDRESS: mailhog
+      FRONTEND_URL: http://localhost:3000
+  sidekiq:
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DATABASE: chatwoot
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: ""
+      REDIS_URL: redis://redis:6379
+      SMTP_ADDRESS: mailhog
+  vite:
+    environment:
+      REDIS_URL: redis://redis:6379

@@ -89,7 +89,7 @@ export default {
       locktoSingleConversation: false,
       allowMessagesAfterResolved: true,
       continuityViaEmail: true,
-      enableWidgetConversationHistory: false,
+      widgetConversationHistoryRetention: 'none',
       selectedInboxName: '',
       channelWebsiteUrl: '',
       webhookUrl: '',
@@ -130,6 +130,40 @@ export default {
           value: agent.account_user_id,
           label: agent.name,
         }));
+    },
+    widgetConversationHistoryRetentionOptions() {
+      return [
+        {
+          value: 'none',
+          label: this.$t(
+            'INBOX_MGMT.SETTINGS_POPUP.WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS.NONE'
+          ),
+        },
+        {
+          value: 'one_day',
+          label: this.$t(
+            'INBOX_MGMT.SETTINGS_POPUP.WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS.ONE_DAY'
+          ),
+        },
+        {
+          value: 'three_days',
+          label: this.$t(
+            'INBOX_MGMT.SETTINGS_POPUP.WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS.THREE_DAYS'
+          ),
+        },
+        {
+          value: 'seven_days',
+          label: this.$t(
+            'INBOX_MGMT.SETTINGS_POPUP.WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS.SEVEN_DAYS'
+          ),
+        },
+        {
+          value: 'forever',
+          label: this.$t(
+            'INBOX_MGMT.SETTINGS_POPUP.WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS.FOREVER'
+          ),
+        },
+      ];
     },
     selectedTabKey() {
       return this.tabs[this.selectedTabIndex]?.key;
@@ -428,8 +462,9 @@ export default {
       this.allowMessagesAfterResolved =
         this.inbox.allow_messages_after_resolved;
       this.continuityViaEmail = this.inbox.continuity_via_email;
-      this.enableWidgetConversationHistory =
-        this.inbox.enable_widget_conversation_history || false;
+      this.widgetConversationHistoryRetention =
+        this.inbox.widget_conversation_history_retention ||
+        (this.inbox.enable_widget_conversation_history ? 'forever' : 'none');
       this.channelWebsiteUrl = this.inbox.website_url;
       this.channelWelcomeTitle = this.inbox.welcome_title;
       this.channelWelcomeTagline = this.inbox.welcome_tagline || '';
@@ -563,7 +598,9 @@ export default {
             reply_time: this.replyTime || 'in_a_few_minutes',
             continuity_via_email: this.continuityViaEmail,
             enable_widget_conversation_history:
-              this.enableWidgetConversationHistory,
+              this.widgetConversationHistoryRetention !== 'none',
+            widget_conversation_history_retention:
+              this.widgetConversationHistoryRetention,
           },
         };
         if (this.isAdmin) {
@@ -1185,20 +1222,24 @@ export default {
                 "
               />
 
-              <SettingsToggleSection
+              <SettingsFieldSection
                 v-if="isAWebWidgetInbox"
-                v-model="enableWidgetConversationHistory"
-                :header="
+                :label="
                   $t(
-                    'INBOX_MGMT.SETTINGS_POPUP.ENABLE_WIDGET_CONVERSATION_HISTORY'
+                    'INBOX_MGMT.SETTINGS_POPUP.WIDGET_CONVERSATION_HISTORY_RETENTION'
                   )
                 "
-                :description="
+                :help-text="
                   $t(
-                    'INBOX_MGMT.SETTINGS_POPUP.ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT'
+                    'INBOX_MGMT.SETTINGS_POPUP.WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT'
                   )
                 "
-              />
+              >
+                <SelectInput
+                  v-model="widgetConversationHistoryRetention"
+                  :options="widgetConversationHistoryRetentionOptions"
+                />
+              </SettingsFieldSection>
 
               <SettingsToggleSection
                 v-if="isAWebWidgetInbox"

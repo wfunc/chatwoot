@@ -754,6 +754,15 @@
       "ENABLE_CONTINUITY_VIA_EMAIL_SUB_TEXT": "Conversations will continue over email if the contact email address is available.",
       "ENABLE_WIDGET_CONVERSATION_HISTORY": "Show widget conversation history",
       "ENABLE_WIDGET_CONVERSATION_HISTORY_SUB_TEXT": "Allow returning visitors to see previous widget conversations in this inbox.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Widget conversation history",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Choose how long returning visitors can see previous widget conversations in this inbox.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "None",
+        "ONE_DAY": "1 day",
+        "THREE_DAYS": "3 days",
+        "SEVEN_DAYS": "7 days",
+        "FOREVER": "Forever"
+      },
       "LOCK_TO_SINGLE_CONVERSATION": "Conversation Routing",
       "LOCK_TO_SINGLE_CONVERSATION_SUB_TEXT": "Configure conversation creation for existing contacts",
       "INBOX_UPDATE_TITLE": "Inbox Settings",

@@ -9,7 +9,6 @@ class WidgetsController < ActionController::Base
   before_action :set_token
   before_action :set_contact
   before_action :build_contact
-  before_action :ensure_greeting_conversation
   before_action :persist_conversation_token
   after_action :allow_iframe_requests
 
@@ -61,22 +60,6 @@ class WidgetsController < ActionController::Base
 
     @contact_inbox, @token = build_contact_inbox_with_token(@web_widget, additional_attributes)
     @contact = @contact_inbox.contact
-  end
-
-  def ensure_greeting_conversation
-    return if params[:standalone] == 'true'
-    return unless @web_widget.inbox.greeting_enabled?
-    return if @web_widget.inbox.greeting_message.blank?
-    return if @contact_inbox.conversations.where(inbox_id: @web_widget.inbox.id).exists?
-
-    conversation = ::Conversation.create!(
-      account_id: @web_widget.inbox.account_id,
-      inbox_id: @web_widget.inbox.id,
-      contact_id: @contact.id,
-      contact_inbox_id: @contact_inbox.id
-    )
-
-    ::MessageTemplates::Template::Greeting.new(conversation: conversation).perform
   end
 
   def persist_conversation_token

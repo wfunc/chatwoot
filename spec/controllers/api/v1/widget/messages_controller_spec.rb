@@ -56,8 +56,8 @@ RSpec.describe '/api/v1/widget/messages', type: :request do
         expect(contents).not_to include('old message')
       end
 
-      it 'returns messages from previous conversations when widget conversation history is enabled' do
-        web_widget.update!(enable_widget_conversation_history: true)
+      it 'returns messages from previous conversations when widget conversation history is set to forever' do
+        web_widget.update!(widget_conversation_history_retention: :forever)
         create(:message, account: account, inbox: web_widget.inbox, conversation: conversation, content: 'old message')
         latest_conversation = create(:conversation, contact: contact, account: account, inbox: web_widget.inbox,
                                                     contact_inbox: contact_inbox)
@@ -74,8 +74,8 @@ RSpec.describe '/api/v1/widget/messages', type: :request do
         expect(contents).to include('latest message')
       end
 
-      it 'does not return messages from another contact inbox when widget conversation history is enabled' do
-        web_widget.update!(enable_widget_conversation_history: true)
+      it 'does not return messages from another contact inbox when widget conversation history is set to forever' do
+        web_widget.update!(widget_conversation_history_retention: :forever)
         other_contact = create(:contact, account: account, email: nil)
         other_contact_inbox = create(:contact_inbox, contact: other_contact, inbox: web_widget.inbox)
         other_conversation = create(:conversation, contact: other_contact, account: account, inbox: web_widget.inbox,
@@ -90,6 +90,50 @@ RSpec.describe '/api/v1/widget/messages', type: :request do
         expect(response).to have_http_status(:success)
         contents = response.parsed_body['payload'].pluck('content')
         expect(contents).not_to include('other message')
+      end
+
+      it 'returns only messages from today when widget conversation history is set to one day' do
+        travel_to Time.zone.parse('2026-06-08 10:00:00') do
+          web_widget.update!(widget_conversation_history_retention: :one_day)
+          create(:message, account: account, inbox: web_widget.inbox, conversation: conversation, content: 'previous day message',
+                           created_at: Time.zone.parse('2026-06-07 23:59:59'))
+          latest_conversation = create(:conversation, contact: contact, account: account, inbox: web_widget.inbox,
+                                                      contact_inbox: contact_inbox)
+          create(:message, account: account, inbox: web_widget.inbox, conversation: latest_conversation, content: 'today message',
+                           created_at: Time.zone.parse('2026-06-08 00:00:00'))
+
+          get api_v1_widget_messages_url,
+              params: { website_token: web_widget.website_token },
+              headers: { 'X-Auth-Token' => token },
+              as: :json
+
+          expect(response).to have_http_status(:success)
+          contents = response.parsed_body['payload'].pluck('content')
+          expect(contents).to include('today message')
+          expect(contents).not_to include('previous day message')
+        end
+      end
+
+      it 'returns messages from the current and previous two days when widget conversation history is set to three days' do
+        travel_to Time.zone.parse('2026-06-08 10:00:00') do
+          web_widget.update!(widget_conversation_history_retention: :three_days)
+          create(:message, account: account, inbox: web_widget.inbox, conversation: conversation, content: 'fourth day message',
+                           created_at: Time.zone.parse('2026-06-05 23:59:59'))
+          latest_conversation = create(:conversation, contact: contact, account: account, inbox: web_widget.inbox,
+                                                      contact_inbox: contact_inbox)
+          create(:message, account: account, inbox: web_widget.inbox, conversation: latest_conversation, content: 'third day message',
+                           created_at: Time.zone.parse('2026-06-06 00:00:00'))
+
+          get api_v1_widget_messages_url,
+              params: { website_token: web_widget.website_token },
+              headers: { 'X-Auth-Token' => token },
+              as: :json
+
+          expect(response).to have_http_status(:success)
+          contents = response.parsed_body['payload'].pluck('content')
+          expect(contents).to include('third day message')
+          expect(contents).not_to include('fourth day message')
+        end
       end
     end
   end

@@ -72,9 +72,11 @@ class Api::V1::Widget::MessagesController < Api::V1::Widget::BaseController
   end
 
   def message_finder_scope
-    return conversation unless @web_widget.enable_widget_conversation_history?
+    return conversation unless @web_widget.widget_conversation_history_enabled?
 
-    Message.where(conversation_id: conversations.select(:id))
+    scope = Message.where(conversation_id: conversations.select(:id))
+    since = @web_widget.widget_conversation_history_since
+    since.present? ? scope.where('messages.created_at >= ?', since) : scope
   end
 
   def message_update_params

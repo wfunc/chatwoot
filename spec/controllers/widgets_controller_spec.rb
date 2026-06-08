@@ -8,6 +8,11 @@ describe '/widget', type: :request do
   let(:payload) { { source_id: contact_inbox.source_id, inbox_id: web_widget.inbox.id } }
   let(:token) { Widget::TokenService.new(payload: payload).generate_token }
 
+  before do
+    allow_any_instance_of(ActionView::Base).to receive(:vite_client_tag).and_return('')
+    allow_any_instance_of(ActionView::Base).to receive(:vite_javascript_tag).and_return('')
+  end
+
   describe 'GET /widget' do
     it 'renders the page correctly when called with website_token' do
       get widget_url(website_token: web_widget.website_token)
@@ -19,6 +24,16 @@ describe '/widget', type: :request do
       get widget_url(website_token: web_widget.website_token, cw_conversation: token)
       expect(response).to be_successful
       expect(response.body).to include(token)
+    end
+
+    it 'does not create a greeting conversation when the widget is opened' do
+      web_widget.inbox.update!(greeting_enabled: true, greeting_message: 'Hi, this is a greeting message')
+
+      expect do
+        get widget_url(website_token: web_widget.website_token, cw_conversation: token)
+      end.not_to change(Conversation, :count)
+
+      expect(response).to be_successful
     end
 
     it 'returns 404 when called with out website_token' do

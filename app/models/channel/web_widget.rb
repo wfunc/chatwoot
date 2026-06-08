@@ -17,6 +17,7 @@
 #  welcome_tagline                    :string
 #  welcome_title                      :string
 #  widget_color                       :string           default("#1f93ff")
+#  widget_conversation_history_retention :integer       default("none"), not null
 #  created_at                         :datetime         not null
 #  updated_at                         :datetime         not null
 #  account_id                         :integer
@@ -33,7 +34,8 @@ class Channel::WebWidget < ApplicationRecord
 
   self.table_name = 'channel_web_widgets'
   EDITABLE_ATTRS = [:website_url, :widget_color, :welcome_title, :welcome_tagline, :reply_time, :pre_chat_form_enabled,
-                    :continuity_via_email, :enable_widget_conversation_history, :hmac_mandatory, :allowed_domains,
+                    :continuity_via_email, :enable_widget_conversation_history, :widget_conversation_history_retention,
+                    :hmac_mandatory, :allowed_domains,
                     { pre_chat_form_options: [:pre_chat_message, :require_email,
                                               { pre_chat_fields:
                                                 [:field_type, :label, :placeholder, :name, :enabled, :type, :enabled, :required,
@@ -41,6 +43,7 @@ class Channel::WebWidget < ApplicationRecord
                     { selected_feature_flags: [] }].freeze
 
   before_validation :validate_pre_chat_options
+  before_validation :normalize_widget_conversation_history_retention
   validates :website_url, presence: true
   validates :widget_color, presence: true
   has_many :portals, foreign_key: 'channel_web_widget_id', dependent: :nullify, inverse_of: :channel_web_widget
@@ -57,6 +60,13 @@ class Channel::WebWidget < ApplicationRecord
             :check_for_column => false
 
   enum reply_time: { in_a_few_minutes: 0, in_a_few_hours: 1, in_a_day: 2 }
+  enum widget_conversation_history_retention: {
+    none: 0,
+    one_day: 1,
+    three_days: 3,
+    seven_days: 7,
+    forever: 10_000
+  }, _prefix: :widget_conversation_history
 
   def name
     'Website'
@@ -106,5 +116,29 @@ class Channel::WebWidget < ApplicationRecord
                                            inbox: inbox,
                                            contact_attributes: { additional_attributes: additional_attributes }
                                          }).perform
+  end
+
+  def widget_conversation_history_enabled?
+    !widget_conversation_history_none?
+  end
+
+  def widget_conversation_history_since
+    return nil unless widget_conversation_history_enabled?
+    return nil if widget_conversation_history_forever?
+
+    days = self.class.widget_conversation_history_retentions[widget_conversation_history_retention]
+    (days - 1).days.ago.beginning_of_day
+  end
+
+  private
+
+  def normalize_widget_conversation_history_retention
+    if will_save_change_to_widget_conversation_history_retention?
+      self.enable_widget_conversation_history = widget_conversation_history_enabled?
+    elsif will_save_change_to_enable_widget_conversation_history?
+      self.widget_conversation_history_retention = enable_widget_conversation_history? ? :forever : :none
+    else
+      self.enable_widget_conversation_history = widget_conversation_history_enabled?
+    end
   end
 end

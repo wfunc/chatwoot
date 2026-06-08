@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Actualizarea setărilor formularului pre-chat"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Actualizarea setărilor formularului pre-chat",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Istoricul conversațiilor widgetului",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Alegeți cât timp vizitatorii care revin pot vedea conversațiile anterioare ale widgetului în acest inbox.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Niciunul",
+        "ONE_DAY": "1 zi",
+        "THREE_DAYS": "3 zile",
+        "SEVEN_DAYS": "7 zile",
+        "FOREVER": "Pentru totdeauna"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Asistenta",

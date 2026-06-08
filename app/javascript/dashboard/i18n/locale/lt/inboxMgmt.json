@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Atnaujinkite išankstinio pokalbio internetu formos nustatymus"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Atnaujinkite išankstinio pokalbio internetu formos nustatymus",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Valdiklio pokalbių istorija",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Pasirinkite, kiek laiko sugrįžtantys lankytojai šiame gautųjų aplanke gali matyti ankstesnius valdiklio pokalbius.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Nėra",
+        "ONE_DAY": "1 diena",
+        "THREE_DAYS": "3 dienos",
+        "SEVEN_DAYS": "7 dienos",
+        "FOREVER": "Visam laikui"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Palaikymo centras",

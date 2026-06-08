@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Mövcud şablonlarınızı yeniləmək üçün WhatsApp-dan mesaj şablonlarını əl ilə sinxronlaşdırın.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Şablonları sinxronlaşdır",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Şablonların sinxronizasiyası uğurla başlandı. Yenilənməsi bir neçə dəqiqə çəkə bilər.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Pre Chat Form Parametrlərini Yeniləyin"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Pre Chat Form Parametrlərini Yeniləyin",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Vidcet söhbət tarixçəsi",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Geri qayıdan ziyarətçilərin bu gələnlər qutusunda əvvəlki vidcet söhbətlərini nə qədər müddət görə biləcəyini seçin.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Yoxdur",
+        "ONE_DAY": "1 gün",
+        "THREE_DAYS": "3 gün",
+        "SEVEN_DAYS": "7 gün",
+        "FOREVER": "Həmişə"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Kömək Mərkəzi",

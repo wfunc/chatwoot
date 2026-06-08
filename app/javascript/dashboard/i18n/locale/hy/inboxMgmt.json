@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Ձեռնարկաբար համաժամեցրեք հաղորդագրությունների տիպերը WhatsApp-ից՝ ձեր հասանելի տիպերը թարմացնելու համար։",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Համաժամեցնել տիպերը",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Տիպերի համաժամացումը հաջողությամբ սկսվեց։ Թարմացումը կարող է տևել մի քանի րոպե։",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Թարմացնել նախազրույցի ձևի կարգավորումները"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Թարմացնել նախազրույցի ձևի կարգավորումները",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Widget-ի զրույցների պատմություն",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Ընտրեք, թե վերադարձող այցելուները որքան ժամանակ կարող են այս մուտքի արկղում տեսնել widget-ի նախորդ զրույցները։",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Չկա",
+        "ONE_DAY": "1 օր",
+        "THREE_DAYS": "3 օր",
+        "SEVEN_DAYS": "7 օր",
+        "FOREVER": "Ընդմիշտ"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Օգնության կենտրոն",

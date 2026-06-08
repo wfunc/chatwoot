@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "ከWhatsApp መልእክት አብነቶች እጅግ በእጅ ማስተካከል ለእንደገና የሚገኙ አብነቶችን ያዘምኑ።.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "አብነቶችን ያዘምኑ",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "የአብነት ማስተካከያ በተሳካ ሁኔታ ተጀምሯል። ለማዘመን ጥቂት ደቂቃዎች ሊወስድ ይችላል።.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "የቀደም ቻት ቅጥያ ቅንብሮችን አዘምን"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "የቀደም ቻት ቅጥያ ቅንብሮችን አዘምን",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "የWidget ውይይት ታሪክ",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "ተመላሽ ጎብኚዎች በዚህ የገቢ መልእክት ሳጥን ውስጥ ያለፉ የWidget ውይይቶችን ለምን ጊዜ ማየት እንደሚችሉ ይምረጡ።",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "ምንም",
+        "ONE_DAY": "1 ቀን",
+        "THREE_DAYS": "3 ቀናት",
+        "SEVEN_DAYS": "7 ቀናት",
+        "FOREVER": "ሁልጊዜ"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "የእርዳታ ማዕከል",

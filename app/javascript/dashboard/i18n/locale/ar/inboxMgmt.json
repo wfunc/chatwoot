@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "سجل محادثات الويدجت",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "اختر المدة التي يمكن فيها للزوار العائدين رؤية محادثات الويدجت السابقة في صندوق الوارد هذا.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "لا شيء",
+        "ONE_DAY": "يوم واحد",
+        "THREE_DAYS": "3 أيام",
+        "SEVEN_DAYS": "7 أيام",
+        "FOREVER": "دائمًا"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "مركز المساعدة",

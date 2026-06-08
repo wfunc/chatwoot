@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "プレチャットフォーム設定を更新する"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "プレチャットフォーム設定を更新する",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "ウィジェットの会話履歴",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "再訪問したユーザーがこの受信トレイで以前のウィジェット会話を表示できる期間を選択します。",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "なし",
+        "ONE_DAY": "1日",
+        "THREE_DAYS": "3日",
+        "SEVEN_DAYS": "7日",
+        "FOREVER": "無期限"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "ヘルプセンター",

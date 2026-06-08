@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Atjaunināt pirms-tērzēšanas veidlapas iestatījumus"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Atjaunināt pirms-tērzēšanas veidlapas iestatījumus",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Logrīka sarunu vēsture",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Izvēlieties, cik ilgi atkārtoti apmeklētāji šajā iesūtnē var skatīt iepriekšējās logrīka sarunas.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Nav",
+        "ONE_DAY": "1 diena",
+        "THREE_DAYS": "3 dienas",
+        "SEVEN_DAYS": "7 dienas",
+        "FOREVER": "Vienmēr"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Palīdzības centrs",

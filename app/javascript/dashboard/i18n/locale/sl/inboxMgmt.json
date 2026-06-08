@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Ročno sinhronizirajte predloge sporočil iz WhatsApp, da posodobite razpoložljive predloge.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sinhroniziraj predloge",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Sinhronizacija predlog uspešno začeta. Posodobitev lahko traja nekaj minut.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Posodobi nastavitve obrazca pred klepetom"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Posodobi nastavitve obrazca pred klepetom",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Zgodovina pogovorov gradnika",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Izberite, kako dolgo lahko obiskovalci, ki se vračajo, vidijo prejšnje pogovore gradnika v tem nabiralniku.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Brez",
+        "ONE_DAY": "1 dan",
+        "THREE_DAYS": "3 dni",
+        "SEVEN_DAYS": "7 dni",
+        "FOREVER": "Za vedno"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Pomoč",

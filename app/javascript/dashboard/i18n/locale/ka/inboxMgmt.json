@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "ხელით სინქრონიზაცია WhatsApp-ისგან, რათა განაახლოთ ხელმისაწვდომი შაბლონები.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "შაბლონების სინქრონიზაცია",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "შაბლონების სინქრონიზაცია წარმატებით დაიწყო. განახლება შეიძლება რამდენიმე წუთი გაგრძელდეს.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "განაახლეთ წინასწარი ჩატის ფორმის პარამეტრები"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "განაახლეთ წინასწარი ჩატის ფორმის პარამეტრები",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Widget-ის საუბრის ისტორია",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "აირჩიეთ, რამდენ ხანს შეძლებენ დაბრუნებული ვიზიტორები ამ inbox-ში წინა widget-საუბრების ნახვას.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "არცერთი",
+        "ONE_DAY": "1 დღე",
+        "THREE_DAYS": "3 დღე",
+        "SEVEN_DAYS": "7 დღე",
+        "FOREVER": "სამუდამოდ"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "დახმარების ცენტრი",

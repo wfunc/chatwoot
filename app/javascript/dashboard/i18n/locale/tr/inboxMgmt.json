@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "WhatsApp'tan mesaj şablonlarını manuel olarak senkronize ederek mevcut şablonlarınızı güncelleyin.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Şablonları Senkronize Et",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Şablon senkronizasyonu başarıyla başlatıldı. Güncellenmesi birkaç dakika sürebilir.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Sohbet Öncesi Form Ayarlarını Güncelleme"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Sohbet Öncesi Form Ayarlarını Güncelleme",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Widget konuşma geçmişi",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Geri dönen ziyaretçilerin bu gelen kutusunda önceki widget konuşmalarını ne kadar süre görebileceğini seçin.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Yok",
+        "ONE_DAY": "1 gün",
+        "THREE_DAYS": "3 gün",
+        "SEVEN_DAYS": "7 gün",
+        "FOREVER": "Süresiz"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Yardım Merkezi",

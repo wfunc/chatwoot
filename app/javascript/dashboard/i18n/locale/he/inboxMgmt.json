@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "סנכרן תבניות הודעות מ-WhatsApp באופן ידני כדי לעדכן את התבניות הזמינות שלך.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "סנכרן תבניות",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "סנכרון התבניות הופעל בהצלחה. העדכון עשוי להימשך כמה דקות.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "עדכון הגדרות טופס טרום צ'אט"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "עדכון הגדרות טופס טרום צ'אט",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "היסטוריית שיחות של הווידג׳ט",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "בחרו כמה זמן מבקרים חוזרים יוכלו לראות שיחות קודמות של הווידג׳ט בתיבת הדואר הנכנס הזו.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "ללא",
+        "ONE_DAY": "יום אחד",
+        "THREE_DAYS": "3 ימים",
+        "SEVEN_DAYS": "7 ימים",
+        "FOREVER": "לתמיד"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "מרכז עזרה",

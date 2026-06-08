@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Csevegés előtti űrlap beállításainak frissítése"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Csevegés előtti űrlap beállításainak frissítése",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Widget beszélgetési előzményei",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Válassza ki, mennyi ideig láthatják a visszatérő látogatók a korábbi widget-beszélgetéseket ebben a bejövő mappában.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Nincs",
+        "ONE_DAY": "1 nap",
+        "THREE_DAYS": "3 nap",
+        "SEVEN_DAYS": "7 nap",
+        "FOREVER": "Örökre"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Súgóközpont",

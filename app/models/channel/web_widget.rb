@@ -60,6 +60,7 @@ class Channel::WebWidget < ApplicationRecord
             :check_for_column => false
 
   enum reply_time: { in_a_few_minutes: 0, in_a_few_hours: 1, in_a_day: 2 }
+  attribute :widget_conversation_history_retention, :integer, default: 0
   enum widget_conversation_history_retention: {
     none: 0,
     one_day: 1,

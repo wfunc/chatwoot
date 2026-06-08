@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sinkronizo shabllonet",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Sinkronizimi i modeleve u nis me sukses. Mund të duhen disa minuta për t'u përditësuar.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Përditëso Cilësimet e Formularit Para Bisedës"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Përditëso Cilësimet e Formularit Para Bisedës",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Historiku i bisedave të widget-it",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Zgjidhni sa gjatë vizitorët që rikthehen mund të shohin bisedat e mëparshme të widget-it në këtë inbox.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Asnjë",
+        "ONE_DAY": "1 ditë",
+        "THREE_DAYS": "3 ditë",
+        "SEVEN_DAYS": "7 ditë",
+        "FOREVER": "Përgjithmonë"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Qendra e Ndihmës",

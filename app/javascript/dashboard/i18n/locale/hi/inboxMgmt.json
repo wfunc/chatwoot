@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "विजेट वार्तालाप इतिहास",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "चुनें कि वापस आने वाले विज़िटर इस इनबॉक्स में पिछले विजेट वार्तालाप कितने समय तक देख सकते हैं।",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "कोई नहीं",
+        "ONE_DAY": "1 दिन",
+        "THREE_DAYS": "3 दिन",
+        "SEVEN_DAYS": "7 दिन",
+        "FOREVER": "हमेशा"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",

@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Uuenda vestluse-eelse vormi seadeid"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Uuenda vestluse-eelse vormi seadeid",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Vidina vestluste ajalugu",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Valige, kui kaua saavad naasvad külastajad selles postkastis varasemaid vidina vestlusi näha.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Puudub",
+        "ONE_DAY": "1 päev",
+        "THREE_DAYS": "3 päeva",
+        "SEVEN_DAYS": "7 päeva",
+        "FOREVER": "Igavesti"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Abi keskus",

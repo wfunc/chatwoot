@@ -771,7 +771,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "同步模板",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "更新预聊天表单设置"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "更新预聊天表单设置",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Widget 对话历史记录",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "选择回访访客可在此收件箱中查看之前 Widget 对话的时长。",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "不保留",
+        "ONE_DAY": "1 天",
+        "THREE_DAYS": "3 天",
+        "SEVEN_DAYS": "7 天",
+        "FOREVER": "永久保留"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "帮助中心",

@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "手動從 WhatsApp 同步訊息範本以更新可用範本。",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "同步範本",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "範本同步已啟動。可能需要幾分鐘才能更新完成。",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "更新聊天前表單設定"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "更新聊天前表單設定",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Widget 對話歷史記錄",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "選擇回訪訪客可在此收件匣中查看先前 Widget 對話的時長。",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "不保留",
+        "ONE_DAY": "1 天",
+        "THREE_DAYS": "3 天",
+        "SEVEN_DAYS": "7 天",
+        "FOREVER": "永久保留"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "幫助中心",

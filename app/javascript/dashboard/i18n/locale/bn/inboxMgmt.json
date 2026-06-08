@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "আপনার উপলব্ধ টেমপ্লেট আপডেট করতে WhatsApp থেকে মেসেজ টেমপ্লেটগুলো ম্যানুয়ালি সিঙ্ক করুন।.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "টেমপ্লেট সিঙ্ক করুন",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "টেমপ্লেট সিঙ্ক সফলভাবে শুরু হয়েছে। আপডেট হতে কয়েক মিনিট সময় লাগতে পারে।.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "প্রি-চ্যাট ফর্ম সেটিংস আপডেট করুন"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "প্রি-চ্যাট ফর্ম সেটিংস আপডেট করুন",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "উইজেট কথোপকথনের ইতিহাস",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "ফিরে আসা দর্শকরা এই ইনবক্সে আগের উইজেট কথোপকথন কতক্ষণ দেখতে পারবেন তা বেছে নিন।",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "কিছুই নয়",
+        "ONE_DAY": "১ দিন",
+        "THREE_DAYS": "৩ দিন",
+        "SEVEN_DAYS": "৭ দিন",
+        "FOREVER": "চিরকাল"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "সহায়তা কেন্দ্র",

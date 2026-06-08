@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manu-manong i-sync ang mga message template mula sa WhatsApp upang i-update ang iyong mga available na template.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "I-sync ang Mga Template",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Matagumpay na sinimulan ang pag-sync ng mga template. Maaaring tumagal ng ilang minuto bago ma-update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "I-update ang Mga Setting ng Pre Chat Form"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "I-update ang Mga Setting ng Pre Chat Form",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Kasaysayan ng pag-uusap sa widget",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Piliin kung gaano katagal makikita ng mga bumabalik na bisita ang mga nakaraang pag-uusap sa widget sa inbox na ito.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Wala",
+        "ONE_DAY": "1 araw",
+        "THREE_DAYS": "3 araw",
+        "SEVEN_DAYS": "7 araw",
+        "FOREVER": "Magpakailanman"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",

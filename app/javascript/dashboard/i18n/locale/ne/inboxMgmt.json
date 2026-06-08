@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "तपाईंका उपलब्ध टेम्प्लेटहरू अपडेट गर्न WhatsApp बाट म्यानुअली सन्देश टेम्प्लेटहरू समक्रमण गर्नुहोस्।",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "टेम्प्लेटहरू समक्रमण गर्नुहोस्",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "टेम्प्लेटहरू समक्रमण सफलतापूर्वक सुरु भयो। अपडेट हुन केही मिनेट लाग्न सक्छ।",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "पूर्व-च्याट फारम सेटिङहरू अपडेट गर्नुहोस्।"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "पूर्व-च्याट फारम सेटिङहरू अपडेट गर्नुहोस्।",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "विजेट कुराकानी इतिहास",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "फर्केर आउने आगन्तुकहरूले यस इनबक्समा अघिल्ला विजेट कुराकानीहरू कति समयसम्म हेर्न सक्छन् चयन गर्नुहोस्।",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "कुनै छैन",
+        "ONE_DAY": "१ दिन",
+        "THREE_DAYS": "३ दिन",
+        "SEVEN_DAYS": "७ दिन",
+        "FOREVER": "सधैंभरि"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "मद्दत केन्द्र",

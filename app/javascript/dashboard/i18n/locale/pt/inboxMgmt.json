@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Atualizar configurações do formulário pré-chat"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Atualizar configurações do formulário pré-chat",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Histórico de conversas do widget",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Escolha por quanto tempo visitantes recorrentes podem ver conversas anteriores do widget nesta caixa de entrada.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Nenhum",
+        "ONE_DAY": "1 dia",
+        "THREE_DAYS": "3 dias",
+        "SEVEN_DAYS": "7 dias",
+        "FOREVER": "Para sempre"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Centro de suporte",

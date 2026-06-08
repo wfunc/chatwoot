@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Оновити параметри форми чату"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Оновити параметри форми чату",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Історія розмов віджета",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Виберіть, як довго відвідувачі, які повертаються, можуть бачити попередні розмови віджета в цій скриньці.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Не зберігати",
+        "ONE_DAY": "1 день",
+        "THREE_DAYS": "3 дні",
+        "SEVEN_DAYS": "7 днів",
+        "FOREVER": "Назавжди"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Довідковий центр",

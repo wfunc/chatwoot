@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Sincronizza manualmente i modelli di messaggi da WhatsApp per aggiornare i modelli disponibili.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sincronizza Modelli",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Sincronizzazione modelli iniziata. Potrebbe volerci qualche minuto per aggiornare.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Aggiorna le Impostazioni del Modulo Pre Chat"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Aggiorna le Impostazioni del Modulo Pre Chat",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Cronologia delle conversazioni del widget",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Scegli per quanto tempo i visitatori di ritorno possono vedere le conversazioni precedenti del widget in questa casella di posta.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Nessuna",
+        "ONE_DAY": "1 giorno",
+        "THREE_DAYS": "3 giorni",
+        "SEVEN_DAYS": "7 giorni",
+        "FOREVER": "Per sempre"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",

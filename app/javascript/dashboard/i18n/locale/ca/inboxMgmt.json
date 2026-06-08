@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Actualitza la configuració del formulari de xat prèvia"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Actualitza la configuració del formulari de xat prèvia",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Historial de converses del giny",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Tria durant quant temps els visitants que tornen poden veure les converses anteriors del giny en aquesta safata d’entrada.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Cap",
+        "ONE_DAY": "1 dia",
+        "THREE_DAYS": "3 dies",
+        "SEVEN_DAYS": "7 dies",
+        "FOREVER": "Per sempre"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Centre d'ajuda",

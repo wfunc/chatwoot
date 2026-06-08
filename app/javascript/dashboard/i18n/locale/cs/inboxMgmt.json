@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Historie konverzací widgetu",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Zvolte, jak dlouho mohou vracející se návštěvníci zobrazit předchozí konverzace widgetu v této schránce.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Žádná",
+        "ONE_DAY": "1 den",
+        "THREE_DAYS": "3 dny",
+        "SEVEN_DAYS": "7 dní",
+        "FOREVER": "Navždy"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",

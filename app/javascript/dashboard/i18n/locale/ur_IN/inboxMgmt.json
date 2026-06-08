@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "اپنے دستیاب ٹیمپلیٹس کو اپ ڈیٹ کرنے کے لیے واٹس ایپ سے میسج ٹیمپلیٹس کو دستی طور پر ہم آہنگ کریں۔",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "ٹیمپلیٹس کو ہم آہنگ کریں",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "ٹیمپلیٹس کی ہم آہنگی کامیابی سے شروع ہو گئی ہے۔ اپ ڈیٹ ہونے میں چند منٹ لگ سکتے ہیں۔",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "پری چیٹ فارم کی ترتیبات کو اپ ڈیٹ کریں"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "پری چیٹ فارم کی ترتیبات کو اپ ڈیٹ کریں",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "وجیٹ گفتگو کی تاریخ",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "منتخب کریں کہ واپس آنے والے زائرین اس ان باکس میں پچھلی وجیٹ گفتگو کتنی دیر تک دیکھ سکتے ہیں۔",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "کوئی نہیں",
+        "ONE_DAY": "1 دن",
+        "THREE_DAYS": "3 دن",
+        "SEVEN_DAYS": "7 دن",
+        "FOREVER": "ہمیشہ کے لیے"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "مدد مرکز",

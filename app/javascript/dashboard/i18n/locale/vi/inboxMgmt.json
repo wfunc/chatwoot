@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Lịch sử cuộc trò chuyện widget",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Chọn khoảng thời gian khách truy cập quay lại có thể xem các cuộc trò chuyện widget trước đó trong hộp thư đến này.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Không có",
+        "ONE_DAY": "1 ngày",
+        "THREE_DAYS": "3 ngày",
+        "SEVEN_DAYS": "7 ngày",
+        "FOREVER": "Mãi mãi"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",

@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "முன் உரையாடல் படிவ அமைப்புகளை புதுப்பிக்கவும்"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "முன் உரையாடல் படிவ அமைப்புகளை புதுப்பிக்கவும்",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "விட்ஜெட் உரையாடல் வரலாறு",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "மீண்டும் வரும் பார்வையாளர்கள் இந்த inbox-இல் முந்தைய விட்ஜெட் உரையாடல்களை எவ்வளவு நேரம் பார்க்கலாம் என்பதைத் தேர்ந்தெடுக்கவும்.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "எதுவும் இல்லை",
+        "ONE_DAY": "1 நாள்",
+        "THREE_DAYS": "3 நாட்கள்",
+        "SEVEN_DAYS": "7 நாட்கள்",
+        "FOREVER": "என்றென்றும்"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "உதவி மையம்",

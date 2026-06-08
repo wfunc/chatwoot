@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Update Pre Chat Form Settings",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Ιστορικό συνομιλιών widget",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Επιλέξτε για πόσο χρόνο μπορούν οι επισκέπτες που επιστρέφουν να βλέπουν προηγούμενες συνομιλίες widget σε αυτό το inbox.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Κανένα",
+        "ONE_DAY": "1 ημέρα",
+        "THREE_DAYS": "3 ημέρες",
+        "SEVEN_DAYS": "7 ημέρες",
+        "FOREVER": "Για πάντα"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Help Center",

@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Вручную синхронизируйте шаблоны сообщений из WhatsApp, чтобы обновить доступные шаблоны.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Синхронизировать шаблоны",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Синхронизация шаблонов успешно запущена. Обновление может занять несколько минут.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Обновить настройки формы для чата"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Обновить настройки формы для чата",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "История разговоров виджета",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Выберите, как долго вернувшиеся посетители смогут видеть предыдущие разговоры виджета в этом входящем ящике.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Не сохранять",
+        "ONE_DAY": "1 день",
+        "THREE_DAYS": "3 дня",
+        "SEVEN_DAYS": "7 дней",
+        "FOREVER": "Навсегда"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Центр поддержки",

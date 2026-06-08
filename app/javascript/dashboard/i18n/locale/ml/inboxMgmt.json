@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "നിങ്ങളുടെ ലഭ്യമായ ടെംപ്ലേറ്റുകൾ അപ്ഡേറ്റ് ചെയ്യാൻ WhatsApp-ൽ നിന്ന് സന്ദേശ ടെംപ്ലേറ്റുകൾ മാനുവലായി സമന്വയിപ്പിക്കുക.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "ടെംപ്ലേറ്റുകൾ സമന്വയിപ്പിക്കുക",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "ടെംപ്ലേറ്റുകൾ സമന്വയം വിജയകരമായി ആരംഭിച്ചു. അപ്ഡേറ്റ് ചെയ്യാൻ കുറച്ച് മിനിറ്റുകൾ എടുക്കാം.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "പ്രീ ചാറ്റ് ഫോമിന്റെ ക്രമീകരണങ്ങൾ അപ്ഡേറ്റ് ചെയ്യുക"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "പ്രീ ചാറ്റ് ഫോമിന്റെ ക്രമീകരണങ്ങൾ അപ്ഡേറ്റ് ചെയ്യുക",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "വിജറ്റ് സംഭാഷണ ചരിത്രം",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "തിരികെ വരുന്ന സന്ദർശകർക്ക് ഈ ഇൻബോക്സിൽ മുമ്പത്തെ വിജറ്റ് സംഭാഷണങ്ങൾ എത്രകാലം കാണാനാകുമെന്ന് തിരഞ്ഞെടുക്കുക.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "ഒന്നുമില്ല",
+        "ONE_DAY": "1 ദിവസം",
+        "THREE_DAYS": "3 ദിവസം",
+        "SEVEN_DAYS": "7 ദിവസം",
+        "FOREVER": "എന്നേക്കും"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "സഹായ കേന്ദ്രം",

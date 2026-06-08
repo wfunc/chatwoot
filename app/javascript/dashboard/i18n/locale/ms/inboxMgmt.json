@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Penyelarasan templat berjaya dimulakan. Ia mungkin mengambil masa beberapa minit untuk dikemas kini.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Kemas kini Tetapan Borang Pra Sembang"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Kemas kini Tetapan Borang Pra Sembang",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Sejarah perbualan widget",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Pilih berapa lama pelawat yang kembali boleh melihat perbualan widget terdahulu dalam inbox ini.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Tiada",
+        "ONE_DAY": "1 hari",
+        "THREE_DAYS": "3 hari",
+        "SEVEN_DAYS": "7 hari",
+        "FOREVER": "Selamanya"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Pusat Bantuan",

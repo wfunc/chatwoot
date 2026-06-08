@@ -783,7 +783,16 @@
       "WHATSAPP_TEMPLATES_SYNC_SUBHEADER": "Manually sync message templates from WhatsApp to update your available templates.",
       "WHATSAPP_TEMPLATES_SYNC_BUTTON": "Sync Templates",
       "WHATSAPP_TEMPLATES_SYNC_SUCCESS": "Templates sync initiated successfully. It may take a couple of minutes to update.",
-      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Perbarui Pengaturan Formulir Pra Obrolan"
+      "UPDATE_PRE_CHAT_FORM_SETTINGS": "Perbarui Pengaturan Formulir Pra Obrolan",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION": "Riwayat percakapan widget",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_SUB_TEXT": "Pilih berapa lama pengunjung yang kembali dapat melihat percakapan widget sebelumnya di inbox ini.",
+      "WIDGET_CONVERSATION_HISTORY_RETENTION_OPTIONS": {
+        "NONE": "Tidak ada",
+        "ONE_DAY": "1 hari",
+        "THREE_DAYS": "3 hari",
+        "SEVEN_DAYS": "7 hari",
+        "FOREVER": "Selamanya"
+      }
     },
     "HELP_CENTER": {
       "LABEL": "Pusat Bantuan",

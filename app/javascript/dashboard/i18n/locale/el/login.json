@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Ο λογαριασμός σας συνδέθηκε σε άλλη συσκευή, οπότε αυτή η συνεδρία αποσυνδέθηκε.",
+      "MANUAL_REVOCATION": "Αυτή η συνεδρία αποσυνδέθηκε από διαχειριστή.",
+      "DEFAULT": "Η συνεδρία σας έληξε. Συνδεθείτε ξανά."
+    }
   }
 }

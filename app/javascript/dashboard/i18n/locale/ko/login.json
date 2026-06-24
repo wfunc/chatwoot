@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO 인증에 실패했습니다. 자격 증명을 확인하고 다시 시도하십시오."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "계정이 다른 기기에서 로그인되어 현재 세션이 종료되었습니다.",
+      "MANUAL_REVOCATION": "관리자가 이 세션을 종료했습니다.",
+      "DEFAULT": "세션이 종료되었습니다. 다시 로그인하세요."
+    }
   }
 }

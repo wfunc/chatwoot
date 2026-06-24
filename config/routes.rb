@@ -56,6 +56,8 @@ Rails.application.routes.draw do
           resource :bulk_actions, only: [:create]
           resources :agents, only: [:index, :create, :update, :destroy] do
             post :bulk_create, on: :collection
+            get :active_clients, on: :member
+            delete 'active_clients/:client_id', action: :destroy_active_client, on: :member
           end
           namespace :captain do
             resource :preferences, only: [:show, :update]

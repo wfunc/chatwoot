@@ -55,12 +55,12 @@
 - Prefer `with_modified_env` (from spec helpers) over stubbing `ENV` directly in specs
 - Specs in parallel/reloading environments: prefer comparing `error.class.name` over constant class equality when asserting raised errors
 
-## Codex Worktree Workflow
+## Codex Branch Workflow
 
-- Use a separate git worktree + branch per task to keep changes isolated.
-- Keep Codex-specific local setup under `.codex/` and use `Procfile.worktree` for worktree process orchestration.
-- The setup workflow in `.codex/environments/environment.toml` should dynamically generate per-worktree DB/port values (Rails, Vite, Redis DB index) to avoid collisions.
-- Start each worktree with its own Overmind socket/title so multiple instances can run at the same time.
+- Prefer working in the current checkout and switch/create a task branch there; do not create an extra git worktree by default.
+- Use an additional git worktree only when the user explicitly requests it or when parallel long-running environments are truly required.
+- Reuse the current checkout's existing dependencies and local setup to avoid maintaining duplicate `node_modules`, gems, databases, ports, and disk usage.
+- Before switching branches in the current checkout, check `git status` and preserve any user changes; do not overwrite or discard unrelated local work.
 
 ## Commit Messages
 

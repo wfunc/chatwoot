@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "El teu compte ha iniciat sessió en un altre dispositiu, per això aquesta sessió s’ha tancat.",
+      "MANUAL_REVOCATION": "Aquesta sessió ha estat tancada per un administrador.",
+      "DEFAULT": "La teva sessió ha finalitzat. Torna a iniciar sessió."
+    }
   }
 }

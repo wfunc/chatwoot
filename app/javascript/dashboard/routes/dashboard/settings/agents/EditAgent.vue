@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, requiredIf } from '@vuelidate/validators';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
@@ -7,6 +7,7 @@ import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Auth from '../../../../api/auth';
+import AgentAPI from '../../../../api/agents';
 import wootConstants from 'dashboard/constants/globals';
 import { useAdmin } from 'dashboard/composables/useAdmin';
 import { parseAPIErrorResponse } from 'dashboard/store/utils/api';
@@ -52,9 +53,14 @@ const props = defineProps({
     type: Number,
     default: null,
   },
+  maxActiveClients: {
+    type: Number,
+    default: null,
+  },
 });
 
 const emit = defineEmits(['close']);
+const MAX_ACTIVE_CLIENTS = 25;
 
 const { AVAILABILITY_STATUS_KEYS } = wootConstants;
 
@@ -83,8 +89,23 @@ const agentCredentials = ref({ email: props.email });
 const merchantStatus = ref(props.merchantStatus || 'active');
 const merchantExpiresAt = ref(formatDateTimeLocal(props.merchantExpiresAt));
 const agentLimit = ref(props.agentLimit);
+const maxActiveClients = ref(props.maxActiveClients);
 const agentPassword = ref('');
 const agentPasswordConfirmation = ref('');
+const activeClients = ref([]);
+const isFetchingActiveClients = ref(false);
+const revokingClientId = ref('');
+
+const isValidMaxActiveClients = value => {
+  if (value === null || value === '') return true;
+
+  const numericValue = Number(value);
+  return (
+    Number.isInteger(numericValue) &&
+    numericValue >= 1 &&
+    numericValue <= MAX_ACTIVE_CLIENTS
+  );
+};
 
 const rules = {
   agentName: { required, minLength: minLength(1) },
@@ -108,6 +129,7 @@ const rules = {
       selectedRoleId.value !== 'merchant' ||
       Number(value) >= 0,
   },
+  maxActiveClients: { isValid: isValidMaxActiveClients },
 };
 
 const v$ = useVuelidate(rules, {
@@ -117,6 +139,7 @@ const v$ = useVuelidate(rules, {
   agentPassword,
   agentPasswordConfirmation,
   agentLimit,
+  maxActiveClients,
 });
 
 const pageTitle = computed(
@@ -204,6 +227,55 @@ const merchantStatuses = computed(() => {
   ];
 });
 
+const formatTimestamp = timestamp => {
+  if (!timestamp) return t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.EMPTY_VALUE');
+
+  const date = new Date(Number(timestamp) * 1000);
+  if (Number.isNaN(date.getTime())) {
+    return t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.EMPTY_VALUE');
+  }
+
+  return date.toLocaleString();
+};
+
+const shortClient = client => {
+  if (!client) return '';
+  if (client.length <= 16) return client;
+
+  return `${client.slice(0, 8)}...${client.slice(-6)}`;
+};
+
+const isCurrentClient = client => Auth.getAuthData()?.client === client;
+
+const fetchActiveClients = async () => {
+  isFetchingActiveClients.value = true;
+  try {
+    const response = await AgentAPI.getActiveClients(props.id);
+    activeClients.value = response.data;
+  } catch (error) {
+    useAlert(t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.API.ERROR_MESSAGE'));
+  } finally {
+    isFetchingActiveClients.value = false;
+  }
+};
+
+const revokeActiveClient = async client => {
+  revokingClientId.value = client;
+  try {
+    await AgentAPI.deleteActiveClient(props.id, client);
+    activeClients.value = activeClients.value.filter(
+      activeClient => activeClient.client !== client
+    );
+    useAlert(t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.API.SUCCESS_MESSAGE'));
+  } catch (error) {
+    useAlert(t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.API.ERROR_MESSAGE'));
+  } finally {
+    revokingClientId.value = '';
+  }
+};
+
+onMounted(fetchActiveClients);
+
 const editAgent = async () => {
   v$.value.$touch();
   if (v$.value.$invalid) return;
@@ -213,6 +285,10 @@ const editAgent = async () => {
       id: props.id,
       name: agentName.value,
       availability: agentAvailability.value,
+      max_active_clients:
+        maxActiveClients.value === null || maxActiveClients.value === ''
+          ? null
+          : Number(maxActiveClients.value),
     };
 
     if (agentPassword.value) {
@@ -326,6 +402,25 @@ const resetPassword = async () => {
       </div>
 
       <div class="w-full">
+        <label :class="{ error: v$.maxActiveClients.$error }">
+          {{ $t('AGENT_MGMT.EDIT.FORM.MAX_ACTIVE_CLIENTS.LABEL') }}
+          <input
+            v-model.number="maxActiveClients"
+            type="number"
+            min="1"
+            :max="MAX_ACTIVE_CLIENTS"
+            :placeholder="
+              $t('AGENT_MGMT.EDIT.FORM.MAX_ACTIVE_CLIENTS.PLACEHOLDER')
+            "
+            @input="v$.maxActiveClients.$touch"
+          />
+          <span v-if="v$.maxActiveClients.$error" class="message">
+            {{ $t('AGENT_MGMT.EDIT.FORM.MAX_ACTIVE_CLIENTS.ERROR') }}
+          </span>
+        </label>
+      </div>
+
+      <div class="w-full">
         <label :class="{ error: v$.agentAvailability.$error }">
           {{ $t('PROFILE_SETTINGS.FORM.AVAILABILITY.LABEL') }}
           <select
@@ -344,6 +439,106 @@ const resetPassword = async () => {
             {{ $t('AGENT_MGMT.EDIT.FORM.AGENT_AVAILABILITY.ERROR') }}
           </span>
         </label>
+      </div>
+
+      <div class="w-full py-3">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <h3 class="m-0 text-sm font-medium text-n-slate-12">
+            {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.TITLE') }}
+          </h3>
+          <Button
+            ghost
+            slate
+            xs
+            type="button"
+            icon="i-lucide-refresh-cw"
+            :disabled="isFetchingActiveClients"
+            :is-loading="isFetchingActiveClients"
+            @click.prevent="fetchActiveClients"
+          />
+        </div>
+        <div
+          v-if="!isFetchingActiveClients && activeClients.length === 0"
+          class="text-sm text-n-slate-11"
+        >
+          {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.EMPTY') }}
+        </div>
+        <div v-else class="overflow-x-auto border rounded-md border-n-weak">
+          <table class="w-full text-sm">
+            <thead class="bg-n-slate-2 text-n-slate-11">
+              <tr>
+                <th class="px-3 py-2 font-medium text-left">
+                  {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.CLIENT') }}
+                </th>
+                <th class="px-3 py-2 font-medium text-left">
+                  {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.IP') }}
+                </th>
+                <th class="px-3 py-2 font-medium text-left">
+                  {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.LOGIN_TIME') }}
+                </th>
+                <th class="px-3 py-2 font-medium text-left">
+                  {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.LAST_SEEN') }}
+                </th>
+                <th class="px-3 py-2 font-medium text-left">
+                  {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.DEVICE') }}
+                </th>
+                <th class="px-3 py-2 font-medium text-right">
+                  {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.ACTIONS') }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="activeClient in activeClients"
+                :key="activeClient.client"
+                class="border-t border-n-weak"
+              >
+                <td class="px-3 py-2 text-n-slate-12 whitespace-nowrap">
+                  <span>{{ shortClient(activeClient.client) }}</span>
+                  <span
+                    v-if="isCurrentClient(activeClient.client)"
+                    class="ml-1 text-xs text-n-slate-11"
+                  >
+                    {{ $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.CURRENT') }}
+                  </span>
+                </td>
+                <td class="px-3 py-2 text-n-slate-11 whitespace-nowrap">
+                  {{
+                    activeClient.ip ||
+                    $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.EMPTY_VALUE')
+                  }}
+                </td>
+                <td class="px-3 py-2 text-n-slate-11 whitespace-nowrap">
+                  {{ formatTimestamp(activeClient.created_at) }}
+                </td>
+                <td class="px-3 py-2 text-n-slate-11 whitespace-nowrap">
+                  {{ formatTimestamp(activeClient.last_seen_at) }}
+                </td>
+                <td class="max-w-56 px-3 py-2 text-n-slate-11">
+                  <span class="block truncate">
+                    {{
+                      activeClient.user_agent ||
+                      $t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.EMPTY_VALUE')
+                    }}
+                  </span>
+                </td>
+                <td class="px-3 py-2 text-right whitespace-nowrap">
+                  <Button
+                    ghost
+                    ruby
+                    xs
+                    type="button"
+                    icon="i-lucide-log-out"
+                    :label="$t('AGENT_MGMT.EDIT.ACTIVE_CLIENTS.KICK')"
+                    :disabled="revokingClientId === activeClient.client"
+                    :is-loading="revokingClientId === activeClient.client"
+                    @click.prevent="revokeActiveClient(activeClient.client)"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div v-if="provider !== 'saml'" class="w-full">

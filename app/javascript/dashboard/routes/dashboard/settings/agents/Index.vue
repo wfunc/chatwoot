@@ -324,6 +324,7 @@ const confirmDeletion = () => {
         :merchant-status="currentAgent.merchant_status"
         :merchant-expires-at="currentAgent.merchant_expires_at"
         :agent-limit="currentAgent.agent_limit"
+        :max-active-clients="currentAgent.max_active_clients"
         @close="hideEditPopup"
       />
     </woot-modal>

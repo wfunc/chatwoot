@@ -36,6 +36,7 @@ class RoomChannel < ApplicationCable::Channel
   def ensure_stream
     stream_from pubsub_token
     stream_from "account_#{@current_account.id}" if @current_account.present? && @current_user.is_a?(User)
+    stream_from auth_client_stream if auth_client_stream.present?
   end
 
   def update_subscription
@@ -56,6 +57,17 @@ class RoomChannel < ApplicationCable::Channel
 
   def pubsub_token
     @pubsub_token ||= params[:pubsub_token]
+  end
+
+  def auth_client
+    @auth_client ||= params[:auth_client].presence
+  end
+
+  def auth_client_stream
+    return if auth_client.blank? || !@current_user.is_a?(User) || @current_user.tokens.blank?
+    return if @current_user.tokens[auth_client].blank?
+
+    Auth::ClientRevocationNotifier.stream_name(@current_user.id, auth_client)
   end
 
   def current_user

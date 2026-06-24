@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "您的账号已在其他设备登录，当前客户端已被挤下线。",
+      "MANUAL_REVOCATION": "当前客户端已被管理员踢下线。",
+      "DEFAULT": "当前会话已失效，请重新登录。"
+    }
   }
 }

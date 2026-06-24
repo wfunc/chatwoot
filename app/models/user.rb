@@ -16,6 +16,7 @@
 #  encrypted_password     :string           default(""), not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
+#  max_active_clients     :integer
 #  message_signature      :text
 #  name                   :string           not null
 #  otp_backup_codes       :text
@@ -50,6 +51,7 @@ class User < ApplicationRecord
   include Avatarable
   # Include default devise modules.
   include DeviseTokenAuth::Concerns::User
+  prepend AuthClientManageable
   include Pubsubable
   include Rails.application.routes.url_helpers
   include Reportable

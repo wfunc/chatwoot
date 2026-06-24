@@ -40,7 +40,12 @@
           "LABEL": "E-postadress",
           "PLACEHOLDER": "Ange en e-postadress till agenten"
         },
-        "SUBMIT": "Lägg till agent"
+        "SUBMIT": "Lägg till agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Max antal aktiva klienter",
+          "PLACEHOLDER": "Lämna tomt för att använda standardgränsen",
+          "ERROR": "Max antal aktiva klienter måste vara mellan 1 och 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agenten har lagts till",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Redigera agent"
+        "SUBMIT": "Redigera agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Max antal aktiva klienter",
+          "PLACEHOLDER": "Lämna tomt för att använda standardgränsen",
+          "ERROR": "Max antal aktiva klienter måste vara mellan 1 och 25"
+        }
       },
       "BUTTON_TEXT": "Redigera",
       "CANCEL_BUTTON_TEXT": "Avbryt",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Ett e-postmeddelande med instruktioner för att återställa lösenordet har skickats till agenten",
         "SUCCESS_MESSAGE": "Agentens lösenord återställd",
         "ERROR_MESSAGE": "Kunde inte ansluta till Woot Server, försök igen senare"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktiva klienter",
+        "CLIENT": "Klient",
+        "IP": "IP",
+        "LOGIN_TIME": "Inloggningstid",
+        "LAST_SEEN": "Senast sedd",
+        "DEVICE": "Enhet",
+        "ACTIONS": "Åtgärder",
+        "CURRENT": "nuvarande",
+        "KICK": "Logga ut",
+        "EMPTY": "Inga aktiva klienter",
+        "EMPTY_VALUE": "Okänt",
+        "API": {
+          "SUCCESS_MESSAGE": "Klienten loggades ut",
+          "ERROR_MESSAGE": "Kunde inte uppdatera aktiva klienter. Försök igen senare"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Sök efter agenter...",

@@ -21,6 +21,7 @@ class AgentBuilder
     { merchant_expires_at: nil },
     { agent_limit: nil },
     { parent_merchant_id: nil },
+    { max_active_clients: nil },
     { password: nil },
     { password_confirmation: nil }
   ]
@@ -49,6 +50,7 @@ class AgentBuilder
     User.create!(
       email: email,
       name: name,
+      max_active_clients: max_active_clients,
       password: resolved_password,
       password_confirmation: resolved_password_confirmation
     )

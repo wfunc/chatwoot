@@ -40,7 +40,12 @@
           "LABEL": "이메일 주소",
           "PLACEHOLDER": "에이전트의 이메일 주소를 입력하십시오."
         },
-        "SUBMIT": "에이전트 추가"
+        "SUBMIT": "에이전트 추가",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "최대 활성 클라이언트 수",
+          "PLACEHOLDER": "비워 두면 기본 제한을 사용합니다",
+          "ERROR": "최대 활성 클라이언트 수는 1에서 25 사이여야 합니다"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "에이전트가 성공적으로 추가되었습니다.",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "가용성 상태를 선택하십시오.",
           "ERROR": "가용성이 필요합니다."
         },
-        "SUBMIT": "에이전트 수정"
+        "SUBMIT": "에이전트 수정",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "최대 활성 클라이언트 수",
+          "PLACEHOLDER": "비워 두면 기본 제한을 사용합니다",
+          "ERROR": "최대 활성 클라이언트 수는 1에서 25 사이여야 합니다"
+        }
       },
       "BUTTON_TEXT": "수정",
       "CANCEL_BUTTON_TEXT": "취소",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "비밀번호 재설정 안내 이메일이 에이전트에게 전송되었습니다.",
         "SUCCESS_MESSAGE": "에이전트 비밀번호가 성공적으로 재설정되었습니다.",
         "ERROR_MESSAGE": "Woot 서버에 연결할 수 없습니다. 나중에 다시 시도하십시오."
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "활성 클라이언트",
+        "CLIENT": "클라이언트",
+        "IP": "IP",
+        "LOGIN_TIME": "로그인 시간",
+        "LAST_SEEN": "마지막 활동",
+        "DEVICE": "기기",
+        "ACTIONS": "작업",
+        "CURRENT": "현재",
+        "KICK": "내보내기",
+        "EMPTY": "활성 클라이언트가 없습니다",
+        "EMPTY_VALUE": "알 수 없음",
+        "API": {
+          "SUCCESS_MESSAGE": "클라이언트를 내보냈습니다",
+          "ERROR_MESSAGE": "활성 클라이언트를 업데이트할 수 없습니다. 나중에 다시 시도하세요"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "에이전트 검색...",

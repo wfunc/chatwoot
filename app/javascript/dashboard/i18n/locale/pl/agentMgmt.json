@@ -40,7 +40,12 @@
           "LABEL": "Adres e-mail",
           "PLACEHOLDER": "Wprowadź adres e-mail agenta"
         },
-        "SUBMIT": "Dodaj agenta"
+        "SUBMIT": "Dodaj agenta",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksymalna liczba aktywnych klientów",
+          "PLACEHOLDER": "Pozostaw puste, aby użyć domyślnego limitu",
+          "ERROR": "Maksymalna liczba aktywnych klientów musi być od 1 do 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent dodany pomyślnie",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Proszę wybrać status dostępności",
           "ERROR": "Dostępność jest wymagana"
         },
-        "SUBMIT": "Edytuj agenta"
+        "SUBMIT": "Edytuj agenta",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksymalna liczba aktywnych klientów",
+          "PLACEHOLDER": "Pozostaw puste, aby użyć domyślnego limitu",
+          "ERROR": "Maksymalna liczba aktywnych klientów musi być od 1 do 25"
+        }
       },
       "BUTTON_TEXT": "Edytuj",
       "CANCEL_BUTTON_TEXT": "Anuluj",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "E-mail z instrukcjami resetowania hasła został wysłany do agenta",
         "SUCCESS_MESSAGE": "Hasło agenta zostało pomyślnie zresetowane",
         "ERROR_MESSAGE": "Nie można połączyć się z serwerem Woot, proszę spróbować później"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktywni klienci",
+        "CLIENT": "Klient",
+        "IP": "IP",
+        "LOGIN_TIME": "Czas logowania",
+        "LAST_SEEN": "Ostatnio widziany",
+        "DEVICE": "Urządzenie",
+        "ACTIONS": "Akcje",
+        "CURRENT": "bieżący",
+        "KICK": "Wyloguj",
+        "EMPTY": "Brak aktywnych klientów",
+        "EMPTY_VALUE": "Nieznane",
+        "API": {
+          "SUCCESS_MESSAGE": "Klient został wylogowany",
+          "ERROR_MESSAGE": "Nie można zaktualizować aktywnych klientów. Spróbuj ponownie później"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Szukaj agentów...",

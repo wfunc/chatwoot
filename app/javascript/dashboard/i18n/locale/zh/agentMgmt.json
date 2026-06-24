@@ -40,7 +40,12 @@
           "LABEL": "电子邮件地址",
           "PLACEHOLDER": "请输入客服的邮箱地址"
         },
-        "SUBMIT": "添加客服"
+        "SUBMIT": "添加客服",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "最大在线客户端数",
+          "PLACEHOLDER": "留空则使用默认限制",
+          "ERROR": "最大在线客户端数必须在 1 到 25 之间"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "添加客服成功",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "请选择一个可用状态",
           "ERROR": "需要提供可用性信息"
         },
-        "SUBMIT": "编辑客服"
+        "SUBMIT": "编辑客服",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "最大在线客户端数",
+          "PLACEHOLDER": "留空则使用默认限制",
+          "ERROR": "最大在线客户端数必须在 1 到 25 之间"
+        }
       },
       "BUTTON_TEXT": "编辑",
       "CANCEL_BUTTON_TEXT": "取消",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "一封包含重置密码说明的电子邮件已发送给代理",
         "SUCCESS_MESSAGE": "代理的密码重置成功",
         "ERROR_MESSAGE": "无法连接Woot服务器，请稍后再试"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "在线客户端",
+        "CLIENT": "客户端",
+        "IP": "IP",
+        "LOGIN_TIME": "登录时间",
+        "LAST_SEEN": "最后在线",
+        "DEVICE": "设备",
+        "ACTIONS": "操作",
+        "CURRENT": "当前",
+        "KICK": "踢下线",
+        "EMPTY": "暂无在线客户端",
+        "EMPTY_VALUE": "未知",
+        "API": {
+          "SUCCESS_MESSAGE": "客户端已踢下线",
+          "ERROR_MESSAGE": "无法更新在线客户端，请稍后再试"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "搜索客服代表...",

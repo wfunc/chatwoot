@@ -40,7 +40,12 @@
           "LABEL": "E-postadresse",
           "PLACEHOLDER": "Skriv inn en agent sin e-postadresse"
         },
-        "SUBMIT": "Legg til agent"
+        "SUBMIT": "Legg til agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maks aktive klienter",
+          "PLACEHOLDER": "La stå tomt for å bruke standardgrensen",
+          "ERROR": "Maks aktive klienter må være mellom 1 og 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent ble lagt til",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Vennligst velg en tilgjengelighet status",
           "ERROR": "Tilgjengelighet er påkrevd"
         },
-        "SUBMIT": "Rediger agent"
+        "SUBMIT": "Rediger agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maks aktive klienter",
+          "PLACEHOLDER": "La stå tomt for å bruke standardgrensen",
+          "ERROR": "Maks aktive klienter må være mellom 1 og 25"
+        }
       },
       "BUTTON_TEXT": "Rediger",
       "CANCEL_BUTTON_TEXT": "Avbryt",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "En e-post med instruksjoner for å tilbakestille passordet er sendt til agenten",
         "SUCCESS_MESSAGE": "Passordet til agenten ble tilbakestilt",
         "ERROR_MESSAGE": "Kunne ikke koble til Woot Server, vennligst prøv igjen senere"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktive klienter",
+        "CLIENT": "Klient",
+        "IP": "IP",
+        "LOGIN_TIME": "Innloggingstid",
+        "LAST_SEEN": "Sist sett",
+        "DEVICE": "Enhet",
+        "ACTIONS": "Handlinger",
+        "CURRENT": "nåværende",
+        "KICK": "Logg ut",
+        "EMPTY": "Ingen aktive klienter",
+        "EMPTY_VALUE": "Ukjent",
+        "API": {
+          "SUCCESS_MESSAGE": "Klienten ble logget ut",
+          "ERROR_MESSAGE": "Kunne ikke oppdatere aktive klienter. Prøv igjen senere"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Søk etter agenter...",

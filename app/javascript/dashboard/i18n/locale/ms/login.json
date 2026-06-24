@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Akaun anda telah log masuk pada peranti lain, jadi sesi ini telah dilog keluar.",
+      "MANUAL_REVOCATION": "Sesi ini telah dilog keluar oleh pentadbir.",
+      "DEFAULT": "Sesi anda telah tamat. Sila log masuk semula."
+    }
   }
 }

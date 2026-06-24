@@ -10,6 +10,7 @@ import { useAdmin } from 'dashboard/composables/useAdmin';
 import { parseAPIErrorResponse } from 'dashboard/store/utils/api';
 
 const emit = defineEmits(['close']);
+const MAX_ACTIVE_CLIENTS = 25;
 
 const store = useStore();
 const { t } = useI18n();
@@ -20,8 +21,20 @@ const agentEmail = ref('');
 const selectedRoleId = ref('agent');
 const merchantAgentLimit = ref(null);
 const merchantExpiresAt = ref('');
+const maxActiveClients = ref(null);
 const agentPassword = ref('');
 const agentPasswordConfirmation = ref('');
+
+const isValidMaxActiveClients = value => {
+  if (value === null || value === '') return true;
+
+  const numericValue = Number(value);
+  return (
+    Number.isInteger(numericValue) &&
+    numericValue >= 1 &&
+    numericValue <= MAX_ACTIVE_CLIENTS
+  );
+};
 
 const rules = {
   agentName: { required },
@@ -45,6 +58,7 @@ const rules = {
       selectedRoleId.value !== 'merchant' ||
       Number(value) >= 0,
   },
+  maxActiveClients: { isValid: isValidMaxActiveClients },
 };
 
 const v$ = useVuelidate(rules, {
@@ -54,6 +68,7 @@ const v$ = useVuelidate(rules, {
   agentPassword,
   agentPasswordConfirmation,
   merchantAgentLimit,
+  maxActiveClients,
 });
 
 const uiFlags = useMapGetter('agents/getUIFlags');
@@ -117,6 +132,10 @@ const addAgent = async () => {
     if (agentPassword.value) {
       payload.password = agentPassword.value;
       payload.password_confirmation = agentPasswordConfirmation.value;
+    }
+
+    if (maxActiveClients.value !== null && maxActiveClients.value !== '') {
+      payload.max_active_clients = Number(maxActiveClients.value);
     }
 
     if (selectedRole.value.name === 'merchant') {
@@ -203,6 +222,25 @@ const addAgent = async () => {
             type="datetime-local"
             :placeholder="$t('AGENT_MGMT.ADD.FORM.EXPIRES_AT.PLACEHOLDER')"
           />
+        </label>
+      </div>
+
+      <div class="w-full">
+        <label :class="{ error: v$.maxActiveClients.$error }">
+          {{ $t('AGENT_MGMT.ADD.FORM.MAX_ACTIVE_CLIENTS.LABEL') }}
+          <input
+            v-model.number="maxActiveClients"
+            type="number"
+            min="1"
+            :max="MAX_ACTIVE_CLIENTS"
+            :placeholder="
+              $t('AGENT_MGMT.ADD.FORM.MAX_ACTIVE_CLIENTS.PLACEHOLDER')
+            "
+            @input="v$.maxActiveClients.$touch"
+          />
+          <span v-if="v$.maxActiveClients.$error" class="message">
+            {{ $t('AGENT_MGMT.ADD.FORM.MAX_ACTIVE_CLIENTS.ERROR') }}
+          </span>
         </label>
       </div>
 

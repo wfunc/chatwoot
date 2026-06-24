@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "A fiókjába egy másik eszközön bejelentkeztek, ezért ez a munkamenet kiléptetésre került.",
+      "MANUAL_REVOCATION": "Ezt a munkamenetet egy adminisztrátor léptette ki.",
+      "DEFAULT": "A munkamenete véget ért. Jelentkezzen be újra."
+    }
   }
 }

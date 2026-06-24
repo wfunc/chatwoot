@@ -40,7 +40,12 @@
           "LABEL": "e-pasta Adrese",
           "PLACEHOLDER": "Lūdzu, ievadiet aģenta e-pasta adresi"
         },
-        "SUBMIT": "Pievienot Aģentu"
+        "SUBMIT": "Pievienot Aģentu",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimālais aktīvo klientu skaits",
+          "PLACEHOLDER": "Atstājiet tukšu, lai izmantotu noklusējuma limitu",
+          "ERROR": "Maksimālajam aktīvo klientu skaitam jābūt no 1 līdz 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Aģents ir veiksmīgi pievienots",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Lūdzu, izvēlieties pieejamības statusu",
           "ERROR": "Nepieciešama pieejamība"
         },
-        "SUBMIT": "Rediģēt Aģentu"
+        "SUBMIT": "Rediģēt Aģentu",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimālais aktīvo klientu skaits",
+          "PLACEHOLDER": "Atstājiet tukšu, lai izmantotu noklusējuma limitu",
+          "ERROR": "Maksimālajam aktīvo klientu skaitam jābūt no 1 līdz 25"
+        }
       },
       "BUTTON_TEXT": "Rediģēt",
       "CANCEL_BUTTON_TEXT": "Atcelt",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Aģentam tika nosūtīts e-pasta ziņojums ar paroles atiestatīšanas norādījumiem",
         "SUCCESS_MESSAGE": "Aģenta parole ir veiksmīgi atiestatīta",
         "ERROR_MESSAGE": "Nevar izveidot savienojumu ar Woot serveri. Lūdzu, vēlāk pamēģiniet vēlreiz"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktīvie klienti",
+        "CLIENT": "Klients",
+        "IP": "IP",
+        "LOGIN_TIME": "Pieteikšanās laiks",
+        "LAST_SEEN": "Pēdējo reizi redzēts",
+        "DEVICE": "Ierīce",
+        "ACTIONS": "Darbības",
+        "CURRENT": "pašreizējais",
+        "KICK": "Atvienot",
+        "EMPTY": "Nav aktīvu klientu",
+        "EMPTY_VALUE": "Nezināms",
+        "API": {
+          "SUCCESS_MESSAGE": "Klients veiksmīgi atvienots",
+          "ERROR_MESSAGE": "Neizdevās atjaunināt aktīvos klientus. Mēģiniet vēlreiz vēlāk"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Meklēt aģentus...",

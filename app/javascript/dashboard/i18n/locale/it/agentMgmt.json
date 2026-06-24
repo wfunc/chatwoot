@@ -40,7 +40,12 @@
           "LABEL": "Indirizzo Email",
           "PLACEHOLDER": "Inserisci un indirizzo email dell'operatore"
         },
-        "SUBMIT": "Aggiungi Operatore"
+        "SUBMIT": "Aggiungi Operatore",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Numero massimo di client attivi",
+          "PLACEHOLDER": "Lascia vuoto per usare il limite predefinito",
+          "ERROR": "Il numero massimo di client attivi deve essere tra 1 e 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Operatore aggiunto correttamente",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Seleziona uno stato di disponibilità",
           "ERROR": "Disponibilità richiesta"
         },
-        "SUBMIT": "Modifica Operatore"
+        "SUBMIT": "Modifica Operatore",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Numero massimo di client attivi",
+          "PLACEHOLDER": "Lascia vuoto per usare il limite predefinito",
+          "ERROR": "Il numero massimo di client attivi deve essere tra 1 e 25"
+        }
       },
       "BUTTON_TEXT": "Modifica",
       "CANCEL_BUTTON_TEXT": "Annulla",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Un'email con le istruzioni per reimpostare la password è stata inviata all'operatore",
         "SUCCESS_MESSAGE": "Password dell'operatore reimpostata correttamente",
         "ERROR_MESSAGE": "Impossibile connettersi al server Woot, riprova più tardi"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Client attivi",
+        "CLIENT": "Client",
+        "IP": "IP",
+        "LOGIN_TIME": "Ora di accesso",
+        "LAST_SEEN": "Ultima attività",
+        "DEVICE": "Dispositivo",
+        "ACTIONS": "Azioni",
+        "CURRENT": "attuale",
+        "KICK": "Disconnetti",
+        "EMPTY": "Nessun client attivo",
+        "EMPTY_VALUE": "Sconosciuto",
+        "API": {
+          "SUCCESS_MESSAGE": "Client disconnesso correttamente",
+          "ERROR_MESSAGE": "Impossibile aggiornare i client attivi. Riprova più tardi"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Cerca operatori...",

@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "A autenticação SSO falhou. Verifique suas credenciais e tente novamente."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Sua conta entrou em outro dispositivo, então esta sessão foi derrubada.",
+      "MANUAL_REVOCATION": "Esta sessão foi encerrada por um administrador.",
+      "DEFAULT": "Sua sessão terminou. Faça login novamente."
+    }
   }
 }

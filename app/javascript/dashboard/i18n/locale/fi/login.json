@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Tilillesi kirjauduttiin toisella laitteella, joten tämä istunto kirjattiin ulos.",
+      "MANUAL_REVOCATION": "Järjestelmänvalvoja kirjasi tämän istunnon ulos.",
+      "DEFAULT": "Istuntosi on päättynyt. Kirjaudu uudelleen."
+    }
   }
 }

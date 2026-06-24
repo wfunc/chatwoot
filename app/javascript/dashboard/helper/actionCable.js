@@ -2,15 +2,29 @@ import AuthAPI from '../api/auth';
 import BaseActionCableConnector from '../../shared/helpers/BaseActionCableConnector';
 import DashboardAudioNotificationHelper from './AudioAlerts/DashboardAudioNotificationHelper';
 import { BUS_EVENTS } from 'shared/constants/busEvents';
+import { useAlert } from 'dashboard/composables';
 import { emitter } from 'shared/helpers/mitt';
 import { useImpersonation } from 'dashboard/composables/useImpersonation';
+import {
+  clearCookiesOnLogout,
+  deleteIndexedDBOnLogout,
+} from 'dashboard/store/utils/api';
 
 const { isImpersonating } = useImpersonation();
+const AUTH_CLIENT_REVOKED_EVENT = 'auth.client.revoked';
+const AUTH_CLIENT_REVOKED_REDIRECT_DELAY = 2500;
+const AUTH_CLIENT_REVOKED_MESSAGE = {
+  client_limit_exceeded: 'AUTH.CLIENT_REVOKED.CLIENT_LIMIT_EXCEEDED',
+  manual_revocation: 'AUTH.CLIENT_REVOKED.MANUAL_REVOCATION',
+};
 
 class ActionCableConnector extends BaseActionCableConnector {
   constructor(app, pubsubToken) {
     const { websocketURL = '' } = window.chatwootConfig || {};
-    super(app, pubsubToken, websocketURL);
+    const authClient = AuthAPI.getAuthData()?.client;
+    super(app, pubsubToken, websocketURL, undefined, {
+      auth_client: authClient,
+    });
     this.CancelTyping = [];
     this.events = {
       'message.created': this.onMessageCreated,
@@ -34,6 +48,7 @@ class ActionCableConnector extends BaseActionCableConnector {
       'conversation.updated': this.onConversationUpdated,
       'account.cache_invalidated': this.onCacheInvalidate,
       'copilot.message.created': this.onCopilotMessageCreated,
+      [AUTH_CLIENT_REVOKED_EVENT]: this.onAuthClientRevoked,
     };
   }
 
@@ -47,7 +62,9 @@ class ActionCableConnector extends BaseActionCableConnector {
     emitter.emit(BUS_EVENTS.WEBSOCKET_DISCONNECT);
   };
 
-  isAValidEvent = data => {
+  isAValidEvent = (data, event) => {
+    if (event === AUTH_CLIENT_REVOKED_EVENT) return true;
+
     return this.app.$store.getters.getCurrentAccountId === data.account_id;
   };
 
@@ -92,6 +109,17 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   // eslint-disable-next-line class-methods-use-this
   onLogout = () => AuthAPI.logout();
+
+  // eslint-disable-next-line class-methods-use-this
+  onAuthClientRevoked = async ({ reason } = {}) => {
+    useAlert(
+      AUTH_CLIENT_REVOKED_MESSAGE[reason] || 'AUTH.CLIENT_REVOKED.DEFAULT',
+      { usei18n: true, duration: AUTH_CLIENT_REVOKED_REDIRECT_DELAY }
+    );
+
+    await deleteIndexedDBOnLogout();
+    window.setTimeout(clearCookiesOnLogout, AUTH_CLIENT_REVOKED_REDIRECT_DELAY);
+  };
 
   onMessageCreated = data => {
     const {

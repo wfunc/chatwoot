@@ -40,7 +40,12 @@
           "LABEL": "Sähköpostiosoite",
           "PLACEHOLDER": "Ole hyvä ja kirjoita edustajan sähköpostiosoite"
         },
-        "SUBMIT": "Lisää edustaja"
+        "SUBMIT": "Lisää edustaja",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Aktiivisten asiakkaiden enimmäismäärä",
+          "PLACEHOLDER": "Jätä tyhjäksi käyttääksesi oletusrajaa",
+          "ERROR": "Aktiivisten asiakkaiden enimmäismäärän on oltava 1-25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Edustaja lisätty onnistuneesti",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Muokkaa edustajaa"
+        "SUBMIT": "Muokkaa edustajaa",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Aktiivisten asiakkaiden enimmäismäärä",
+          "PLACEHOLDER": "Jätä tyhjäksi käyttääksesi oletusrajaa",
+          "ERROR": "Aktiivisten asiakkaiden enimmäismäärän on oltava 1-25"
+        }
       },
       "BUTTON_TEXT": "Muokkaa",
       "CANCEL_BUTTON_TEXT": "Peruuta",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Edustajalle on lähetetty sähköposti, jossa on salasanan palautusohjeet",
         "SUCCESS_MESSAGE": "Edustajan salasanan nollaus onnistui",
         "ERROR_MESSAGE": "Yhteyden muodostaminen Woot-palvelimelle ei onnistunut, yritä myöhemmin uudelleen"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktiiviset asiakkaat",
+        "CLIENT": "Asiakas",
+        "IP": "IP",
+        "LOGIN_TIME": "Kirjautumisaika",
+        "LAST_SEEN": "Viimeksi nähty",
+        "DEVICE": "Laite",
+        "ACTIONS": "Toiminnot",
+        "CURRENT": "nykyinen",
+        "KICK": "Kirjaa ulos",
+        "EMPTY": "Ei aktiivisia asiakkaita",
+        "EMPTY_VALUE": "Tuntematon",
+        "API": {
+          "SUCCESS_MESSAGE": "Asiakas kirjattiin ulos",
+          "ERROR_MESSAGE": "Aktiivisia asiakkaita ei voitu päivittää. Yritä myöhemmin uudelleen"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Search agents...",

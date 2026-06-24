@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Акаунтът ви е влязъл от друго устройство, затова тази сесия беше прекратена.",
+      "MANUAL_REVOCATION": "Тази сесия беше прекратена от администратор.",
+      "DEFAULT": "Сесията ви приключи. Моля, влезте отново."
+    }
   }
 }

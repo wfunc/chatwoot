@@ -40,7 +40,12 @@
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
         },
-        "SUBMIT": "Add Agent"
+        "SUBMIT": "Add Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Največ aktivnih odjemalcev",
+          "PLACEHOLDER": "Pustite prazno za privzeto omejitev",
+          "ERROR": "Največ aktivnih odjemalcev mora biti med 1 in 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent added successfully",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Edit Agent"
+        "SUBMIT": "Edit Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Največ aktivnih odjemalcev",
+          "PLACEHOLDER": "Pustite prazno za privzeto omejitev",
+          "ERROR": "Največ aktivnih odjemalcev mora biti med 1 in 25"
+        }
       },
       "BUTTON_TEXT": "Edit",
       "CANCEL_BUTTON_TEXT": "Cancel",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "An email with reset password instructions has been sent to the agent",
         "SUCCESS_MESSAGE": "Agent password reset successfully",
         "ERROR_MESSAGE": "Could not connect to Woot Server, Please try again later"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktivni odjemalci",
+        "CLIENT": "Odjemalec",
+        "IP": "IP",
+        "LOGIN_TIME": "Čas prijave",
+        "LAST_SEEN": "Nazadnje viden",
+        "DEVICE": "Naprava",
+        "ACTIONS": "Dejanja",
+        "CURRENT": "trenutni",
+        "KICK": "Odjavi",
+        "EMPTY": "Ni aktivnih odjemalcev",
+        "EMPTY_VALUE": "Neznano",
+        "API": {
+          "SUCCESS_MESSAGE": "Odjemalec je bil odjavljen",
+          "ERROR_MESSAGE": "Aktivnih odjemalcev ni bilo mogoče posodobiti. Poskusite pozneje"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Search agents...",

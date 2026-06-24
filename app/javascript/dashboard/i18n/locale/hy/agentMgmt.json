@@ -40,7 +40,12 @@
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
         },
-        "SUBMIT": "Add Agent"
+        "SUBMIT": "Add Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Առավելագույն ակտիվ հաճախորդներ",
+          "PLACEHOLDER": "Լռելյայն սահմանաչափն օգտագործելու համար թողեք դատարկ",
+          "ERROR": "Առավելագույն ակտիվ հաճախորդների թիվը պետք է լինի 1-ից 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent added successfully",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Edit Agent"
+        "SUBMIT": "Edit Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Առավելագույն ակտիվ հաճախորդներ",
+          "PLACEHOLDER": "Լռելյայն սահմանաչափն օգտագործելու համար թողեք դատարկ",
+          "ERROR": "Առավելագույն ակտիվ հաճախորդների թիվը պետք է լինի 1-ից 25"
+        }
       },
       "BUTTON_TEXT": "Edit",
       "CANCEL_BUTTON_TEXT": "Cancel",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "An email with reset password instructions has been sent to the agent",
         "SUCCESS_MESSAGE": "Agent password reset successfully",
         "ERROR_MESSAGE": "Could not connect to Woot Server, Please try again later"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Ակտիվ հաճախորդներ",
+        "CLIENT": "Հաճախորդ",
+        "IP": "IP",
+        "LOGIN_TIME": "Մուտքի ժամանակ",
+        "LAST_SEEN": "Վերջին ակտիվություն",
+        "DEVICE": "Սարք",
+        "ACTIONS": "Գործողություններ",
+        "CURRENT": "ընթացիկ",
+        "KICK": "Դուրս բերել",
+        "EMPTY": "Ակտիվ հաճախորդներ չկան",
+        "EMPTY_VALUE": "Անհայտ",
+        "API": {
+          "SUCCESS_MESSAGE": "Հաճախորդը հաջողությամբ դուրս բերվեց",
+          "ERROR_MESSAGE": "Չհաջողվեց թարմացնել ակտիվ հաճախորդները։ Փորձեք ավելի ուշ"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Search agents...",

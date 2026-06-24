@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Hesabınız başqa cihazda daxil oldu, buna görə bu sessiya çıxarıldı.",
+      "MANUAL_REVOCATION": "Bu sessiya administrator tərəfindən çıxarıldı.",
+      "DEFAULT": "Sessiyanız başa çatdı. Yenidən daxil olun."
+    }
   }
 }

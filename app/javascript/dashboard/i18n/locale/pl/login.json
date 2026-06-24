@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Twoje konto zalogowało się na innym urządzeniu, więc ta sesja została wylogowana.",
+      "MANUAL_REVOCATION": "Ta sesja została wylogowana przez administratora.",
+      "DEFAULT": "Twoja sesja wygasła. Zaloguj się ponownie."
+    }
   }
 }

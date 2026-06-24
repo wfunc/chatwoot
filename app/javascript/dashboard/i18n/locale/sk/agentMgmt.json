@@ -40,7 +40,12 @@
           "LABEL": "E-mailová adresa",
           "PLACEHOLDER": "Zadajte e-mailovú adresu agenta"
         },
-        "SUBMIT": "Pridať agenta"
+        "SUBMIT": "Pridať agenta",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maximálny počet aktívnych klientov",
+          "PLACEHOLDER": "Nechajte prázdne pre predvolený limit",
+          "ERROR": "Maximálny počet aktívnych klientov musí byť medzi 1 a 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent bol úspešne pridaný",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Upraviť agenta"
+        "SUBMIT": "Upraviť agenta",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maximálny počet aktívnych klientov",
+          "PLACEHOLDER": "Nechajte prázdne pre predvolený limit",
+          "ERROR": "Maximálny počet aktívnych klientov musí byť medzi 1 a 25"
+        }
       },
       "BUTTON_TEXT": "Upraviť",
       "CANCEL_BUTTON_TEXT": "Zrušiť",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Agentovi bol odoslaný e-mail s pokynmi na obnovenie hesla",
         "SUCCESS_MESSAGE": "Heslo agenta bolo úspešne obnovené",
         "ERROR_MESSAGE": "Nepodarilo sa pripojiť k serveru Woot, skúste to prosím neskôr"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktívni klienti",
+        "CLIENT": "Klient",
+        "IP": "IP",
+        "LOGIN_TIME": "Čas prihlásenia",
+        "LAST_SEEN": "Naposledy videný",
+        "DEVICE": "Zariadenie",
+        "ACTIONS": "Akcie",
+        "CURRENT": "aktuálny",
+        "KICK": "Odhlásiť",
+        "EMPTY": "Žiadni aktívni klienti",
+        "EMPTY_VALUE": "Neznáme",
+        "API": {
+          "SUCCESS_MESSAGE": "Klient bol úspešne odhlásený",
+          "ERROR_MESSAGE": "Nepodarilo sa aktualizovať aktívnych klientov. Skúste to neskôr"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Hľadať agentov...",

@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Je account is aangemeld op een ander apparaat, daarom is deze sessie afgemeld.",
+      "MANUAL_REVOCATION": "Deze sessie is afgemeld door een beheerder.",
+      "DEFAULT": "Je sessie is beëindigd. Meld je opnieuw aan."
+    }
   }
 }

@@ -52,6 +52,11 @@
           "LABEL": "Expires at",
           "PLACEHOLDER": "Select when this merchant should expire"
         },
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Max active clients",
+          "PLACEHOLDER": "Leave blank to use the default limit",
+          "ERROR": "Max active clients must be between 1 and 25"
+        },
         "EMAIL": {
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
@@ -111,6 +116,11 @@
         "MERCHANT_STATUS": {
           "LABEL": "Merchant status"
         },
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Max active clients",
+          "PLACEHOLDER": "Leave blank to use the default limit",
+          "ERROR": "Max active clients must be between 1 and 25"
+        },
         "EMAIL": {
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
@@ -137,6 +147,23 @@
       "API": {
         "SUCCESS_MESSAGE": "Agent updated successfully",
         "ERROR_MESSAGE": "Could not connect to Woot Server, Please try again later"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Active clients",
+        "CLIENT": "Client",
+        "IP": "IP",
+        "LOGIN_TIME": "Login time",
+        "LAST_SEEN": "Last seen",
+        "DEVICE": "Device",
+        "ACTIONS": "Actions",
+        "CURRENT": "current",
+        "KICK": "Kick",
+        "EMPTY": "No active clients",
+        "EMPTY_VALUE": "Unknown",
+        "API": {
+          "SUCCESS_MESSAGE": "Client kicked successfully",
+          "ERROR_MESSAGE": "Could not update active clients, Please try again later"
+        }
       },
       "PASSWORD_RESET": {
         "ADMIN_RESET_BUTTON": "Reset Password",

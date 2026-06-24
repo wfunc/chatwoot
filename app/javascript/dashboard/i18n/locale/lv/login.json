@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Jūsu konts tika pieteikts citā ierīcē, tāpēc šī sesija tika izrakstīta.",
+      "MANUAL_REVOCATION": "Šo sesiju izrakstīja administrators.",
+      "DEFAULT": "Jūsu sesija ir beigusies. Lūdzu, piesakieties vēlreiz."
+    }
   }
 }

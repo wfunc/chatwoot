@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Reikningurinn þinn var skráður inn í öðru tæki, svo þessi lota var skráð út.",
+      "MANUAL_REVOCATION": "Þessi lota var skráð út af stjórnanda.",
+      "DEFAULT": "Lotunni þinni er lokið. Skráðu þig inn aftur."
+    }
   }
 }

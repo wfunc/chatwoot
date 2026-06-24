@@ -40,7 +40,12 @@
           "LABEL": "Email cím",
           "PLACEHOLDER": "Kérjük adja meg az ügynök email címét"
         },
-        "SUBMIT": "Ügynök Hozzádása"
+        "SUBMIT": "Ügynök Hozzádása",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maximális aktív kliensek",
+          "PLACEHOLDER": "Hagyja üresen az alapértelmezett limithez",
+          "ERROR": "A maximális aktív kliensek száma 1 és 25 között lehet"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Ügynök sikeresen hozzáadva",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Adj meg elérhetőség státuszt",
           "ERROR": "Elérhetőség megadása kötelező"
         },
-        "SUBMIT": "Ügynök szerkesztése"
+        "SUBMIT": "Ügynök szerkesztése",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maximális aktív kliensek",
+          "PLACEHOLDER": "Hagyja üresen az alapértelmezett limithez",
+          "ERROR": "A maximális aktív kliensek száma 1 és 25 között lehet"
+        }
       },
       "BUTTON_TEXT": "Szerkesztés",
       "CANCEL_BUTTON_TEXT": "Mégse",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Egy e-mail a jelszófrissítési utasításokkal sikeresen kiküldve az ügynöknek",
         "SUCCESS_MESSAGE": "Ügynök jelszó sikeresen frissítve",
         "ERROR_MESSAGE": "Nem sikerült csatlakozni a Woot szerverhez, kérjük próbáld később"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktív kliensek",
+        "CLIENT": "Kliens",
+        "IP": "IP",
+        "LOGIN_TIME": "Bejelentkezés ideje",
+        "LAST_SEEN": "Utoljára aktív",
+        "DEVICE": "Eszköz",
+        "ACTIONS": "Műveletek",
+        "CURRENT": "aktuális",
+        "KICK": "Kiléptetés",
+        "EMPTY": "Nincsenek aktív kliensek",
+        "EMPTY_VALUE": "Ismeretlen",
+        "API": {
+          "SUCCESS_MESSAGE": "Kliens sikeresen kiléptetve",
+          "ERROR_MESSAGE": "Nem sikerült frissíteni az aktív klienseket. Próbálja újra később"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Ügynökök keresése...",

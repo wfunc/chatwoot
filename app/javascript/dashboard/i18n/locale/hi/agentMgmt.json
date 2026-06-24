@@ -40,7 +40,12 @@
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
         },
-        "SUBMIT": "Add Agent"
+        "SUBMIT": "Add Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "अधिकतम सक्रिय क्लाइंट",
+          "PLACEHOLDER": "डिफ़ॉल्ट सीमा का उपयोग करने के लिए खाली छोड़ें",
+          "ERROR": "अधिकतम सक्रिय क्लाइंट 1 से 25 के बीच होना चाहिए"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent added successfully",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Edit Agent"
+        "SUBMIT": "Edit Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "अधिकतम सक्रिय क्लाइंट",
+          "PLACEHOLDER": "डिफ़ॉल्ट सीमा का उपयोग करने के लिए खाली छोड़ें",
+          "ERROR": "अधिकतम सक्रिय क्लाइंट 1 से 25 के बीच होना चाहिए"
+        }
       },
       "BUTTON_TEXT": "Edit",
       "CANCEL_BUTTON_TEXT": "Cancel",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "An email with reset password instructions has been sent to the agent",
         "SUCCESS_MESSAGE": "Agent password reset successfully",
         "ERROR_MESSAGE": "Could not connect to Woot Server, Please try again later"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "सक्रिय क्लाइंट",
+        "CLIENT": "क्लाइंट",
+        "IP": "IP",
+        "LOGIN_TIME": "लॉगिन समय",
+        "LAST_SEEN": "अंतिम बार देखा गया",
+        "DEVICE": "डिवाइस",
+        "ACTIONS": "कार्रवाई",
+        "CURRENT": "वर्तमान",
+        "KICK": "हटाएँ",
+        "EMPTY": "कोई सक्रिय क्लाइंट नहीं",
+        "EMPTY_VALUE": "अज्ञात",
+        "API": {
+          "SUCCESS_MESSAGE": "क्लाइंट सफलतापूर्वक हटाया गया",
+          "ERROR_MESSAGE": "सक्रिय क्लाइंट अपडेट नहीं हो सके, कृपया बाद में फिर प्रयास करें"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Search agents...",

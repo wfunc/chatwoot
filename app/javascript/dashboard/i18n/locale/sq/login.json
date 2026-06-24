@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Llogaria juaj u hap në një pajisje tjetër, prandaj kjo seancë u mbyll.",
+      "MANUAL_REVOCATION": "Kjo seancë u mbyll nga një administrator.",
+      "DEFAULT": "Seanca juaj ka përfunduar. Hyni përsëri."
+    }
   }
 }

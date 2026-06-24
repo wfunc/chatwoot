@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO (Tek Oturum Açma) kimlik doğrulaması başarısız oldu. Lütfen kimlik bilgilerinizi kontrol edin ve tekrar deneyin."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Hesabınız başka bir cihazda açıldı, bu nedenle bu oturum kapatıldı.",
+      "MANUAL_REVOCATION": "Bu oturum bir yönetici tarafından kapatıldı.",
+      "DEFAULT": "Oturumunuz sona erdi. Lütfen tekrar giriş yapın."
+    }
   }
 }

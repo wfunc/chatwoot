@@ -40,7 +40,12 @@
           "LABEL": "Email",
           "PLACEHOLDER": "Vui lòng nhập email"
         },
-        "SUBMIT": "Thêm nhà cung cấp"
+        "SUBMIT": "Thêm nhà cung cấp",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Số client hoạt động tối đa",
+          "PLACEHOLDER": "Để trống để dùng giới hạn mặc định",
+          "ERROR": "Số client hoạt động tối đa phải từ 1 đến 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Nhà cung cấp được thêm thành công",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Chỉnh sửa nhà cung cấp"
+        "SUBMIT": "Chỉnh sửa nhà cung cấp",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Số client hoạt động tối đa",
+          "PLACEHOLDER": "Để trống để dùng giới hạn mặc định",
+          "ERROR": "Số client hoạt động tối đa phải từ 1 đến 25"
+        }
       },
       "BUTTON_TEXT": "Chỉnh sửa",
       "CANCEL_BUTTON_TEXT": "Huỷ",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Một email với hướng dẫn đặt lại mật khẩu đã được gửi đến đại lý",
         "SUCCESS_MESSAGE": "Đặt lại mật khẩu đại lý thành công",
         "ERROR_MESSAGE": "Không thể kết nối với Máy chủ Woot, Vui lòng thử lại sau"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Client đang hoạt động",
+        "CLIENT": "Client",
+        "IP": "IP",
+        "LOGIN_TIME": "Thời gian đăng nhập",
+        "LAST_SEEN": "Hoạt động cuối",
+        "DEVICE": "Thiết bị",
+        "ACTIONS": "Thao tác",
+        "CURRENT": "hiện tại",
+        "KICK": "Đăng xuất",
+        "EMPTY": "Không có client đang hoạt động",
+        "EMPTY_VALUE": "Không rõ",
+        "API": {
+          "SUCCESS_MESSAGE": "Đã đăng xuất client",
+          "ERROR_MESSAGE": "Không thể cập nhật client đang hoạt động. Vui lòng thử lại sau"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Tìm kiếm nhân viên...",

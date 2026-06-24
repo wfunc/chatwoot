@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "መለያዎ በሌላ መሣሪያ ገብቷል፣ ስለዚህ ይህ ክፍለ ጊዜ ወጥቷል።",
+      "MANUAL_REVOCATION": "ይህ ክፍለ ጊዜ በአስተዳዳሪ ወጥቷል።",
+      "DEFAULT": "ክፍለ ጊዜዎ አብቅቷል። እባክዎ እንደገና ይግቡ።"
+    }
   }
 }

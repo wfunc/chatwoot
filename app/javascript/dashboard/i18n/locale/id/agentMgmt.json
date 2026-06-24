@@ -40,7 +40,12 @@
           "LABEL": "Alamat email",
           "PLACEHOLDER": "Silakan masukkan alamat email agen"
         },
-        "SUBMIT": "Tambahkan Agen"
+        "SUBMIT": "Tambahkan Agen",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimum klien aktif",
+          "PLACEHOLDER": "Kosongkan untuk memakai batas default",
+          "ERROR": "Maksimum klien aktif harus antara 1 dan 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agen berhasil ditambahkan",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Pilih status ketersediaan",
           "ERROR": "Ketersediaan diperlukan"
         },
-        "SUBMIT": "Edit Agen"
+        "SUBMIT": "Edit Agen",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimum klien aktif",
+          "PLACEHOLDER": "Kosongkan untuk memakai batas default",
+          "ERROR": "Maksimum klien aktif harus antara 1 dan 25"
+        }
       },
       "BUTTON_TEXT": "Edit",
       "CANCEL_BUTTON_TEXT": "Batalkan",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Sebuah email dengan instruksi pengaturan ulang kata sandi telah dikirim ke agen",
         "SUCCESS_MESSAGE": "Pengaturan ulang kata sandi agen berhasil",
         "ERROR_MESSAGE": "Tidak dapat terhubung ke Server Woot, Silahkan coba lagi nanti"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Klien aktif",
+        "CLIENT": "Klien",
+        "IP": "IP",
+        "LOGIN_TIME": "Waktu login",
+        "LAST_SEEN": "Terakhir terlihat",
+        "DEVICE": "Perangkat",
+        "ACTIONS": "Tindakan",
+        "CURRENT": "saat ini",
+        "KICK": "Keluarkan",
+        "EMPTY": "Tidak ada klien aktif",
+        "EMPTY_VALUE": "Tidak diketahui",
+        "API": {
+          "SUCCESS_MESSAGE": "Klien berhasil dikeluarkan",
+          "ERROR_MESSAGE": "Tidak dapat memperbarui klien aktif. Coba lagi nanti"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Mencari Agen...",

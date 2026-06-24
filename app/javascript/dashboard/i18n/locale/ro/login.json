@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Contul dvs. a fost autentificat pe alt dispozitiv, astfel această sesiune a fost deconectată.",
+      "MANUAL_REVOCATION": "Această sesiune a fost deconectată de un administrator.",
+      "DEFAULT": "Sesiunea dvs. s-a încheiat. Autentificați-vă din nou."
+    }
   }
 }

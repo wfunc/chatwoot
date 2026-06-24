@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "तपाईंको खाता अर्को डिभाइसमा लगइन भएकोले यो सेसन लगआउट गरियो।",
+      "MANUAL_REVOCATION": "यो सेसन प्रशासकद्वारा लगआउट गरियो।",
+      "DEFAULT": "तपाईंको सेसन समाप्त भयो। कृपया फेरि लगइन गर्नुहोस्।"
+    }
   }
 }

@@ -40,7 +40,12 @@
           "LABEL": "Adresa Email",
           "PLACEHOLDER": "Vă rugăm să introduceți o adresă de e-mail a agentului"
         },
-        "SUBMIT": "Adaugă Agent"
+        "SUBMIT": "Adaugă Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Număr maxim de clienți activi",
+          "PLACEHOLDER": "Lăsați necompletat pentru limita implicită",
+          "ERROR": "Numărul maxim de clienți activi trebuie să fie între 1 și 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent adăugat cu succes",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Vă rugăm să selectați o stare de disponibilitate",
           "ERROR": "Disponibilitatea este necesară"
         },
-        "SUBMIT": "Editează agent"
+        "SUBMIT": "Editează agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Număr maxim de clienți activi",
+          "PLACEHOLDER": "Lăsați necompletat pentru limita implicită",
+          "ERROR": "Numărul maxim de clienți activi trebuie să fie între 1 și 25"
+        }
       },
       "BUTTON_TEXT": "Editare",
       "CANCEL_BUTTON_TEXT": "Renunță",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Un e-mail cu instrucțiunile de resetare a parolei a fost trimis agentului",
         "SUCCESS_MESSAGE": "Parola resetata cu succes",
         "ERROR_MESSAGE": "Nu s-a putut conecta la Woot Server, încercați din nou mai târziu"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Clienți activi",
+        "CLIENT": "Client",
+        "IP": "IP",
+        "LOGIN_TIME": "Ora autentificării",
+        "LAST_SEEN": "Văzut ultima dată",
+        "DEVICE": "Dispozitiv",
+        "ACTIONS": "Acțiuni",
+        "CURRENT": "curent",
+        "KICK": "Deconectează",
+        "EMPTY": "Nu există clienți activi",
+        "EMPTY_VALUE": "Necunoscut",
+        "API": {
+          "SUCCESS_MESSAGE": "Client deconectat cu succes",
+          "ERROR_MESSAGE": "Nu s-au putut actualiza clienții activi. Încercați mai târziu"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Agenți de căutare...",

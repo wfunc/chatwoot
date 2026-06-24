@@ -12,6 +12,16 @@ class Agents extends ApiClient {
       emails,
     });
   }
+
+  getActiveClients(id) {
+    return axios.get(`${this.url}/${id}/active_clients`);
+  }
+
+  deleteActiveClient(id, clientId) {
+    return axios.delete(
+      `${this.url}/${id}/active_clients/${encodeURIComponent(clientId)}`
+    );
+  }
 }
 
 export default new Agents();

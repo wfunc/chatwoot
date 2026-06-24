@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Vaš račun je prijavljen na drugom uređaju, pa je ova sesija odjavljena.",
+      "MANUAL_REVOCATION": "Ovu sesiju je odjavio administrator.",
+      "DEFAULT": "Vaša sesija je završila. Prijavite se ponovno."
+    }
   }
 }

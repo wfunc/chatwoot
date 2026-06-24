@@ -40,7 +40,12 @@
           "LABEL": "El. pašto adresas",
           "PLACEHOLDER": "Įveskite agento el. pašto adresą"
         },
-        "SUBMIT": "Pridėti Agentą"
+        "SUBMIT": "Pridėti Agentą",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimalus aktyvių klientų skaičius",
+          "PLACEHOLDER": "Palikite tuščią, kad būtų naudojamas numatytasis limitas",
+          "ERROR": "Maksimalus aktyvių klientų skaičius turi būti nuo 1 iki 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agentas pridėtas sėkmingai",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Prašome pasirinkti prieinamumo būseną",
           "ERROR": "Būtinas prieinamumas"
         },
-        "SUBMIT": "Keisti Agentą"
+        "SUBMIT": "Keisti Agentą",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimalus aktyvių klientų skaičius",
+          "PLACEHOLDER": "Palikite tuščią, kad būtų naudojamas numatytasis limitas",
+          "ERROR": "Maksimalus aktyvių klientų skaičius turi būti nuo 1 iki 25"
+        }
       },
       "BUTTON_TEXT": "Redaguoti",
       "CANCEL_BUTTON_TEXT": "Atšaukti",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "El. laiškas su slaptažodžio atstatymo instrukcijomis buvo išsiųstas agentui",
         "SUCCESS_MESSAGE": "Agento slaptažodis atstatytas sėkmingai",
         "ERROR_MESSAGE": "Nepavyko prisijungti prie Woot serverio, bandykite dar kartą vėliau"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktyvūs klientai",
+        "CLIENT": "Klientas",
+        "IP": "IP",
+        "LOGIN_TIME": "Prisijungimo laikas",
+        "LAST_SEEN": "Paskutinį kartą matytas",
+        "DEVICE": "Įrenginys",
+        "ACTIONS": "Veiksmai",
+        "CURRENT": "dabartinis",
+        "KICK": "Atjungti",
+        "EMPTY": "Aktyvių klientų nėra",
+        "EMPTY_VALUE": "Nežinoma",
+        "API": {
+          "SUCCESS_MESSAGE": "Klientas sėkmingai atjungtas",
+          "ERROR_MESSAGE": "Nepavyko atnaujinti aktyvių klientų. Bandykite vėliau"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Ieškoti agentų...",

@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Din konto blev logget ind på en anden enhed, så denne session blev logget ud.",
+      "MANUAL_REVOCATION": "Denne session blev logget ud af en administrator.",
+      "DEFAULT": "Din session er afsluttet. Log ind igen."
+    }
   }
 }

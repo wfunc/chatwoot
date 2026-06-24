@@ -40,7 +40,12 @@
           "LABEL": "Uw e-mailadres",
           "PLACEHOLDER": "Voer een e-mailadres in van de medewerker"
         },
-        "SUBMIT": "Medewerker toevoegen"
+        "SUBMIT": "Medewerker toevoegen",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maximum actieve clients",
+          "PLACEHOLDER": "Laat leeg om de standaardlimiet te gebruiken",
+          "ERROR": "Maximum actieve clients moet tussen 1 en 25 liggen"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Medewerker succesvol toegevoegd",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Selecteer een beschikbaarheidsstatus",
           "ERROR": "Beschikbaarheid is vereist"
         },
-        "SUBMIT": "Bewerk medewerker"
+        "SUBMIT": "Bewerk medewerker",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maximum actieve clients",
+          "PLACEHOLDER": "Laat leeg om de standaardlimiet te gebruiken",
+          "ERROR": "Maximum actieve clients moet tussen 1 en 25 liggen"
+        }
       },
       "BUTTON_TEXT": "Bewerken",
       "CANCEL_BUTTON_TEXT": "Annuleren",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Een e-mail met instructies om het wachtwoord te resetten is verstuurd naar de medewerker",
         "SUCCESS_MESSAGE": "Wachtwoord medewerker opnieuw instellen is geslaagd",
         "ERROR_MESSAGE": "Kan geen verbinding maken met Woot Server, probeer het later opnieuw"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Actieve clients",
+        "CLIENT": "Client",
+        "IP": "IP",
+        "LOGIN_TIME": "Inlogtijd",
+        "LAST_SEEN": "Laatst gezien",
+        "DEVICE": "Apparaat",
+        "ACTIONS": "Acties",
+        "CURRENT": "huidig",
+        "KICK": "Afmelden",
+        "EMPTY": "Geen actieve clients",
+        "EMPTY_VALUE": "Onbekend",
+        "API": {
+          "SUCCESS_MESSAGE": "Client succesvol afgemeld",
+          "ERROR_MESSAGE": "Kon actieve clients niet bijwerken. Probeer het later opnieuw"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Zoek agenten...",

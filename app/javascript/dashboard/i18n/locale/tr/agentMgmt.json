@@ -40,7 +40,12 @@
           "LABEL": "E-posta adresi",
           "PLACEHOLDER": "Lütfen temsilcinin e-posta adresini girin"
         },
-        "SUBMIT": "Kullanıcı Ekle"
+        "SUBMIT": "Kullanıcı Ekle",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimum aktif istemci",
+          "PLACEHOLDER": "Varsayılan sınırı kullanmak için boş bırakın",
+          "ERROR": "Maksimum aktif istemci sayısı 1 ile 25 arasında olmalıdır"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Kullanıcı başarıyla eklendi",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Lütfen bir erişilebilirlik durumu seçin",
           "ERROR": "Erişilebilirlik gereklidir"
         },
-        "SUBMIT": "Temsilciyi düzenle"
+        "SUBMIT": "Temsilciyi düzenle",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimum aktif istemci",
+          "PLACEHOLDER": "Varsayılan sınırı kullanmak için boş bırakın",
+          "ERROR": "Maksimum aktif istemci sayısı 1 ile 25 arasında olmalıdır"
+        }
       },
       "BUTTON_TEXT": "Düzenle",
       "CANCEL_BUTTON_TEXT": "İptal Et",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Temsilciye şifre sıfırlama talimatlarını içeren bir e-posta gönderildi",
         "SUCCESS_MESSAGE": "Kullanıcı şifresi başarıyla sıfırlandı",
         "ERROR_MESSAGE": "Woot Sunucusuna bağlanılamadı, Lütfen daha sonra tekrar deneyin"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktif istemciler",
+        "CLIENT": "İstemci",
+        "IP": "IP",
+        "LOGIN_TIME": "Giriş zamanı",
+        "LAST_SEEN": "Son görülme",
+        "DEVICE": "Cihaz",
+        "ACTIONS": "İşlemler",
+        "CURRENT": "mevcut",
+        "KICK": "At",
+        "EMPTY": "Aktif istemci yok",
+        "EMPTY_VALUE": "Bilinmiyor",
+        "API": {
+          "SUCCESS_MESSAGE": "İstemci başarıyla atıldı",
+          "ERROR_MESSAGE": "Aktif istemciler güncellenemedi. Lütfen daha sonra tekrar deneyin"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Temsilci ara...",

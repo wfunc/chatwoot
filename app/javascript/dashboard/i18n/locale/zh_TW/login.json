@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO 驗證失敗。請檢查您的憑證並重試。"
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "您的帳號已在其他裝置登入，目前用戶端已被擠下線。",
+      "MANUAL_REVOCATION": "目前用戶端已被管理員踢下線。",
+      "DEFAULT": "目前工作階段已失效，請重新登入。"
+    }
   }
 }

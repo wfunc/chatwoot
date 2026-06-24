@@ -40,7 +40,12 @@
           "LABEL": "E-Mail-Addresse",
           "PLACEHOLDER": "Bitte geben Sie eine E-Mail-Adresse des Agenten ein"
         },
-        "SUBMIT": "Agent hinzufügen"
+        "SUBMIT": "Agent hinzufügen",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Max. aktive Clients",
+          "PLACEHOLDER": "Leer lassen, um das Standardlimit zu verwenden",
+          "ERROR": "Max. aktive Clients muss zwischen 1 und 25 liegen"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent erfolgreich hinzugefügt",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Bitte wählen Sie Ihre Verfügbarkeit aus",
           "ERROR": "Verfügbarkeit ist erforderlich"
         },
-        "SUBMIT": "Agent bearbeiten"
+        "SUBMIT": "Agent bearbeiten",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Max. aktive Clients",
+          "PLACEHOLDER": "Leer lassen, um das Standardlimit zu verwenden",
+          "ERROR": "Max. aktive Clients muss zwischen 1 und 25 liegen"
+        }
       },
       "BUTTON_TEXT": "Bearbeiten",
       "CANCEL_BUTTON_TEXT": "Stornieren",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Eine E-Mail mit Anweisungen zum Zurücksetzen des Passworts wurde an den Agenten gesendet",
         "SUCCESS_MESSAGE": "Agent-Passwort erfolgreich zurückgesetzt",
         "ERROR_MESSAGE": "Es konnte keine Verbindung zum Woot Server hergestellt werden. Bitte versuchen Sie es später erneut"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktive Clients",
+        "CLIENT": "Client",
+        "IP": "IP",
+        "LOGIN_TIME": "Anmeldezeit",
+        "LAST_SEEN": "Zuletzt gesehen",
+        "DEVICE": "Gerät",
+        "ACTIONS": "Aktionen",
+        "CURRENT": "aktuell",
+        "KICK": "Abmelden",
+        "EMPTY": "Keine aktiven Clients",
+        "EMPTY_VALUE": "Unbekannt",
+        "API": {
+          "SUCCESS_MESSAGE": "Client erfolgreich abgemeldet",
+          "ERROR_MESSAGE": "Aktive Clients konnten nicht aktualisiert werden. Bitte später erneut versuchen"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Agenten suchen...",

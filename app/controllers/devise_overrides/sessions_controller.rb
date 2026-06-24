@@ -26,15 +26,21 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   private
 
   def find_user_for_authentication
-    return nil unless params[:email].present? && params[:password].present?
+    return nil unless credentials_present?
 
     normalized_email = params[:email].strip.downcase
     user = User.from_email(normalized_email)
-    return nil unless user&.valid_password?(params[:password])
-    return nil unless user.active_for_authentication?
-    return nil unless user.account_users.any?(&:active_for_dashboard?)
+    return nil unless dashboard_user?(user) && user.valid_password?(params[:password])
 
     user
+  end
+
+  def credentials_present?
+    params[:email].present? && params[:password].present?
+  end
+
+  def dashboard_user?(user)
+    user&.active_for_authentication? && user.account_users.any?(&:active_for_dashboard?)
   end
 
   def mfa_verification_request?
@@ -58,9 +64,7 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   end
 
   def authenticate_resource_with_sso_token
-    @token = @resource.create_token
-    @resource.save!
-
+    create_and_assign_token
     sign_in(:user, @resource, store: false, bypass: false)
     # invalidate the token after the user is signed in
     @resource.invalidate_sso_auth_token(params[:sso_auth_token])
@@ -97,11 +101,34 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
 
   def sign_in_mfa_user(user)
     @resource = user
-    @token = @resource.create_token
-    @resource.save!
-
+    create_and_assign_token
     sign_in(:user, @resource, store: false, bypass: false)
     render_create_success
+  end
+
+  def create_and_assign_token
+    if @resource.respond_to?(:with_lock)
+      @resource.with_lock do
+        @token = @resource.create_token(**auth_client_metadata)
+        @resource.save!
+      end
+    else
+      @token = @resource.create_token(**auth_client_metadata)
+      @resource.save!
+    end
+
+    notify_revoked_auth_clients(@resource)
+  end
+
+  def auth_client_metadata
+    {
+      ip: request.remote_ip,
+      user_agent: request.user_agent.to_s.first(255)
+    }.compact
+  end
+
+  def notify_revoked_auth_clients(resource)
+    Auth::ClientRevocationNotifier.call(resource, resource.flush_revoked_auth_clients)
   end
 
   def render_mfa_error(message_key, status = :bad_request)

@@ -40,7 +40,12 @@
           "LABEL": "E-Mail Adresse",
           "PLACEHOLDER": "Indtast venligst en e-mail adresse på agenten"
         },
-        "SUBMIT": "Tilføj Agent"
+        "SUBMIT": "Tilføj Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maks. aktive klienter",
+          "PLACEHOLDER": "Lad stå tomt for at bruge standardgrænsen",
+          "ERROR": "Maks. aktive klienter skal være mellem 1 og 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agenten blev tilføjet",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Rediger Agent"
+        "SUBMIT": "Rediger Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maks. aktive klienter",
+          "PLACEHOLDER": "Lad stå tomt for at bruge standardgrænsen",
+          "ERROR": "Maks. aktive klienter skal være mellem 1 og 25"
+        }
       },
       "BUTTON_TEXT": "Rediger",
       "CANCEL_BUTTON_TEXT": "Annuller",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "En e-mail med nulstilling af adgangskodeinstruktioner er blevet sendt til agenten",
         "SUCCESS_MESSAGE": "Agentens adgangskode nulstillet",
         "ERROR_MESSAGE": "Kunne ikke oprette forbindelse til Woot Server, Prøv igen senere"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktive klienter",
+        "CLIENT": "Klient",
+        "IP": "IP",
+        "LOGIN_TIME": "Logintid",
+        "LAST_SEEN": "Sidst set",
+        "DEVICE": "Enhed",
+        "ACTIONS": "Handlinger",
+        "CURRENT": "nuværende",
+        "KICK": "Log ud",
+        "EMPTY": "Ingen aktive klienter",
+        "EMPTY_VALUE": "Ukendt",
+        "API": {
+          "SUCCESS_MESSAGE": "Klienten blev logget ud",
+          "ERROR_MESSAGE": "Kunne ikke opdatere aktive klienter. Prøv igen senere"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Søg agenter...",

@@ -40,7 +40,12 @@
           "LABEL": "Netfang",
           "PLACEHOLDER": "Vinsamlegast skráið netfang þjónustufulltrúa"
         },
-        "SUBMIT": "Bæta við þjónustufulltrúa"
+        "SUBMIT": "Bæta við þjónustufulltrúa",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Hámarksfjöldi virkra biðlara",
+          "PLACEHOLDER": "Skildu eftir autt til að nota sjálfgefið hámark",
+          "ERROR": "Hámarksfjöldi virkra biðlara verður að vera á bilinu 1 til 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Þjónustufulltrúa bætt við",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Breyta þjónustufulltrúa"
+        "SUBMIT": "Breyta þjónustufulltrúa",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Hámarksfjöldi virkra biðlara",
+          "PLACEHOLDER": "Skildu eftir autt til að nota sjálfgefið hámark",
+          "ERROR": "Hámarksfjöldi virkra biðlara verður að vera á bilinu 1 til 25"
+        }
       },
       "BUTTON_TEXT": "Breyta",
       "CANCEL_BUTTON_TEXT": "Hætta við",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Tölvupóstur með leiðbeiningum um endurstillingu lykilorðs hefur verið sendur til þjónustufulltrúa",
         "SUCCESS_MESSAGE": "Lykilorð þjónustufulltrúa var endurstillt",
         "ERROR_MESSAGE": "Náði ekki að tengjast við netþjóna Woot, vinsamlegast reynið aftur"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Virkir biðlarar",
+        "CLIENT": "Biðlari",
+        "IP": "IP",
+        "LOGIN_TIME": "Innskráningartími",
+        "LAST_SEEN": "Sást síðast",
+        "DEVICE": "Tæki",
+        "ACTIONS": "Aðgerðir",
+        "CURRENT": "núverandi",
+        "KICK": "Skrá út",
+        "EMPTY": "Engir virkir biðlarar",
+        "EMPTY_VALUE": "Óþekkt",
+        "API": {
+          "SUCCESS_MESSAGE": "Biðlari skráður út",
+          "ERROR_MESSAGE": "Ekki tókst að uppfæra virka biðlara. Reyndu aftur síðar"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Leita að þjónustufulltrúum...",

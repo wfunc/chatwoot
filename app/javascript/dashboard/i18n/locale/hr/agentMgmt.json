@@ -40,7 +40,12 @@
           "LABEL": "Adresa e-pošte",
           "PLACEHOLDER": "Please enter an email address of the agent"
         },
-        "SUBMIT": "Dodaj agenta"
+        "SUBMIT": "Dodaj agenta",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimalan broj aktivnih klijenata",
+          "PLACEHOLDER": "Ostavite prazno za zadano ograničenje",
+          "ERROR": "Maksimalan broj aktivnih klijenata mora biti između 1 i 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Uspješno dodan agent",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Izaberi status raspoloživosti",
           "ERROR": "Potrebna je raspoloživost"
         },
-        "SUBMIT": "Uredi agenta"
+        "SUBMIT": "Uredi agenta",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimalan broj aktivnih klijenata",
+          "PLACEHOLDER": "Ostavite prazno za zadano ograničenje",
+          "ERROR": "Maksimalan broj aktivnih klijenata mora biti između 1 i 25"
+        }
       },
       "BUTTON_TEXT": "Uredi",
       "CANCEL_BUTTON_TEXT": "Odustani",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "An email with reset password instructions has been sent to the agent",
         "SUCCESS_MESSAGE": "Agent password reset successfully",
         "ERROR_MESSAGE": "Could not connect to Woot Server, Please try again later"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Aktivni klijenti",
+        "CLIENT": "Klijent",
+        "IP": "IP",
+        "LOGIN_TIME": "Vrijeme prijave",
+        "LAST_SEEN": "Zadnji put viđen",
+        "DEVICE": "Uređaj",
+        "ACTIONS": "Radnje",
+        "CURRENT": "trenutni",
+        "KICK": "Odjavi",
+        "EMPTY": "Nema aktivnih klijenata",
+        "EMPTY_VALUE": "Nepoznato",
+        "API": {
+          "SUCCESS_MESSAGE": "Klijent je uspješno odjavljen",
+          "ERROR_MESSAGE": "Nije moguće ažurirati aktivne klijente. Pokušajte kasnije"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Search agents...",

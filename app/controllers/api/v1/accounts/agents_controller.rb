@@ -9,28 +9,26 @@ class Api::V1::Accounts::AgentsController < Api::V1::Accounts::BaseController
   end
 
   def create
-    builder = AgentBuilder.new(
-      email: new_agent_params['email'],
-      name: new_agent_params['name'],
-      password: new_agent_params['password'],
-      password_confirmation: new_agent_params['password_confirmation'],
-      role: resolved_role,
-      availability: new_agent_params['availability'],
-      auto_offline: new_agent_params['auto_offline'],
-      merchant_status: new_agent_params['merchant_status'],
-      merchant_expires_at: new_agent_params['merchant_expires_at'],
-      agent_limit: new_agent_params['agent_limit'],
-      parent_merchant_id: resolved_parent_merchant_id,
-      inviter: current_user,
-      account: Current.account
-    )
-
-    @agent = builder.perform
+    @agent = AgentBuilder.new(agent_builder_params).perform
   end
 
   def update
-    @agent.update!(filtered_user_params)
-    @agent.current_account_user.update!(filtered_account_user_params)
+    revoked_clients = []
+    ActiveRecord::Base.transaction do
+      @agent.update!(filtered_user_params)
+      revoked_clients = @agent.prune_auth_clients_to_limit!
+      @agent.current_account_user.update!(filtered_account_user_params)
+    end
+    notify_revoked_auth_clients(revoked_clients)
+  end
+
+  def active_clients
+    @active_clients = @agent.active_auth_clients
+  end
+
+  def destroy_active_client
+    @agent.revoke_auth_client!(params[:client_id])
+    head :ok
   end
 
   def destroy
@@ -89,6 +87,7 @@ class Api::V1::Accounts::AgentsController < Api::V1::Accounts::BaseController
       :merchant_status,
       :merchant_expires_at,
       :agent_limit,
+      :max_active_clients,
       :parent_merchant_id
     ]
   end
@@ -159,7 +158,28 @@ class Api::V1::Accounts::AgentsController < Api::V1::Accounts::BaseController
   end
 
   def filtered_user_params
-    agent_params.slice(:name, :password, :password_confirmation).to_h.compact_blank
+    params_to_update = agent_params.slice(:name, :password, :password_confirmation).to_h.compact_blank
+    params_to_update[:max_active_clients] = normalized_max_active_clients(agent_params[:max_active_clients]) if agent_params.key?(:max_active_clients)
+    params_to_update
+  end
+
+  def agent_builder_params
+    {
+      email: new_agent_params['email'],
+      name: new_agent_params['name'],
+      password: new_agent_params['password'],
+      password_confirmation: new_agent_params['password_confirmation'],
+      role: resolved_role,
+      availability: new_agent_params['availability'],
+      auto_offline: new_agent_params['auto_offline'],
+      merchant_status: new_agent_params['merchant_status'],
+      merchant_expires_at: new_agent_params['merchant_expires_at'],
+      agent_limit: new_agent_params['agent_limit'],
+      max_active_clients: normalized_max_active_clients(new_agent_params['max_active_clients']),
+      parent_merchant_id: resolved_parent_merchant_id,
+      inviter: current_user,
+      account: Current.account
+    }
   end
 
   def resolved_role
@@ -176,6 +196,14 @@ class Api::V1::Accounts::AgentsController < Api::V1::Accounts::BaseController
 
   def delete_user_record(agent)
     DeleteObjectJob.perform_later(agent) if agent.reload.account_users.blank?
+  end
+
+  def notify_revoked_auth_clients(clients)
+    Auth::ClientRevocationNotifier.call(@agent, clients)
+  end
+
+  def normalized_max_active_clients(value)
+    value.presence
   end
 end
 

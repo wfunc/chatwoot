@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Tài khoản của bạn đã đăng nhập trên thiết bị khác, nên phiên này đã bị đăng xuất.",
+      "MANUAL_REVOCATION": "Phiên này đã bị quản trị viên đăng xuất.",
+      "DEFAULT": "Phiên của bạn đã kết thúc. Vui lòng đăng nhập lại."
+    }
   }
 }

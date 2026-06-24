@@ -40,7 +40,12 @@
           "LABEL": "Adreça de correu electrònic",
           "PLACEHOLDER": "Introduïu l'adreça de correu electrònic de l'agent"
         },
-        "SUBMIT": "Afegir Agent"
+        "SUBMIT": "Afegir Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Màxim de clients actius",
+          "PLACEHOLDER": "Deixa-ho buit per usar el límit predeterminat",
+          "ERROR": "El màxim de clients actius ha d’estar entre 1 i 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent afegit correctament",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Seleccioneu un estat de disponibilitat",
           "ERROR": "Es requereix disponibilitat"
         },
-        "SUBMIT": "Editar l'agent"
+        "SUBMIT": "Editar l'agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Màxim de clients actius",
+          "PLACEHOLDER": "Deixa-ho buit per usar el límit predeterminat",
+          "ERROR": "El màxim de clients actius ha d’estar entre 1 i 25"
+        }
       },
       "BUTTON_TEXT": "Edita",
       "CANCEL_BUTTON_TEXT": "Cancel·la",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "S'ha enviat a l'agent un correu electrònic amb instruccions per restablir la contrasenya",
         "SUCCESS_MESSAGE": "La contrasenya de l'agent s'ha restablit correctament",
         "ERROR_MESSAGE": "No s'ha pogut connectar amb el servidor Woot. Torna-ho a provar més endavant"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Clients actius",
+        "CLIENT": "Client",
+        "IP": "IP",
+        "LOGIN_TIME": "Hora d’inici de sessió",
+        "LAST_SEEN": "Vist per última vegada",
+        "DEVICE": "Dispositiu",
+        "ACTIONS": "Accions",
+        "CURRENT": "actual",
+        "KICK": "Expulsar",
+        "EMPTY": "No hi ha clients actius",
+        "EMPTY_VALUE": "Desconegut",
+        "API": {
+          "SUCCESS_MESSAGE": "Client expulsat correctament",
+          "ERROR_MESSAGE": "No s’han pogut actualitzar els clients actius. Torna-ho a provar més tard"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Cerca agents...",

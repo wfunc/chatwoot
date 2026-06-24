@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Ձեր հաշիվը մուտք է գործել այլ սարքից, ուստի այս նստաշրջանը դուրս է եկել։",
+      "MANUAL_REVOCATION": "Այս նստաշրջանը դուրս է բերվել ադմինիստրատորի կողմից։",
+      "DEFAULT": "Ձեր նստաշրջանն ավարտվել է։ Մուտք գործեք կրկին։"
+    }
   }
 }

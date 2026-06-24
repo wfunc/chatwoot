@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "Autenticazione SSO fallita. Verifica le credenziali e riprova."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Il tuo account ha effettuato l’accesso su un altro dispositivo, quindi questa sessione è stata chiusa.",
+      "MANUAL_REVOCATION": "Questa sessione è stata chiusa da un amministratore.",
+      "DEFAULT": "La sessione è terminata. Accedi di nuovo."
+    }
   }
 }

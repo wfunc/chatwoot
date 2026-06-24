@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "உங்கள் கணக்கு மற்றொரு சாதனத்தில் உள்நுழைந்ததால், இந்த அமர்வு வெளியேற்றப்பட்டது.",
+      "MANUAL_REVOCATION": "இந்த அமர்வு நிர்வாகியால் வெளியேற்றப்பட்டது.",
+      "DEFAULT": "உங்கள் அமர்வு முடிந்தது. மீண்டும் உள்நுழையவும்."
+    }
   }
 }

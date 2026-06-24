@@ -15,5 +15,6 @@ json.thumbnail resource.avatar_url
 json.merchant_status resource.current_account_user&.merchant_status
 json.merchant_expires_at resource.current_account_user&.merchant_expires_at
 json.agent_limit resource.current_account_user&.agent_limit
+json.max_active_clients resource.max_active_clients
 json.parent_merchant_id resource.current_account_user&.parent_merchant_id
 json.custom_role_id resource.current_account_user&.custom_role_id if ChatwootApp.enterprise?

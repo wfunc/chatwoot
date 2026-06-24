@@ -40,7 +40,12 @@
           "LABEL": "Email Address",
           "PLACEHOLDER": "Please enter an email address of the agent"
         },
-        "SUBMIT": "Add Agent"
+        "SUBMIT": "Add Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "მაქსიმალური აქტიური კლიენტები",
+          "PLACEHOLDER": "დატოვეთ ცარიელი ნაგულისხმევი ლიმიტისთვის",
+          "ERROR": "მაქსიმალური აქტიური კლიენტები უნდა იყოს 1-დან 25-მდე"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Agent added successfully",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Edit Agent"
+        "SUBMIT": "Edit Agent",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "მაქსიმალური აქტიური კლიენტები",
+          "PLACEHOLDER": "დატოვეთ ცარიელი ნაგულისხმევი ლიმიტისთვის",
+          "ERROR": "მაქსიმალური აქტიური კლიენტები უნდა იყოს 1-დან 25-მდე"
+        }
       },
       "BUTTON_TEXT": "Edit",
       "CANCEL_BUTTON_TEXT": "Cancel",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "An email with reset password instructions has been sent to the agent",
         "SUCCESS_MESSAGE": "Agent password reset successfully",
         "ERROR_MESSAGE": "Could not connect to Woot Server, Please try again later"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "აქტიური კლიენტები",
+        "CLIENT": "კლიენტი",
+        "IP": "IP",
+        "LOGIN_TIME": "შესვლის დრო",
+        "LAST_SEEN": "ბოლოს აქტიური",
+        "DEVICE": "მოწყობილობა",
+        "ACTIONS": "ქმედებები",
+        "CURRENT": "მიმდინარე",
+        "KICK": "გათიშვა",
+        "EMPTY": "აქტიური კლიენტები არ არის",
+        "EMPTY_VALUE": "უცნობი",
+        "API": {
+          "SUCCESS_MESSAGE": "კლიენტი წარმატებით გაითიშა",
+          "ERROR_MESSAGE": "აქტიური კლიენტების განახლება ვერ მოხერხდა. სცადეთ მოგვიანებით"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Search agents...",

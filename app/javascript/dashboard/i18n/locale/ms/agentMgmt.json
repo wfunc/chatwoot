@@ -40,7 +40,12 @@
           "LABEL": "Emel",
           "PLACEHOLDER": "Sila masukkan emel ejen anda"
         },
-        "SUBMIT": "Tambahkan ejen"
+        "SUBMIT": "Tambahkan ejen",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimum klien aktif",
+          "PLACEHOLDER": "Biarkan kosong untuk menggunakan had lalai",
+          "ERROR": "Maksimum klien aktif mestilah antara 1 dan 25"
+        }
       },
       "API": {
         "SUCCESS_MESSAGE": "Ejen berjaya ditambahkan",
@@ -82,7 +87,12 @@
           "PLACEHOLDER": "Please select an availability status",
           "ERROR": "Availability is required"
         },
-        "SUBMIT": "Edit ejen"
+        "SUBMIT": "Edit ejen",
+        "MAX_ACTIVE_CLIENTS": {
+          "LABEL": "Maksimum klien aktif",
+          "PLACEHOLDER": "Biarkan kosong untuk menggunakan had lalai",
+          "ERROR": "Maksimum klien aktif mestilah antara 1 dan 25"
+        }
       },
       "BUTTON_TEXT": "Edit",
       "CANCEL_BUTTON_TEXT": "Batalkan",
@@ -95,6 +105,23 @@
         "ADMIN_SUCCESS_MESSAGE": "Email untuk reset kata laluan telah di hantar kepada ejen yang berkenaan",
         "SUCCESS_MESSAGE": "Kata laluan ejen telah berjaya set semula",
         "ERROR_MESSAGE": "Masalah untuk hubungi Woot Server, Sila cuba sebentar lagi"
+      },
+      "ACTIVE_CLIENTS": {
+        "TITLE": "Klien aktif",
+        "CLIENT": "Klien",
+        "IP": "IP",
+        "LOGIN_TIME": "Masa log masuk",
+        "LAST_SEEN": "Kali terakhir dilihat",
+        "DEVICE": "Peranti",
+        "ACTIONS": "Tindakan",
+        "CURRENT": "semasa",
+        "KICK": "Keluarkan",
+        "EMPTY": "Tiada klien aktif",
+        "EMPTY_VALUE": "Tidak diketahui",
+        "API": {
+          "SUCCESS_MESSAGE": "Klien berjaya dikeluarkan",
+          "ERROR_MESSAGE": "Tidak dapat mengemas kini klien aktif. Sila cuba lagi kemudian"
+        }
       }
     },
     "SEARCH_PLACEHOLDER": "Cari ejen...",

@@ -11,6 +11,14 @@ class UserPolicy < ApplicationPolicy
     administrator? || merchant?
   end
 
+  def active_clients?
+    update?
+  end
+
+  def destroy_active_client?
+    update?
+  end
+
   def destroy?
     administrator? || merchant?
   end

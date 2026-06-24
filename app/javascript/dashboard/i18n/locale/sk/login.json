@@ -37,5 +37,12 @@
         "ERROR_MESSAGE": "SSO authentication failed. Please check your credentials and try again."
       }
     }
+  },
+  "AUTH": {
+    "CLIENT_REVOKED": {
+      "CLIENT_LIMIT_EXCEEDED": "Váš účet bol prihlásený na inom zariadení, preto bola táto relácia odhlásená.",
+      "MANUAL_REVOCATION": "Táto relácia bola odhlásená administrátorom.",
+      "DEFAULT": "Vaša relácia skončila. Prihláste sa znova."
+    }
   }
 }

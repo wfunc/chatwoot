@@ -8,12 +8,28 @@ import {
   toggleStatus,
   setCustomAttributes,
   deleteCustomAttribute,
+  sendGreetingAPI,
 } from 'widget/api/conversation';
 
 import { ON_CONVERSATION_CREATED } from 'widget/constants/widgetBusEvents';
 import { createTemporaryMessage, getNonDeletedMessages } from './helpers';
 import { emitter } from 'shared/helpers/mitt';
 export const actions = {
+  sendGreeting: async ({ dispatch }, sessionId) => {
+    try {
+      const { data } = await sendGreetingAPI(sessionId);
+      if (data.id) {
+        await dispatch(
+          'conversationAttributes/getAttributes',
+          {},
+          { root: true }
+        );
+        await dispatch('fetchOldConversations');
+      }
+    } catch (error) {
+      // A greeting failure should not prevent the visitor from sending messages.
+    }
+  },
   createConversation: async ({ commit, dispatch }, params) => {
     commit('setConversationUIFlag', { isCreating: true });
     try {

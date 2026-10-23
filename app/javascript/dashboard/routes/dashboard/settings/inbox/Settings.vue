@@ -20,6 +20,7 @@ import InboxHealthAPI from 'dashboard/api/inboxHealth';
 import PreChatFormSettings from './PreChatForm/Settings.vue';
 import WeeklyAvailability from './components/WeeklyAvailability.vue';
 import GreetingsEditor from 'shared/components/GreetingsEditor.vue';
+import GreetingModeSelect from './components/GreetingModeSelect.vue';
 import ConfigurationPage from './settingsPage/ConfigurationPage.vue';
 import CustomerSatisfactionPage from './settingsPage/CustomerSatisfactionPage.vue';
 import CollaboratorsPage from './settingsPage/CollaboratorsPage.vue';
@@ -49,6 +50,7 @@ export default {
     CustomerSatisfactionPage,
     FacebookReauthorize,
     GreetingsEditor,
+    GreetingModeSelect,
     PreChatFormSettings,
     SettingIntroBanner,
     SettingsToggleSection,
@@ -83,6 +85,7 @@ export default {
       avatarUrl: '',
       greetingEnabled: true,
       greetingMessage: '',
+      greetingMode: 'first_message',
       emailCollectEnabled: false,
       senderNameType: 'friendly',
       businessName: '',
@@ -456,6 +459,7 @@ export default {
       this.webhookUrl = this.inbox.webhook_url;
       this.greetingEnabled = this.inbox.greeting_enabled || false;
       this.greetingMessage = this.inbox.greeting_message || '';
+      this.greetingMode = this.inbox.greeting_mode || 'first_message';
       this.emailCollectEnabled = this.inbox.enable_email_collect;
       this.senderNameType = this.inbox.sender_name_type;
       this.businessName = this.inbox.business_name;
@@ -580,6 +584,7 @@ export default {
           allow_messages_after_resolved: this.allowMessagesAfterResolved,
           greeting_enabled: this.greetingEnabled,
           greeting_message: this.greetingMessage || '',
+          greeting_mode: this.greetingMode,
           portal_id: this.selectedPortalSlug
             ? this.portals.find(
                 portal => portal.slug === this.selectedPortalSlug
@@ -1179,6 +1184,10 @@ export default {
                 "
               >
                 <template v-if="greetingEnabled" #editor>
+                  <GreetingModeSelect
+                    v-if="isAWebWidgetInbox"
+                    v-model="greetingMode"
+                  />
                   <GreetingsEditor
                     v-model="greetingMessage"
                     :label="

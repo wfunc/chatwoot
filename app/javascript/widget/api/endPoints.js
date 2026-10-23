@@ -1,5 +1,6 @@
 import { buildSearchParamsWithLocale } from '../helpers/urlParamsHelper';
 import { generateEventParams } from './events';
+import { getGreetingSessionId } from '../helpers/greetingSession';
 
 const createConversation = params => {
   const referrerURL = window.referrerURL || '';
@@ -7,6 +8,9 @@ const createConversation = params => {
   return {
     url: `/api/v1/widget/conversations${search}`,
     params: {
+      ...(getGreetingSessionId() && {
+        widget_session_id: getGreetingSessionId(),
+      }),
       contact: {
         name: params.fullName,
         email: params.emailAddress,
@@ -26,6 +30,9 @@ const sendMessage = (content, replyTo, { customAttributes, labels } = {}) => {
   const referrerURL = window.referrerURL || '';
   const search = buildSearchParamsWithLocale(window.location.search);
   const params = {
+    ...(getGreetingSessionId() && {
+      widget_session_id: getGreetingSessionId(),
+    }),
     message: {
       content,
       reply_to: replyTo,
@@ -51,6 +58,9 @@ const sendAttachment = (
   const { file } = attachment;
 
   const formData = new FormData();
+  if (getGreetingSessionId()) {
+    formData.append('widget_session_id', getGreetingSessionId());
+  }
   if (typeof file === 'string') {
     formData.append('message[attachments][]', file);
   } else {

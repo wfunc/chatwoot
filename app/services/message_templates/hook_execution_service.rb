@@ -15,7 +15,7 @@ class MessageTemplates::HookExecutionService
 
   def trigger_templates
     ::MessageTemplates::Template::OutOfOffice.new(conversation: conversation).perform if should_send_out_of_office_message?
-    ::MessageTemplates::Template::Greeting.new(conversation: conversation).perform if should_send_greeting?
+    send_greeting if should_send_greeting?
     ::MessageTemplates::Template::EmailCollect.new(conversation: conversation).perform if inbox.enable_email_collect && should_send_email_collect?
   end
 
@@ -40,8 +40,29 @@ class MessageTemplates::HookExecutionService
     return false if conversation.campaign.present?
     # should not send if its a tweet message
     return false if conversation.tweet?
+    return false unless message.incoming?
+    return false unless inbox.greeting_enabled? && inbox.greeting_message.present?
 
-    first_message_from_contact? && inbox.greeting_enabled? && inbox.greeting_message.present?
+    greeting_triggered_by_message?
+  end
+
+  def greeting_triggered_by_message?
+    return first_message_from_contact? unless inbox.web_widget?
+    return true if inbox.greeting_every_open_first_message?
+
+    inbox.greeting_first_message? && conversation.messages.incoming.order(:id).pick(:id) == message.id
+  end
+
+  def send_greeting
+    if inbox.web_widget? && inbox.greeting_every_open_first_message?
+      ::MessageTemplates::WidgetGreetingService.new(
+        contact_inbox: conversation.contact_inbox,
+        conversation: conversation,
+        session_id: message.content_attributes['widget_session_id']
+      ).perform
+    else
+      ::MessageTemplates::Template::Greeting.new(conversation: conversation).perform
+    end
   end
 
   def email_collect_was_sent?

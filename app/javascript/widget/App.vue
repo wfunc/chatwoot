@@ -23,6 +23,7 @@ import { useAvailability } from 'widget/composables/useAvailability';
 import { SDK_SET_BUBBLE_VISIBILITY } from '../shared/constants/sharedFrameEvents';
 import { emitter } from 'shared/helpers/mitt';
 import ActionCableConnector from './helpers/actionCable';
+import { startGreetingSession } from './helpers/greetingSession';
 import {
   getPersistedWidgetSession,
   getReturnUrl,
@@ -50,6 +51,7 @@ export default {
       isMobile: false,
       campaignsSnoozedTill: undefined,
       popstateHandler: null,
+      greetingSessionActive: false,
     };
   },
   computed: {
@@ -87,6 +89,13 @@ export default {
     },
   },
   watch: {
+    isWidgetOpen(isOpen, wasOpen) {
+      if (isOpen && !wasOpen) {
+        this.startChannelGreeting();
+      } else if (!isOpen) {
+        this.greetingSessionActive = false;
+      }
+    },
     activeCampaign() {
       this.setCampaignView();
     },
@@ -155,6 +164,9 @@ export default {
     this.$store.dispatch('conversationAttributes/getAttributes');
     this.registerUnreadEvents();
     this.registerCampaignEvents();
+    if (!this.isIFrame || this.isStandaloneWidget) {
+      this.startChannelGreeting();
+    }
   },
   unmounted() {
     if (this.popstateHandler) {
@@ -162,6 +174,21 @@ export default {
     }
   },
   methods: {
+    async startChannelGreeting() {
+      if (this.greetingSessionActive) return;
+      this.greetingSessionActive = true;
+      const sessionId = startGreetingSession();
+      const { greetingEnabled, greetingMode } = this.channelConfig;
+      if (
+        greetingEnabled &&
+        ['first_open', 'every_open'].includes(greetingMode)
+      ) {
+        await this.$store.dispatch('conversation/sendGreeting', sessionId);
+        if (this.messageCount && !this.shouldShowPreChatForm) {
+          this.router.replace({ name: 'messages' });
+        }
+      }
+    },
     ...mapActions('appConfig', [
       'setAppConfig',
       'setReferrerHost',

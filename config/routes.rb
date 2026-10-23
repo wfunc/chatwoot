@@ -408,6 +408,7 @@ Rails.application.routes.draw do
         resources :messages, only: [:index, :create, :update]
         resources :conversations, only: [:index, :create] do
           collection do
+            post :greeting
             post :destroy_custom_attributes
             post :set_custom_attributes
             post :update_last_seen

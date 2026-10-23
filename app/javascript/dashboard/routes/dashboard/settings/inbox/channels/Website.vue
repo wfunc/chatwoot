@@ -5,12 +5,14 @@ import router from '../../../../index';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import PageHeader from '../../SettingsSubPageHeader.vue';
 import GreetingsEditor from 'shared/components/GreetingsEditor.vue';
+import GreetingModeSelect from '../components/GreetingModeSelect.vue';
 import Editor from 'dashboard/components-next/Editor/Editor.vue';
 
 export default {
   components: {
     PageHeader,
     GreetingsEditor,
+    GreetingModeSelect,
     NextButton,
     Editor,
   },
@@ -23,6 +25,7 @@ export default {
       channelWelcomeTagline: '',
       greetingEnabled: false,
       greetingMessage: '',
+      greetingMode: 'first_message',
     };
   },
   computed: {
@@ -48,6 +51,7 @@ export default {
             name: this.inboxName?.trim(),
             greeting_enabled: this.greetingEnabled,
             greeting_message: this.greetingMessage,
+            greeting_mode: this.greetingMode,
             channel: {
               type: 'web_widget',
               website_url: this.channelWebsiteUrl,
@@ -175,6 +179,7 @@ export default {
           }}
         </p>
       </label>
+      <GreetingModeSelect v-if="greetingEnabled" v-model="greetingMode" />
       <GreetingsEditor
         v-if="greetingEnabled"
         v-model="greetingMessage"

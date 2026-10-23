@@ -1,0 +1,12 @@
+{
+  "CHANNEL_GREETING_MODE": {
+    "LABEL": "When to send the channel greeting",
+    "HELP_TEXT": "Opening means opening or reopening the chat window. The first-message option sends one greeting per new conversation, even if the visitor reopens it later.",
+    "OPTIONS": {
+      "FIRST_OPEN": "When the visitor first opens the chat window",
+      "EVERY_OPEN": "Every time the visitor opens the chat window",
+      "EVERY_OPEN_FIRST_MESSAGE": "After the first message each time the visitor opens the chat window",
+      "FIRST_MESSAGE": "After the first message in a new conversation"
+    }
+  }
+}

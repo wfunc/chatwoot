@@ -6,6 +6,17 @@ class Api::V1::Widget::ConversationsController < Api::V1::Widget::BaseController
     @conversation = conversation
   end
 
+  def greeting
+    if inbox.greeting_first_open? || inbox.greeting_every_open?
+      ::MessageTemplates::WidgetGreetingService.new(
+        contact_inbox: @contact_inbox,
+        session_id: permitted_params[:widget_session_id]
+      ).perform { conversation || create_conversation }
+    end
+    @conversation = conversation
+    render :index
+  end
+
   def create
     ActiveRecord::Base.transaction do
       process_update_contact
@@ -95,8 +106,9 @@ class Api::V1::Widget::ConversationsController < Api::V1::Widget::BaseController
   end
 
   def permitted_params
-    params.permit(:id, :typing_status, :website_token, :email, contact: [:name, :email, :phone_number],
-                                                               message: [:content, :referer_url, :timestamp, :echo_id],
-                                                               custom_attributes: {})
+    params.permit(:id, :typing_status, :website_token, :email, :widget_session_id,
+                  contact: [:name, :email, :phone_number],
+                  message: [:content, :referer_url, :timestamp, :echo_id],
+                  custom_attributes: {})
   end
 end

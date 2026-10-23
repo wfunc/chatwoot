@@ -81,6 +81,12 @@ class Inbox < ApplicationRecord
   has_many :hooks, dependent: :destroy_async, class_name: 'Integrations::Hook'
 
   enum sender_name_type: { friendly: 0, professional: 1 }
+  enum greeting_mode: {
+    first_open: 'first_open',
+    every_open: 'every_open',
+    every_open_first_message: 'every_open_first_message',
+    first_message: 'first_message'
+  }, _prefix: :greeting
 
   after_destroy :delete_round_robin_agents
 

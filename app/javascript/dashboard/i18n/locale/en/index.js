@@ -1,4 +1,5 @@
 import advancedFilters from './advancedFilters.json';
+import channelGreetings from './en.json';
 import agentBots from './agentBots.json';
 import agentMgmt from './agentMgmt.json';
 import attributesMgmt from './attributesMgmt.json';
@@ -42,6 +43,7 @@ import mfa from './mfa.json';
 import yearInReview from './yearInReview.json';
 
 export default {
+  ...channelGreetings,
   ...advancedFilters,
   ...agentBots,
   ...agentMgmt,

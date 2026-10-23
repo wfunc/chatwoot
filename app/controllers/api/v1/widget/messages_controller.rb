@@ -87,7 +87,7 @@ class Api::V1::Widget::MessagesController < Api::V1::Widget::BaseController
     # timestamp parameter is used in create conversation method
     # custom_attributes and labels are applied when a new conversation is created alongside the first message
     params.permit(
-      :id, :before, :after, :website_token,
+      :id, :before, :after, :website_token, :widget_session_id,
       contact: [:name, :email],
       message: [:content, :referer_url, :timestamp, :echo_id, :reply_to],
       custom_attributes: {},

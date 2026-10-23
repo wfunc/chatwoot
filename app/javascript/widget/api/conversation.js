@@ -38,6 +38,19 @@ const getConversationAPI = async () => {
   return API.get(`/api/v1/widget/conversations${window.location.search}`);
 };
 
+const sendGreetingAPI = sessionId => {
+  return API.post(
+    `/api/v1/widget/conversations/greeting${window.location.search}`,
+    {
+      widget_session_id: sessionId,
+      message: {
+        referer_url: window.referrerURL || '',
+        timestamp: new Date().toString(),
+      },
+    }
+  );
+};
+
 const toggleTyping = async ({ typingStatus }) => {
   return API.post(
     `/api/v1/widget/conversations/toggle_typing${window.location.search}`,
@@ -84,6 +97,7 @@ export {
   createConversationAPI,
   sendMessageAPI,
   getConversationAPI,
+  sendGreetingAPI,
   getMessagesAPI,
   sendAttachmentAPI,
   toggleTyping,

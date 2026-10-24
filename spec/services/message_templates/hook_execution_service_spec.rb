@@ -67,20 +67,14 @@ describe MessageTemplates::HookExecutionService do
       # ensure greeting hook is enabled and greeting_message is present
       conversation.inbox.update(greeting_enabled: true, enable_email_collect: true, greeting_message: 'Hi, this is a greeting message')
 
-      email_collect_service = double
-      greeting_service = double
-      allow(MessageTemplates::Template::EmailCollect).to receive(:new).and_return(email_collect_service)
-      allow(email_collect_service).to receive(:perform).and_return(true)
-      allow(MessageTemplates::Template::Greeting).to receive(:new).and_return(greeting_service)
-      allow(greeting_service).to receive(:perform).and_return(true)
+      allow(MessageTemplates::Template::EmailCollect).to receive(:new).and_call_original
 
       # described class gets called in message after commit
       message = create(:message, conversation: conversation, account: conversation.account)
 
-      expect(MessageTemplates::Template::Greeting).to have_received(:new).with(conversation: message.conversation)
-      expect(greeting_service).to have_received(:perform)
+      expect(message.conversation.messages.template.where(content: 'Hi, this is a greeting message').count).to eq(1)
       expect(MessageTemplates::Template::EmailCollect).to have_received(:new).with(conversation: message.conversation)
-      expect(email_collect_service).to have_received(:perform)
+      expect(message.conversation.messages.where(content_type: :input_email).count).to eq(1)
     end
 
     it 'doesnot calls ::MessageTemplates::Template::EmailCollect on campaign conversations' do

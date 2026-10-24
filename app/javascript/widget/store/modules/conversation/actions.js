@@ -35,8 +35,7 @@ export const actions = {
     try {
       const { data } = await createConversationAPI(params);
       const { messages } = data;
-      const [message = {}] = messages;
-      commit('pushMessageToConversation', message);
+      messages.forEach(message => commit('pushMessageToConversation', message));
       dispatch('conversationAttributes/getAttributes', {}, { root: true });
       // Emit event to notify that conversation is created and show the chat screen
       emitter.emit(ON_CONVERSATION_CREATED);

@@ -48,16 +48,16 @@ class MessageTemplates::HookExecutionService
 
   def greeting_triggered_by_message?
     return first_message_from_contact? unless inbox.web_widget?
-    return true if inbox.greeting_every_open_first_message?
 
-    inbox.greeting_first_message? && conversation.messages.incoming.order(:id).pick(:id) == message.id
+    inbox.greeting_every_open_first_message? || inbox.greeting_first_message?
   end
 
   def send_greeting
-    if inbox.web_widget? && inbox.greeting_every_open_first_message?
+    if inbox.web_widget?
       ::MessageTemplates::WidgetGreetingService.new(
         contact_inbox: conversation.contact_inbox,
         conversation: conversation,
+        message: message,
         session_id: message.content_attributes['widget_session_id']
       ).perform
     else

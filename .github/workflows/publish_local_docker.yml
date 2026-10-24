@@ -1,0 +1,66 @@
+name: Build and push myuwhn/chatwoot:local
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-chatwoot-local
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - name: Checkout selected branch
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Check Docker Hub credentials
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        run: |
+          test -n "$DOCKERHUB_USERNAME" || { echo '::error::Configure the DOCKERHUB_USERNAME repository secret'; exit 1; }
+          test -n "$DOCKERHUB_TOKEN" || { echo '::error::Configure the DOCKERHUB_TOKEN repository secret'; exit 1; }
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: docker/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: myuwhn/chatwoot:local
+          build-args: |
+            NODE_OPTIONS=--max-old-space-size=4096 --max-semi-space-size=16 --openssl-legacy-provider
+          cache-from: type=gha,scope=chatwoot-local-amd64
+          cache-to: type=gha,mode=max,scope=chatwoot-local-amd64,ignore-error=true
+
+      - name: Verify published image
+        env:
+          IMAGE_DIGEST: ${{ steps.build.outputs.digest }}
+        run: |
+          docker buildx imagetools inspect "myuwhn/chatwoot@${IMAGE_DIGEST}"
+          {
+            echo '### Published Chatwoot image'
+            echo '- Image: `myuwhn/chatwoot:local`'
+            echo '- Platform: `linux/amd64`'
+            echo "- Source commit: \`${GITHUB_SHA}\`"
+            echo "- Digest: \`${IMAGE_DIGEST}\`"
+            echo '- No server deployment is performed by this workflow.'
+          } >> "$GITHUB_STEP_SUMMARY"

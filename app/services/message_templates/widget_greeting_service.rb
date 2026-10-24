@@ -34,7 +34,7 @@ class MessageTemplates::WidgetGreetingService
 
   def already_greeted?
     greetings = inbox.messages.where(conversation_id: @contact_inbox.conversations.select(:id))
-                     .where('content_attributes @> ?', { channel_greeting: true }.to_json)
+                     .where("content_attributes ->> 'channel_greeting' = ?", 'true')
     return greetings.exists? if inbox.greeting_first_open?
 
     greetings.exists?(["content_attributes ->> 'greeting_session_id' = ?", @session_id])

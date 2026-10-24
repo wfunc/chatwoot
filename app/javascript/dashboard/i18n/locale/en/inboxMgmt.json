@@ -118,7 +118,7 @@
         },
         "CHANNEL_GREETING_TOGGLE": {
           "LABEL": "Enable channel greeting",
-          "HELP_TEXT": "Auto-send greeting messages as soon as customers open the widget.",
+          "HELP_TEXT": "Automatically send a greeting at the selected time below.",
           "ENABLED": "Enabled",
           "DISABLED": "Disabled"
         },

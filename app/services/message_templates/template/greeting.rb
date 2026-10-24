@@ -20,7 +20,7 @@ class MessageTemplates::Template::Greeting
   def greeting_already_sent?
     return false unless conversation.inbox.web_widget? && conversation.inbox.greeting_first_message?
 
-    conversation.messages.template.exists?(['content_attributes @> ?', { channel_greeting: true }.to_json])
+    conversation.messages.template.exists?(["content_attributes ->> 'channel_greeting' = ?", 'true'])
   end
 
   def greeting_message_params

@@ -104,7 +104,7 @@
         },
         "CHANNEL_GREETING_TOGGLE": {
           "LABEL": "啟用頻道問候功能",
-          "HELP_TEXT": "當客戶發起對話並發送第一則訊息時，自動發送問候訊息。",
+          "HELP_TEXT": "啟用後，依照下方選擇的時機自動傳送問候訊息。",
           "ENABLED": "已啟用",
           "DISABLED": "已停用"
         },

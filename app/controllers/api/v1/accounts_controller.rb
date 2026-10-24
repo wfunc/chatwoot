@@ -56,7 +56,7 @@ class Api::V1::AccountsController < Api::BaseController
 
   def update
     attributes = account_params.slice(:locale, :domain, :support_email)
-    attributes[:name] = account_params[:name] if @current_account_user.administrator?
+    attributes[:name] = account_params[:name] if @current_account_user.administrator? && account_params.key?(:name)
 
     @account.assign_attributes(attributes)
     @account.custom_attributes.merge!(custom_attributes_params)

@@ -118,6 +118,7 @@ class User < ApplicationRecord
   # rubocop:enable Rails/HasManyOrHasOneDependent
 
   before_validation :set_password_and_uid, on: :create
+  before_create :set_default_audio_settings
   after_destroy :remove_macros
 
   scope :order_by_full_name, -> { order('lower(users.name) ASC') }
@@ -239,6 +240,15 @@ class User < ApplicationRecord
   end
 
   private
+
+  def set_default_audio_settings
+    self.ui_settings = {
+      'notification_tone' => 'bell',
+      'enable_audio_alerts' => 'assigned+notme+unassigned',
+      'always_play_audio_alert' => true,
+      'alert_if_unread_assigned_conversation_exist' => true
+    }.merge(ui_settings || {})
+  end
 
   def email_confirmation_enabled?
     ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_EMAIL_CONFIRMATION', true))

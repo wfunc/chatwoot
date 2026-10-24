@@ -1,43 +1,47 @@
-<script>
+<script setup>
+import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
 import EmojiOrIcon from 'shared/components/EmojiOrIcon.vue';
 import { copyTextToClipboard } from 'shared/helpers/clipboard';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 
-export default {
-  components: {
-    EmojiOrIcon,
-    NextButton,
+const props = defineProps({
+  href: {
+    type: String,
+    default: '',
   },
-  props: {
-    href: {
-      type: String,
-      default: '',
-    },
-    icon: {
-      type: String,
-      required: true,
-    },
-    emoji: {
-      type: String,
-      required: true,
-    },
-    value: {
-      type: String,
-      default: '',
-    },
-    showCopy: {
-      type: Boolean,
-      default: false,
-    },
+  icon: {
+    type: String,
+    required: true,
   },
-  methods: {
-    async onCopy(e) {
-      e.preventDefault();
-      await copyTextToClipboard(this.value);
-      useAlert(this.$t('CONTACT_PANEL.COPY_SUCCESSFUL'));
-    },
+  emoji: {
+    type: String,
+    required: true,
   },
+  value: {
+    type: String,
+    default: '',
+  },
+  showCopy: {
+    type: Boolean,
+    default: false,
+  },
+  target: {
+    type: String,
+    default: undefined,
+  },
+  rel: {
+    type: String,
+    default: undefined,
+  },
+});
+
+const { t } = useI18n();
+
+const onCopy = async e => {
+  e.preventDefault();
+  await copyTextToClipboard(props.value);
+  useAlert(t('CONTACT_PANEL.COPY_SUCCESSFUL'));
 };
 </script>
 
@@ -46,6 +50,8 @@ export default {
     <a
       v-if="href"
       :href="href"
+      :target="target"
+      :rel="rel"
       class="flex items-center gap-2 text-n-slate-11 hover:underline"
     >
       <EmojiOrIcon

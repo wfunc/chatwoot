@@ -40,6 +40,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    sourceUrl: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['panelClose'],
   setup() {
@@ -224,6 +228,16 @@ export default {
           {{ additionalAttributes.description }}
         </p>
         <div class="flex flex-col items-start w-full gap-2">
+          <ContactInfoRow
+            :href="sourceUrl"
+            :value="sourceUrl"
+            icon="link"
+            emoji="🔗"
+            :title="$t('CONTACT_PANEL.INITIATED_FROM')"
+            target="_blank"
+            rel="noopener noreferrer"
+            show-copy
+          />
           <ContactInfoRow
             :href="contact.email ? `mailto:${contact.email}` : ''"
             :value="contact.email"

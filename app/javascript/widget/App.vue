@@ -135,6 +135,14 @@ export default {
       ActionCableConnector.refreshConnector(pubsubToken);
     }
 
+    if (!this.isIFrame && !this.isRNWebView) {
+      const sourceUrl = getReturnUrl(window.location.search);
+      window.referrerURL = sourceUrl;
+      if (sourceUrl) {
+        this.setReferrerHost(new URL(sourceUrl).host);
+      }
+    }
+
     this.setContactFromUrlParams();
     if (this.isIFrame) {
       this.registerListeners();

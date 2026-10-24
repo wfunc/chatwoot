@@ -10,6 +10,7 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
   def create
     authorize @inbox, :manage_members?
     ActiveRecord::Base.transaction do
+      assign_merchant_owner
       @inbox.add_members(agents_to_be_added_ids)
     end
     fetch_updated_agents
@@ -41,6 +42,7 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
     # the missing ones are the agents which are to be deleted from the inbox
     # the new ones are the agents which are to be added to the inbox
     ActiveRecord::Base.transaction do
+      assign_merchant_owner
       @inbox.add_members(agents_to_be_added_ids)
       @inbox.remove_members(agents_to_be_removed_ids)
     end
@@ -48,6 +50,21 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
 
   def agents_to_be_added_ids
     params[:user_ids] - @current_agents_ids
+  end
+
+  def assign_merchant_owner
+    @inbox.lock!
+    return if @inbox.merchant_owner_id.present?
+
+    merchants = Current.account.account_users.merchant.where(user_id: params[:user_ids]).limit(2).to_a
+    return if merchants.empty?
+
+    if merchants.many?
+      @inbox.errors.add(:merchant_owner, 'must be selected explicitly when adding multiple merchants')
+      raise ActiveRecord::RecordInvalid, @inbox
+    end
+
+    @inbox.update!(merchant_owner: merchants.first)
   end
 
   def agents_to_be_removed_ids
@@ -63,7 +80,7 @@ class Api::V1::Accounts::InboxMembersController < Api::V1::Accounts::BaseControl
   end
 
   def manageable_users
-    return Current.account.users if Current.account_user.administrator?
+    return Current.account.users unless Current.account_user.merchant?
 
     Current.account.users.joins(:account_users).where(account_users: { parent_merchant_id: Current.account_user.id, role: :agent })
   end

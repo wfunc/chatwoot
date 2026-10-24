@@ -15,6 +15,7 @@ import { isOnOnboardingView } from 'v3/helpers/RouteHelper';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { useFontSize } from 'dashboard/composables/useFontSize';
 import {
+  hasPushPermissions,
   registerSubscription,
   verifyServiceWorkerExistence,
 } from './helper/pushHelper';
@@ -121,7 +122,11 @@ export default {
 
       verifyServiceWorkerExistence(registration =>
         registration.pushManager.getSubscription().then(subscription => {
-          if (subscription) {
+          if (
+            this.uiSettings.browser_push_enabled !== false &&
+            (subscription ||
+              (this.uiSettings.browser_push_enabled && hasPushPermissions()))
+          ) {
             registerSubscription();
           }
         })

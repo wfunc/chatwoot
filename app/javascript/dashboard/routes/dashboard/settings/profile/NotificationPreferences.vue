@@ -1,6 +1,10 @@
-<script>
-import { mapGetters } from 'vuex';
+<script setup>
+import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useAlert } from 'dashboard/composables';
+import { useStore, useStoreGetters } from 'dashboard/composables/store';
+import { useAccount } from 'dashboard/composables/useAccount';
+import { useUISettings } from 'dashboard/composables/useUISettings';
 import TableHeaderCell from 'dashboard/components/widgets/TableHeaderCell.vue';
 import CheckBox from 'v3/components/Form/CheckBox.vue';
 import {
@@ -10,150 +14,108 @@ import {
 } from 'dashboard/helper/pushHelper.js';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import ToggleSwitch from 'dashboard/components-next/switch/Switch.vue';
+import Button from 'dashboard/components-next/button/Button.vue';
 import { NOTIFICATION_TYPES } from './constants';
 
-export default {
-  components: {
-    TableHeaderCell,
-    ToggleSwitch,
-    CheckBox,
+const store = useStore();
+const getters = useStoreGetters();
+const { t } = useI18n();
+const { accountId } = useAccount();
+const { uiSettings, updateUISettings } = useUISettings();
+const selectedEmailFlags = ref([]);
+const selectedPushFlags = ref([]);
+const hasEnabledPushPermissions = ref(false);
+const hasPushAPISupport = computed(() => 'Notification' in window);
+const browserPushEnabled = computed(
+  () => uiSettings.value.browser_push_enabled ?? hasEnabledPushPermissions.value
+);
+const filteredNotificationTypes = computed(() => {
+  const isSLAEnabled = getters['accounts/isFeatureEnabledonAccount'].value(
+    accountId.value,
+    FEATURE_FLAGS.SLA
+  );
+  return NOTIFICATION_TYPES.filter(
+    notification => isSLAEnabled || !notification.value.startsWith('sla_')
+  );
+});
+
+watch(
+  () => getters['userNotificationSettings/getSelectedEmailFlags'].value,
+  value => {
+    selectedEmailFlags.value = value || [];
   },
-  data() {
-    return {
-      selectedEmailFlags: [],
-      selectedPushFlags: [],
-      enableAudioAlerts: false,
-      hasEnabledPushPermissions: false,
-      notificationTypes: NOTIFICATION_TYPES,
-    };
+  { immediate: true }
+);
+watch(
+  () => getters['userNotificationSettings/getSelectedPushFlags'].value,
+  value => {
+    selectedPushFlags.value = value || [];
   },
-  computed: {
-    ...mapGetters({
-      accountId: 'getCurrentAccountId',
-      emailFlags: 'userNotificationSettings/getSelectedEmailFlags',
-      pushFlags: 'userNotificationSettings/getSelectedPushFlags',
-      isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
-    }),
-    hasPushAPISupport() {
-      return !!('Notification' in window);
-    },
-    isSLAEnabled() {
-      return this.isFeatureEnabledonAccount(this.accountId, FEATURE_FLAGS.SLA);
-    },
-    filteredNotificationTypes() {
-      return this.notificationTypes.filter(notification =>
-        this.isSLAEnabled
-          ? true
-          : ![
-              'sla_missed_first_response',
-              'sla_missed_next_response',
-              'sla_missed_resolution',
-            ].includes(notification.value)
-      );
-    },
-  },
-  watch: {
-    emailFlags(value) {
-      this.selectedEmailFlags = value;
-    },
-    pushFlags(value) {
-      this.selectedPushFlags = value;
-    },
-  },
-  mounted() {
-    if (hasPushPermissions()) {
-      this.getPushSubscription();
-    }
-    this.$store.dispatch('userNotificationSettings/get');
-  },
-  methods: {
-    checkFlagStatus(type, flagType) {
-      const selectedFlags =
-        type === 'email' ? this.selectedEmailFlags : this.selectedPushFlags;
-      return selectedFlags.includes(`${type}_${flagType}`);
-    },
-    onRegistrationSuccess() {
-      this.hasEnabledPushPermissions = true;
-    },
-    onRequestPermissions(value) {
-      if (value) {
-        // Enable / re-enable push notifications
-        requestPushPermissions({
-          onSuccess: this.onRegistrationSuccess,
-        });
-      } else {
-        // Disable push notifications
-        this.disablePushPermissions();
-      }
-    },
-    disablePushPermissions() {
-      verifyServiceWorkerExistence(registration =>
-        registration.pushManager
-          .getSubscription()
-          .then(subscription => {
-            if (subscription) {
-              return subscription.unsubscribe();
-            }
-            return null;
-          })
-          .finally(() => {
-            this.hasEnabledPushPermissions = false;
-          })
-          .catch(() => {
-            // error
-          })
-      );
-    },
-    getPushSubscription() {
-      verifyServiceWorkerExistence(registration =>
-        registration.pushManager
-          .getSubscription()
-          .then(subscription => {
-            if (!subscription) {
-              this.hasEnabledPushPermissions = false;
-            } else {
-              this.hasEnabledPushPermissions = true;
-            }
-          })
-          // eslint-disable-next-line no-console
-          .catch(error => console.log(error))
-      );
-    },
-    async updateNotificationSettings() {
-      try {
-        this.$store.dispatch('userNotificationSettings/update', {
-          selectedEmailFlags: this.selectedEmailFlags,
-          selectedPushFlags: this.selectedPushFlags,
-        });
-        useAlert(this.$t('PROFILE_SETTINGS.FORM.API.UPDATE_SUCCESS'));
-      } catch (error) {
-        useAlert(this.$t('PROFILE_SETTINGS.FORM.API.UPDATE_ERROR'));
-      }
-    },
-    handleInput(type, id) {
-      if (type === 'email') {
-        this.handleEmailInput(id);
-      } else {
-        this.handlePushInput(id);
-      }
-    },
-    handleEmailInput(id) {
-      this.selectedEmailFlags = this.toggleInput(this.selectedEmailFlags, id);
-      this.updateNotificationSettings();
-    },
-    handlePushInput(id) {
-      this.selectedPushFlags = this.toggleInput(this.selectedPushFlags, id);
-      this.updateNotificationSettings();
-    },
-    toggleInput(selected, current) {
-      if (selected.includes(current)) {
-        const newSelectedFlags = selected.filter(flag => flag !== current);
-        return newSelectedFlags;
-      }
-      return [...selected, current];
-    },
-  },
+  { immediate: true }
+);
+
+const onRegistrationSuccess = () => {
+  hasEnabledPushPermissions.value = true;
 };
+const authorizeBrowserPush = () => {
+  requestPushPermissions({ onSuccess: onRegistrationSuccess });
+};
+const onRequestPermissions = value => {
+  updateUISettings({ browser_push_enabled: value });
+  if (value) {
+    authorizeBrowserPush();
+  } else {
+    verifyServiceWorkerExistence(registration =>
+      registration.pushManager
+        .getSubscription()
+        .then(subscription => {
+          if (subscription) return subscription.unsubscribe();
+          return null;
+        })
+        .finally(() => {
+          hasEnabledPushPermissions.value = false;
+        })
+    );
+  }
+};
+
+onMounted(() => {
+  if (hasPushPermissions()) {
+    verifyServiceWorkerExistence(registration =>
+      registration.pushManager.getSubscription().then(subscription => {
+        hasEnabledPushPermissions.value = !!subscription;
+        if (browserPushEnabled.value && !subscription) authorizeBrowserPush();
+      })
+    );
+  }
+  store.dispatch('userNotificationSettings/get');
+});
+
+const checkFlagStatus = (type, flagType) => {
+  const selected =
+    type === 'email' ? selectedEmailFlags.value : selectedPushFlags.value;
+  return selected.includes(`${type}_${flagType}`);
+};
+const updateNotificationSettings = async () => {
+  try {
+    await store.dispatch('userNotificationSettings/update', {
+      selectedEmailFlags: selectedEmailFlags.value,
+      selectedPushFlags: selectedPushFlags.value,
+    });
+    useAlert(t('PROFILE_SETTINGS.FORM.API.UPDATE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('PROFILE_SETTINGS.FORM.API.UPDATE_ERROR'));
+  }
+};
+const handleInput = (type, id) => {
+  const selected = type === 'email' ? selectedEmailFlags : selectedPushFlags;
+  selected.value = selected.value.includes(id)
+    ? selected.value.filter(flag => flag !== id)
+    : [...selected.value, id];
+  updateNotificationSettings();
+};
+const handleEmailInput = id => handleInput('email', id);
+const handlePushInput = id => handleInput('push', id);
 </script>
 
 <template>
@@ -214,9 +176,7 @@ export default {
           >
             <CheckBox
               :value="`${type}_${notification.value}`"
-              :is-checked="
-                checkFlagStatus(type, notification.value, selectedPushFlags)
-              "
+              :is-checked="checkFlagStatus(type, notification.value)"
               @update="id => handleInput(type, id)"
             />
           </div>
@@ -285,8 +245,22 @@ export default {
         </span>
       </div>
       <ToggleSwitch
-        v-model="hasEnabledPushPermissions"
-        @change="onRequestPermissions"
+        :model-value="browserPushEnabled"
+        @update:model-value="onRequestPermissions"
+      />
+    </div>
+    <div
+      v-if="
+        hasPushAPISupport && browserPushEnabled && !hasEnabledPushPermissions
+      "
+      class="flex items-center justify-between gap-4 text-sm text-n-slate-11"
+    >
+      <span>{{
+        $t('PROFILE_SETTINGS.FORM.NOTIFICATIONS.BROWSER_PERMISSION_PENDING')
+      }}</span>
+      <Button
+        :label="$t('PROFILE_SETTINGS.FORM.NOTIFICATIONS.BROWSER_AUTHORIZE')"
+        @click="authorizeBrowserPush"
       />
     </div>
   </div>

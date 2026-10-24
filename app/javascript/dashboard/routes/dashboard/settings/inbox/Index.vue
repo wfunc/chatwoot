@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
+import { useAccount } from 'dashboard/composables/useAccount';
 import { useAlert } from 'dashboard/composables';
 import { picoSearch } from '@scmmishra/pico-search';
 import Avatar from 'next/avatar/Avatar.vue';
@@ -18,6 +20,8 @@ import Button from 'dashboard/components-next/button/Button.vue';
 
 const getters = useStoreGetters();
 const store = useStore();
+const router = useRouter();
+const { route, accountScopedRoute } = useAccount();
 const { t } = useI18n();
 const { isAdmin, isMerchant } = useAdmin();
 
@@ -79,8 +83,19 @@ const openDelete = inbox => {
   selectedInbox.value = inbox;
 };
 
-onMounted(() => {
-  store.dispatch('inboxes/get');
+onMounted(async () => {
+  await store.dispatch('inboxes/get');
+  if (
+    route.name === 'settings_inbox_list' &&
+    isMerchant.value &&
+    inboxesList.value.length === 1
+  ) {
+    router.replace(
+      accountScopedRoute('settings_inbox_show', {
+        inboxId: inboxesList.value[0].id,
+      })
+    );
+  }
 });
 </script>
 

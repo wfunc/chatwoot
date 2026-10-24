@@ -161,7 +161,9 @@
           "SLA_MISSED_NEXT_RESPONSE": "会话错过了下次响应 SLA",
           "SLA_MISSED_RESOLUTION": "会话错过了解决 SLA"
         },
-        "BROWSER_PERMISSION": "为您的浏览器启用推送通知，以便您能够接收它们"
+        "BROWSER_PERMISSION": "为您的浏览器启用推送通知，以便您能够接收它们",
+        "BROWSER_AUTHORIZE": "授权浏览器通知",
+        "BROWSER_PERMISSION_PENDING": "已默认开启推送偏好；请允许浏览器通知后接收消息。若曾拒绝，请先在浏览器的网站设置中允许通知。"
       },
       "API": {
         "UPDATE_SUCCESS": "您的通知设置已成功更新",
@@ -250,6 +252,7 @@
     "RESEND_VERIFICATION_MAIL": "重新发送验证邮件",
     "EMAIL_VERIFICATION_SENT": "验证邮件已发送。请检查您的收件箱。",
     "MERCHANT_EXPIRY_PENDING": "当前系统使用还有 {count} 天到期，请及时续费！",
+    "MERCHANT_RENEWAL_CONTACT": "联系方式:{url}",
     "ACCOUNT_SUSPENDED": {
       "TITLE": "账户已暂停",
       "MESSAGE": "您的账户已被暂停。请联系支持团队以获取更多信息。"

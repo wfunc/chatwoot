@@ -42,5 +42,9 @@ const bannerMessage = computed(() => {
     v-if="shouldShowBanner"
     color-scheme="warning"
     :banner-message="bannerMessage"
+    href-link="https://t.me/xinba_sx"
+    :href-link-text="
+      t('APP_GLOBAL.MERCHANT_RENEWAL_CONTACT', { url: 'https://t.me/xinba_sx' })
+    "
   />
 </template>

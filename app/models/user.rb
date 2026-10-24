@@ -246,7 +246,8 @@ class User < ApplicationRecord
       'notification_tone' => 'bell',
       'enable_audio_alerts' => 'assigned+notme+unassigned',
       'always_play_audio_alert' => true,
-      'alert_if_unread_assigned_conversation_exist' => true
+      'alert_if_unread_assigned_conversation_exist' => true,
+      'browser_push_enabled' => true
     }.merge(ui_settings || {})
   end
 

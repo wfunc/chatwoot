@@ -43,6 +43,8 @@
 #
 
 class Inbox < ApplicationRecord
+  attribute :enable_email_collect, :boolean, default: false
+
   include Reportable
   include Avatarable
   include OutOfOffisable
